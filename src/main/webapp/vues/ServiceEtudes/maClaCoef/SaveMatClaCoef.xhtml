@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="AdminTemplate.xhtml">
+        <ui:define name="content">
+
+            <h:form id="MaClaCoefCreateForm">
+
+                
+                    <p:panelGrid columns="4">
+
+                        <p:outputLabel value="#{msg.heureDebut}" for="heureDebut" />
+                        <p:calendar id="heureDebut" pattern="HH:mm:ss" value="#{maclaCoefbean.maclaCoefselect.heureDebut}"  showOn="button"/>
+
+
+                        <h:outputLabel value="#{msg.jour}" />   
+                        <p:selectOneMenu value="#{maclaCoefbean.maclaCoefselect.jour}">  
+                            <f:selectItem itemLabel="choisir" itemValue="" />  
+                            <f:selectItem itemLabel="Lundi" itemValue="LUNDI" />  
+                            <f:selectItem itemLabel="Mardi" itemValue="MARDI" />  
+                            <f:selectItem itemLabel="Mercredi" itemValue="MERCREDI" /> 
+                            <f:selectItem itemLabel="Jeudi" itemValue="JEUDI" /> 
+                            <f:selectItem itemLabel="Vendredi" itemValue="VENDREDI" /> 
+                            <f:selectItem itemLabel="Samedi" itemValue="SAMEDI" /> 
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{msg.heureFin}" for="heureFin" />
+                        <p:calendar id="heureFin" pattern="HH:mm:ss" value="#{maclaCoefbean.maclaCoefselect.heureFin}"   showOn="button"/>
+
+
+                       
+                        <p:outputLabel value="{msg.quotahoraire}" for="quotahoraire" />
+                        <p:inputText id="quotahoraire" value="#{maclaCoefbean.maclaCoefselect.quotahoraire}" required="true" requiredMessage="obligatoire"/>
+
+
+
+                        <p:outputLabel value="{msg.coeficient}" for="coeficient" />
+                        <p:inputText id="coeficient" value="#{maclaCoefbean.maclaCoefselect.coeficient}"  />
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maclaCoefbean.creerMatCla}" value="#{msg.Save}" />
+
+         
+
+            </h:form>
+
+                        <h:form id="MaClaCoefListForm">
+            
+                            <p:panel header="#{myBundle.ListMaClaCoefTitle}">
+            
+                                <p:dataTable id="datalist" value="#{maclaCoefbean.maClaCoefs}" var="item"
+                                             selectionMode="single" selection="#{maclaCoefbean.maclaCoefselect}"
+                                             rowKey="#{item.id}"
+                                             paginator="true"
+                                             rows="5"
+                                             rowsPerPageTemplate="5,8,10"
+                                             >
+                                    
+<!--                                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+            -->
+                                    <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.Id}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.id}"/>
+                                    </p:column>
+                                    <p:column sortBy="#{item.coeficient}" filterBy="#{item.coeficient}">
+                                        <f:facet name="header">
+                                            <h:outputText value="{msg.coeficient}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.coeficient}"/>
+                                    </p:column>
+                                    <p:column sortBy="#{item.heureDebut}" filterBy="#{item.heureDebut}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.heureDebut}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.heureDebut}">
+                                            <f:convertDateTime pattern="HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column sortBy="#{item.heureFin}" filterBy="#{item.heureFin}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.heureFin}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.heureFin}">
+                                            <f:convertDateTime pattern="HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column sortBy="#{item.jour}" filterBy="#{item.jour}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.jour}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.jour}"/>
+                                    </p:column>
+                                    <p:column sortBy="#{item.quotahoraire}" filterBy="#{item.quotahoraire}">
+                                        <f:facet name="header">
+                                            <h:outputText value="{msg.quotahoraire}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.quotahoraire}"/>
+                                    </p:column>
+                                    <p:column sortBy="#{item.classe.libele}" filterBy="#{item.classe.libele}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.classe}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.classe.libele}"/>
+                                    </p:column>
+                                    <p:column sortBy="#{item.matiere.intitule}" filterBy="#{item.matiere.intitule}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.matiere}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.matiere.intitule}"/>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}"  />
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{msg.Edit}" />
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{msg.Delete}"  />
+                                    </f:facet>
+            
+                                </p:dataTable>
+            
+                            </p:panel>
+            
+                        </h:form>
+            
+            
+            
+
+
+
+
+        </ui:define>
+    </ui:composition>
+</html>

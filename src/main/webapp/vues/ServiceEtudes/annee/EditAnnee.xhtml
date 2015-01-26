@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnneeScolaireEditDlg" widgetVar="AnneeScolaireEditDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.EditAnneeScolaireTitle}">
+
+            <h:form id="AnneeScolaireEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" rendered="#{anneeScolaireController.selected != null}">
+
+                        <h:outputLabel value="#{myBundle.EditAnneeScolaireLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{anneeScolaireController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditAnneeScolaireLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{anneeScolaireController.selected.code}" title="#{myBundle.EditAnneeScolaireTitle_code}" />
+
+                        <p:outputLabel value="#{myBundle.EditAnneeScolaireLabel_debut}" for="debut" />
+                        <p:calendar id="debut" pattern="MM/dd/yyyy" value="#{anneeScolaireController.selected.debut}" title="#{myBundle.EditAnneeScolaireTitle_debut}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditAnneeScolaireLabel_fin}" for="fin" />
+                        <p:calendar id="fin" pattern="MM/dd/yyyy" value="#{anneeScolaireController.selected.fin}" title="#{myBundle.EditAnneeScolaireTitle_fin}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{anneeScolaireController.save}" value="#{myBundle.Save}" update="display,:AnneeScolaireListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,AnneeScolaireEditDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="AnneeScolaireEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

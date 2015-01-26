@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmploiDeTempsEditDlg" widgetVar="EmploiDeTempsEditDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.EditEmploiDeTempsTitle}">
+
+            <h:form id="EmploiDeTempsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" rendered="#{emploiDeTempsController.selected != null}">
+
+                        <h:outputLabel value="#{myBundle.EditEmploiDeTempsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{emploiDeTempsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditEmploiDeTempsLabel_heureDebut}" for="heureDebut" />
+                        <p:calendar id="heureDebut" pattern="HH:mm:ss" value="#{emploiDeTempsController.selected.heureDebut}" title="#{myBundle.EditEmploiDeTempsTitle_heureDebut}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmploiDeTempsLabel_heureFin}" for="heureFin" />
+                        <p:calendar id="heureFin" pattern="HH:mm:ss" value="#{emploiDeTempsController.selected.heureFin}" title="#{myBundle.EditEmploiDeTempsTitle_heureFin}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmploiDeTempsLabel_jour}" for="jour" />
+                        <p:inputText id="jour" value="#{emploiDeTempsController.selected.jour}" title="#{myBundle.EditEmploiDeTempsTitle_jour}" />
+
+                        
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{emploiDeTempsController.save}" value="#{myBundle.Save}" update="display,:EmploiDeTempsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,EmploiDeTempsEditDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="EmploiDeTempsEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

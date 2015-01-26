@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmploiDeTempsCreateDlg" widgetVar="EmploiDeTempsCreateDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.CreateEmploiDeTempsTitle}">
+
+            <h:form id="EmploiDeTempsCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{emploiTempsbean.emploiSelected!=null}">
+
+                        <p:outputLabel value="{jour}" for="jour" />
+                        <p:selectOneMenu id="jour" value="#{emploiTempsbean.emploiSelected.jour}">  
+                            <f:selectItem itemLabel="choisir" itemValue="" />  
+                            <f:selectItem itemLabel="LUNDI" itemValue="LUNDI" />  
+                            <f:selectItem itemLabel="MARDI" itemValue="MARDI" /> 
+                            <f:selectItem itemLabel="MERCREDI" itemValue="MERCREDI" /> 
+                            <f:selectItem itemLabel="JEUDI" itemValue="JEUDI" /> 
+                            <f:selectItem itemLabel="VENDREDI" itemValue="VENDREDI" /> 
+                            <f:selectItem itemLabel="SAMEDI" itemValue="SAMEDI" /> 
+                        </p:selectOneMenu>
+                        
+                        
+                        
+                        <p:outputLabel value="{heureDebut}" for="heureDebut" />
+                        <p:calendar id="heureDebut" pattern="HH:mm:ss" value="#{emploiTempsbean.emploiSelected.heureDebut}" title="#{myBundle.EditEmploiDeTempsTitle_heureDebut}"  showOn="button"/>
+
+                        <p:outputLabel value="{heureFin}" for="heureFin" />
+                        <p:calendar id="heureFin" pattern="HH:mm:ss" value="#{emploiTempsbean.emploiSelected.heureFin}" title="#{myBundle.EditEmploiDeTempsTitle_heureFin}"  showOn="button"/>
+
+
+
+                        <h:outputLabel value="Classe" for="cl" />
+                        <p:selectOneMenu id="cl" value="#{emploiTempsbean.idClasse}"   >
+                            <f:selectItems value="#{emploiTempsbean.classes}" var="a" itemValue="#{a.id}" itemLabel="#{a.libele}"/> 
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="Matiere" for="mt" />
+                        <p:selectOneMenu id="mt" value="#{emploiTempsbean.idMatiere}"   >
+                            <f:selectItems value="#{emploiTempsbean.matieres}" var="m" itemValue="#{m.id}" itemLabel="#{m.intitule}"/> 
+                        </p:selectOneMenu>
+
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{emploiTempsbean.save}" value="#{msg.Save}" update="display,:EmploiDeTempsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,EmploiDeTempsCreateDialog);"/>
+                    <p:commandButton value="#{msg.Cancel}" onclick="EmploiDeTempsCreateDialog.hide();"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd" 
+       xmlns:context="http://www.springframework.org/schema/context" >
+    
+    <!-- couches applicatives-->
+   
+    <bean id="Elevedao" class="com.lateu.projet.lycee.dao.Impl.ElevedaoImpl"/>
+    <bean id="AnneeScolairedao" class="com.lateu.projet.lycee.dao.Impl.AnneeScolairedaoImpl"/>
+    <bean id="Professeurdao" class="com.lateu.projet.lycee.dao.Impl.ProfesseurdaoImpl"/>
+   
+    <bean id="Nationalitedao" class="com.lateu.projet.lycee.dao.Impl.NationalitedaoImpl"/>
+    <bean id="FraisDiverdao" class="com.lateu.projet.lycee.dao.Impl.FraisDiverdaoImpl"/>
+    <bean id="Classedao" class="com.lateu.projet.lycee.dao.Impl.ClassedaoImpl"/>
+    <bean id="Notedao" class="com.lateu.projet.lycee.dao.Impl.NotedaoImpl"/>
+    <bean id="Matieredao" class="com.lateu.projet.lycee.dao.Impl.MatieredaoImpl"/>
+    <bean id="Sequencedao" class="com.lateu.projet.lycee.dao.Impl.SequencedaoImpl"/>
+    <bean id="Observationdao" class="com.lateu.projet.lycee.dao.Impl.ObservationdaoImpl"/>
+    <bean id="Motifdao" class="com.lateu.projet.lycee.dao.Impl.MotifdaoImpl"/>
+    <bean id="FraisCumuledao" class="com.lateu.projet.lycee.dao.Impl.FraisCumuledaoImpl"/>
+    <bean id="MaClaCoefdao" class="com.lateu.projet.lycee.dao.Impl.MaClaCoefdaoImpl"/>
+    <bean id="InitLyceedao" class="com.lateu.projet.lycee.dao.Impl.InitLyceedaoImpl"/>
+  
+    <bean id="roledao" class="com.lateu.projet.lycee.dao.Impl.roledaoImpl"/>
+    <bean id="EmploiDeTempsdao" class="com.lateu.projet.lycee.dao.Impl.EmploiDeTempsdaoImpl"/>
+
+    <bean id="ServiceEleve" class="com.lateu.projet.lycee.service.Impl.ServiceEleveImpl">
+        <property name="elevedao" ref="Elevedao"/>
+        <property name="nationalitedao" ref="Nationalitedao"/>
+        <property name="notedao" ref="Notedao"/>
+        <property name="anneeScoaliredao" ref="AnneeScolairedao"/>
+        <property name="classedao" ref="Classedao"/>
+        <property name="fraisdao" ref="FraisDiverdao"/>
+        <property name="observatiodao" ref="Observationdao"/>
+    </bean>
+    
+    <bean id="ServiceNationalite" class="com.lateu.projet.lycee.service.Impl.ServiceNationaliteImpl">
+        <property name="nationalitedao" ref="Nationalitedao"/>
+       
+    </bean>
+  
+    <bean id="ServiceClasse" class="com.lateu.projet.lycee.service.Impl.ServiceClasseImpl">
+        <property name="classedao" ref="Classedao"/>
+       
+    </bean>
+  
+  
+    <bean id="ServiceMatiere" class="com.lateu.projet.lycee.service.Impl.ServiceMatiereImpl">
+        <property name="matieredao" ref="Matieredao"/>
+       
+    </bean>
+  
+    <bean id="ServiceAnneeScolaire" class="com.lateu.projet.lycee.service.Impl.ServiceAnneeScolaireImpl">
+        <property name="anneeScolairedao" ref="AnneeScolairedao"/>
+    </bean>
+    
+    <bean id="ServiceNote" class="com.lateu.projet.lycee.service.Impl.ServiceNoteImpl">
+        <property name="notedao" ref="Notedao"/>
+        <property name="sequencedao" ref="Sequencedao"/>
+        <property name="elevedao" ref="Elevedao"/>
+        <property name="matieredao" ref="Matieredao"/>
+        <property name="anneeScolairedao" ref="AnneeScolairedao"/>
+    </bean>
+           
+    <bean id="ServiceSequence" class="com.lateu.projet.lycee.service.Impl.ServiceSequenceImpl">
+        <property name="sequencedao" ref="Sequencedao"/>
+        <property name="anneeScoaliredao" ref="AnneeScolairedao"/>
+    </bean>
+    
+    <bean id="ServiceMaClaCoef" class="com.lateu.projet.lycee.service.Impl.ServiceMaClaCoefImpl">
+        <property name="classedao" ref="Classedao"/>
+        <property name="maClaCoefdao" ref="MaClaCoefdao"/>
+        <property name="matieredao" ref="Matieredao"/>
+    </bean>  
+          
+    <bean id="ServiceInitLycee" class="com.lateu.projet.lycee.service.Impl.ServiceInitLyceeImpl">
+        <property name="lyceedao" ref="InitLyceedao"/>
+    </bean>   
+          
+    <bean id="ServiceProfesseur" class="com.lateu.projet.lycee.service.Impl.ServiceProfesseurImpl">
+        <property name="professeurdao" ref="Professeurdao"/>
+        <property name="rldao" ref="roledao"/>
+    </bean>   
+   
+    <bean id="ServiceRole" class="com.lateu.projet.lycee.service.Impl.ServiceRoleImpl">
+        <property name="professeurdao" ref="Professeurdao"/>
+        <property name="rldao" ref="roledao"/>
+    </bean> 
+    
+    
+    <bean id="ServiceMotif" class="com.lateu.projet.lycee.service.Impl.ServiceMotifImpl">
+        <property name="motidao" ref="Motifdao"/>
+    </bean>   
+       
+                
+    <bean id="ServiceFraisDivers" class="com.lateu.projet.lycee.service.Impl.ServiceFraisDiversImpl">
+        <property name="fraisDiverdao" ref="FraisDiverdao"/>
+        <property name="anneeScolairedao" ref="AnneeScolairedao"/>
+        <property name="elevedao" ref="Elevedao"/>
+        <property name="motifdao" ref="Motifdao"/>
+        <property name="fraisCumuledao" ref="FraisCumuledao"/>
+    </bean>
+    
+    
+            
+    <bean id="ServiceFraisCumule" class="com.lateu.projet.lycee.service.Impl.ServiceFraisCumuleImpl">
+        <property name="fraisCumuledao" ref="FraisCumuledao"/>
+    </bean> 
+    
+    <bean id="ServiceEmploi" class="com.lateu.projet.lycee.service.Impl.ServiceEmploiImpl">
+        <property name="emploiDeTempsdao" ref="EmploiDeTempsdao"/>
+        <property name="classedao" ref="Classedao"/>
+        <property name="matieredao" ref="Matieredao"/>
+    </bean> 
+
+    <!-- la source de donnéees DBCP -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
+        <property name="username" value="root"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="password" value="07v120!"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/Lycee"/>
+    </bean>
+    
+    <!-- couche de persistance JPA -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter">
+        
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                
+                <property name="showSql" value="true" />  
+              
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+                <property name="generateDdl" value="true" />
+            </bean>
+        </property>
+
+        <property name="loadTimeWeaver">
+            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+
+        </property>
+    </bean>
+    <!-- le gestionnaire de transactions -->
+    <tx:annotation-driven transaction-manager="txManager" />
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <!-- traduction des exceptions -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    <!-- annotations de persistance -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+</beans>

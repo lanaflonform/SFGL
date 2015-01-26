@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="AdminTemplate.xhtml">
+        <ui:define name="content" >
+
+            <h:form id="EleveCreateForm">
+
+                <p:panelGrid columns="2"  >
+
+                    <p:outputLabel value="{msg.nomClasse}" for="nom" />
+                    <p:inputText id="nom" value="#{classebean.classeselected.libele}"  />
+
+                    <p:outputLabel value="{msg.Code}" for="cd" />
+                    <p:inputText id="cd" value="#{classebean.classeselected.code}"  />
+
+                  
+
+                </p:panelGrid>
+                <p:commandButton actionListener="#{classebean.SaveClasse}" value="#{msg.Save}" />
+
+
+            </h:form>
+            
+            
+                     <h:form id="EleveListForm">
+
+        <p:panel header="#{myBundle.ListEleveTitle}">
+
+            <p:dataTable id="datalist" value="#{classebean.classes}" var="item"
+                         selectionMode="single" selection="#{classebean.classeselected}"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,8,10"
+                         >
+                
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.Id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                
+                
+                <p:column sortBy="#{item.libele}" filterBy="#{item.libele}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.nomClasse}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.libele}"/>
+                </p:column>
+                
+                
+                  
+                <p:column sortBy="#{item.code}" filterBy="#{item.code}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.code}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.code}"/>
+                </p:column>
+                
+                
+                
+                         
+              
+               <f:facet name="footer">
+                   
+                   <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}"  disabled="#{empty elevebean.eleveSelected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{msg.Edit}"  disabled="#{empty elevebean.eleveSelected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{msg.Delete}" actionListener="{.delete}" disabled="#{empty elevebean.eleveSelected}"/>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+
+    </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

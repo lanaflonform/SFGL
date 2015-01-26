@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MaClaCoefListForm">
+
+        <p:panel header="#{myBundle.ListMaClaCoefTitle}">
+
+            <p:dataTable id="datalist" value="#{maclaCoefbean.maClaCoefs}" var="item"
+                         selectionMode="single" selection="#{maclaCoefbean.maclaCoefselect}"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30"
+                         >
+
+                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                
+                <p:column sortBy="#{item.coeficient}" filterBy="#{item.coeficient}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.coeficient}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.coeficient}"/>
+                </p:column>
+                <p:column sortBy="#{item.quotahoraire}" filterBy="#{item.quotahoraire}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.uotahoraire}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.quotahoraire}"/>
+                </p:column>
+                
+                
+                <p:column sortBy="#{item.levelMatiere}" filterBy="#{item.levelMatiere}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.groupe}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.levelMatiere}"/>
+                </p:column>
+                
+                <p:column sortBy="#{item.classe.libele}" filterBy="#{item.classe.libele}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.classe}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.classe.libele}"/>
+                </p:column>
+                <p:column sortBy="#{item.matiere.intitule}" filterBy="#{item.matiere.intitule}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.matiere}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.matiere.intitule}"/>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{maClaCoefController.prepareCreate}" update=":MaClaCoefCreateForm" oncomplete="MaClaCoefCreateDialog.show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{myBundle.View}" update=":MaClaCoefViewForm" oncomplete="MaClaCoefViewDialog.show()" disabled="#{empty maClaCoefController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MaClaCoefEditForm" oncomplete="MaClaCoefEditDialog.show()" disabled="#{empty maClaCoefController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{maClaCoefController.delete}" update=":growl,datalist" disabled="#{empty maClaCoefController.selected}"/>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+
+    </h:form>
+
+</ui:composition>

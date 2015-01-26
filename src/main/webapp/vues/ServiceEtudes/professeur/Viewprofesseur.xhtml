@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProfesseurViewDlg" widgetVar="ProfesseurViewDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.ViewProfesseurTitle}">
+
+            <h:form id="ProfesseurViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{professeurController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_contact}"/>
+                        <h:outputText value="#{professeurController.selected.contact}" title="#{myBundle.ViewProfesseurTitle_contact}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_datePriseService}"/>
+                        <h:outputText value="#{professeurController.selected.datePriseService}" title="#{myBundle.ViewProfesseurTitle_datePriseService}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_diplome}"/>
+                        <h:outputText value="#{professeurController.selected.diplome}" title="#{myBundle.ViewProfesseurTitle_diplome}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_etatCompte}"/>
+                        <h:outputText value="#{professeurController.selected.etatCompte}" title="#{myBundle.ViewProfesseurTitle_etatCompte}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_password}"/>
+                        <h:outputText value="#{professeurController.selected.password}" title="#{myBundle.ViewProfesseurTitle_password}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_specialite}"/>
+                        <h:outputText value="#{professeurController.selected.specialite}" title="#{myBundle.ViewProfesseurTitle_specialite}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_titulaire}"/>
+                        <h:outputText value="#{professeurController.selected.titulaire}" title="#{myBundle.ViewProfesseurTitle_titulaire}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_username}"/>
+                        <h:outputText value="#{professeurController.selected.username}" title="#{myBundle.ViewProfesseurTitle_username}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_id}"/>
+                        <h:outputText value="#{professeurController.selected.id}" title="#{myBundle.ViewProfesseurTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_dispenseList}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_userRoleList}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_personne}"/>
+                        <h:outputText value="#{professeurController.selected.personne.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewProfesseurLabel_profClasseList}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="ProfesseurViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

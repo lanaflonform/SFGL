@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProfesseurEditDlg" widgetVar="ProfesseurEditDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.EditProfesseurTitle}">
+
+            <h:form id="ProfesseurEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" rendered="#{professeurController.selected != null}">
+
+                        <p:outputLabel value="#{myBundle.EditProfesseurLabel_contact}" for="contact" />
+                        <p:inputText id="contact" value="#{professeurController.selected.contact}" title="#{myBundle.EditProfesseurTitle_contact}" />
+
+                        <p:outputLabel value="#{myBundle.EditProfesseurLabel_datePriseService}" for="datePriseService" />
+                        <p:calendar id="datePriseService" pattern="MM/dd/yyyy" value="#{professeurController.selected.datePriseService}" title="#{myBundle.EditProfesseurTitle_datePriseService}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditProfesseurLabel_diplome}" for="diplome" />
+                        <p:inputText id="diplome" value="#{professeurController.selected.diplome}" title="#{myBundle.EditProfesseurTitle_diplome}" />
+
+                        <p:outputLabel value="#{myBundle.EditProfesseurLabel_etatCompte}" for="etatCompte" />
+                        <p:inputText id="etatCompte" value="#{professeurController.selected.etatCompte}" title="#{myBundle.EditProfesseurTitle_etatCompte}" />
+
+                        <p:outputLabel value="#{myBundle.EditProfesseurLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{professeurController.selected.password}" title="#{myBundle.EditProfesseurTitle_password}" />
+
+                        <p:outputLabel value="#{myBundle.EditProfesseurLabel_specialite}" for="specialite" />
+                        <p:inputText id="specialite" value="#{professeurController.selected.specialite}" title="#{myBundle.EditProfesseurTitle_specialite}" />
+
+                        <p:outputLabel value="#{myBundle.EditProfesseurLabel_titulaire}" for="titulaire" />
+                        <p:inputText id="titulaire" value="#{professeurController.selected.titulaire}" title="#{myBundle.EditProfesseurTitle_titulaire}" />
+
+                        <p:outputLabel value="#{myBundle.EditProfesseurLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{professeurController.selected.username}" title="#{myBundle.EditProfesseurTitle_username}" />
+
+                        <h:outputLabel value="#{myBundle.EditProfesseurLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{professeurController.selected.id}" />
+
+                       
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{professeurController.save}" value="#{myBundle.Save}" update="display,:ProfesseurListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ProfesseurEditDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ProfesseurEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

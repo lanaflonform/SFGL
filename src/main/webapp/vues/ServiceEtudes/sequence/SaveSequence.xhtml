@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="AdminTemplate.xhtml">
+        <ui:define name="content" >
+
+            <h:form id="SequenceCreateForm">
+
+                <p:panelGrid columns="2"  >
+
+                    <h:outputLabel value="{msg.Trimestre}" />
+                    <p:selectOneMenu id="options" value="#{sequencebean.sequenceSelected.trimestre}"  required="true" >  
+                        <f:selectItem itemLabel="choisir" itemValue="" /> 
+                        <f:selectItem itemLabel="1er Trimestre" itemValue="1er Trimestre" /> 
+                        <f:selectItem itemLabel="2er Trimestre" itemValue="2er Trimestre" />  
+                        <f:selectItem itemLabel="3er Trimestre" itemValue="3er Trimestre" />  
+
+                    </p:selectOneMenu> 
+
+
+                    <h:outputLabel value="{msg.intitule}"  />
+                    <p:selectOneMenu id="options1" value="#{sequencebean.sequenceSelected.intitule}"  required="true" >  
+                        <f:selectItem itemLabel="choisir" itemValue="" /> 
+                        <f:selectItem itemLabel="1er Sequence" itemValue="Seq1" /> 
+                        <f:selectItem itemLabel="2er Sequence" itemValue="Seq2" />  
+                        <f:selectItem itemLabel="3er Sequence" itemValue="Seq3" /> 
+                        <f:selectItem itemLabel="4er Sequence" itemValue="Seq4" /> 
+                        <f:selectItem itemLabel="5er Sequence" itemValue="Seq5" /> 
+                        <f:selectItem itemLabel="6er Sequence" itemValue="Seq6" /> 
+
+                    </p:selectOneMenu> 
+
+
+
+                    <h:outputLabel value="#{msg.anneescolaire}" for="annee" />
+                    <p:selectOneMenu id="annee" value="#{sequencebean.codeAnnee}"   >
+                        <f:selectItems value="#{sequencebean.listeAnneeSelect}" /> 
+                    </p:selectOneMenu> 
+
+                </p:panelGrid>
+                <p:commandButton actionListener="#{sequencebean.creeSequence}" value="#{msg.Save}" />
+
+
+            </h:form>
+
+
+            <h:form id="EleveListForm">
+
+                <p:panel header="#{myBundle.ListEleveTitle}">
+
+                    <p:dataTable id="datalist" value="#{sequencebean.sequences}" var="item"
+                                 selectionMode="single" selection="#{sequencebean.sequenceSelected}"
+                                 rowKey="#{item.id}"
+                                 paginator="true"
+                                 rows="5"
+                                 rowsPerPageTemplate="5,8,10"
+                                 >
+                        
+                        
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                            <f:facet name="header">
+                                <h:outputText value="{msg.Id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.intitule}" filterBy="#{item.intitule}">
+                            <f:facet name="header">
+                                <h:outputText value="{msg.sequence}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intitule}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.trimestre}" filterBy="#{item.trimestre}">
+                            <f:facet name="header">
+                                <h:outputText value="{msg.trimestre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trimestre}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.annee.code}" filterBy="#{item.annee.code}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.anneescolaire}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.annee.code}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}"  disabled="#{empty sequencebean.sequenceSelected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{msg.Edit}"  disabled="#{empty sequencebean.sequenceSelected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{msg.Delete}" actionListener="{.delete}" disabled="#{empty sequencebean.sequenceSelected}"/>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

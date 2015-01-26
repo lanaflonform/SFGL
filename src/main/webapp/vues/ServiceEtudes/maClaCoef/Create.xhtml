@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaClaCoefCreateDlg" widgetVar="MaClaCoefCreateDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.CreateMaClaCoefTitle}">
+
+            <h:form id="MaClaCoefCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maclaCoefbean.maclaCoefselect != null}">
+                        
+                        
+                        
+                        
+
+                        <p:outputLabel value="{msg.coeficient}" for="coeficient" />
+                        <p:inputText id="coeficient" value="#{maclaCoefbean.maclaCoefselect.coeficient}" title="#{myBundle.CreateMaClaCoefTitle_coeficient}" required="true" requiredMessage="#{myBundle.CreateMaClaCoefRequiredMessage_coeficient}"/>
+
+                    
+                        <p:outputLabel value="#{myBundle.CreateMaClaCoefLabel_quotahoraire}" for="quotahoraire" />
+                        <p:inputText id="quotahoraire" value="#{maclaCoefbean.maclaCoefselect.quotahoraire}" title="#{myBundle.CreateMaClaCoefTitle_quotahoraire}" required="true" requiredMessage="#{myBundle.CreateMaClaCoefRequiredMessage_quotahoraire}"/>
+
+                        <h:outputLabel value="#{msg.classe}" for="classe" />
+                        <p:selectOneMenu id="classe" value="#{maclaCoefbean.codeClasse}"   >
+                            <f:selectItems value="#{maclaCoefbean.listeClasseSelect}" /> 
+                        </p:selectOneMenu> 
+
+                         <h:outputLabel value="Enseignant" for="enseignant" />
+                         <p:selectOneMenu id="enseignant" value="#{maclaCoefbean.idEnseignant}"   >
+                             <f:selectItems value="#{maclaCoefbean.professeurs}" var="ens" itemValue="#{ens.id}" itemLabel="#{ens.nom} #{ens.prenom} #{ens.matricule}" /> 
+                        </p:selectOneMenu> 
+                        
+                       
+                        <h:outputLabel value="#{msg.matiere}" for="matiere" />
+                        <p:selectOneMenu id="matiere" value="#{maclaCoefbean.nomMatiere}"   >
+                            <f:selectItems value="#{maclaCoefbean.listeMatiereSelect}" /> 
+                        </p:selectOneMenu> 
+                        
+                        
+                        
+                         <h:outputLabel value="{msg.level}" />   
+                         <p:selectOneMenu value="#{maclaCoefbean.maclaCoefselect.levelMatiere}">  
+                            <f:selectItem itemLabel="choisir" itemValue="" />  
+                            <f:selectItem itemLabel="1er-groupe" itemValue="1" />  
+                            <f:selectItem itemLabel="2eme-groupe" itemValue="2" />  
+                            <f:selectItem itemLabel="autre" itemValue="3" /> 
+ 
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maclaCoefbean.creerMatCla}" value="#{msg.Save}" update="display,:MaClaCoefListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,MaClaCoefCreateDialog);"/>
+                    <p:commandButton value="#{msg.Cancel}" onclick="MaClaCoefCreateDialog.hide();"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

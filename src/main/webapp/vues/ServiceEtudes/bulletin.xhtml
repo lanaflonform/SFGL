@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/vues/ServiceEtudes/AdminTemplate.xhtml">
+        <ui:define name="body" >
+            <h:form id="form">
+
+                <p:panelGrid style="width: 400px; margin-left: 30%;margin-right: 20%; background-color: buttonface" columns="2">
+                    <h:outputLabel value="Classe" for="cl" />
+                    <p:selectOneMenu id="cl" value="#{bulletinbean.codeClasse}"   >
+                        <f:selectItems value="#{bulletinbean.classes}" var="clas" itemValue="#{clas.code}" itemLabel="#{clas.libele}"/> 
+                    </p:selectOneMenu> 
+
+                    <h:outputLabel value="Annee" for="an" />
+                    <p:selectOneMenu id="an" value="#{bulletinbean.codeAnnee}"   >
+                        <f:selectItems value="#{bulletinbean.anneeScolaires}" var="a" itemValue="#{a.code}" itemLabel="#{a.code}"/> 
+                    </p:selectOneMenu> 
+
+                    <h:commandButton  action="#{bulletinbean.createBulletin()}"    value="tester"  />
+                </p:panelGrid >
+                <br />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

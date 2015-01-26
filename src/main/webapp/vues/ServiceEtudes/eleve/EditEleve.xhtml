@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EleveEditDlg" widgetVar="EleveEditDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.EditEleveTitle}">
+
+            <h:form id="EleveEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" rendered="#{elevebean.eleveSelected != null}">
+
+                        <p:outputLabel value="#{myBundle.EditEleveLabel_contactPrarent}" for="contactPrarent" />
+                        <p:inputText id="contactPrarent" value="#{elevebean.eleveSelected.contactPrarent}" title="#{myBundle.EditEleveTitle_contactPrarent}" />
+
+                        <p:outputLabel value="#{myBundle.EditEleveLabel_nomMere}" for="nomMere" />
+                        <p:inputText id="nomMere" value="#{elevebean.eleveSelected.nomMere}" title="#{myBundle.EditEleveTitle_nomMere}" />
+
+                        <p:outputLabel value="#{myBundle.EditEleveLabel_nomPere}" for="nomPere" />
+                        <p:inputText id="nomPere" value="#{elevebean.eleveSelected.nomPere}" title="#{myBundle.EditEleveTitle_nomPere}" />
+
+                        <p:outputLabel value="#{myBundle.EditEleveLabel_quartier}" for="quartier" />
+                        <p:inputText id="quartier" value="#{elevebean.eleveSelected.quartier}" title="#{myBundle.EditEleveTitle_quartier}" />
+
+                        <p:outputLabel value="#{myBundle.EditEleveLabel_redoublant}" for="redoublant" />
+                        <p:inputText id="redoublant" value="#{elevebean.eleveSelected.redoublant}" title="#{myBundle.EditEleveTitle_redoublant}" />
+
+                        <h:outputLabel value="#{myBundle.EditEleveLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{elevebean.eleveSelected.id}" />
+
+                     
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{eleveController.save}" value="#{myBundle.Save}" update="display,:EleveListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,EleveEditDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="EleveEditDialog.hide();"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

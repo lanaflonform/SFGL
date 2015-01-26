@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="EconomeTemplate.xhtml">
+        <ui:define name="content" >
+
+            <h:form id="EleveCreateForm">
+
+                <p:panelGrid columns="4"  >
+
+                    <h:outputLabel value="{msg.motif}" for="pays" />
+                    <p:selectOneMenu id="pays" value="#{fraisbean.nomMotif}"   >
+                        <f:selectItems value="#{fraisbean.listeMotifSelect}" /> 
+                    </p:selectOneMenu> 
+
+                    <h:outputLabel value="#{msg.anneescolaire}" for="annee" />
+                    <p:selectOneMenu id="annee" value="#{fraisbean.codeAnnee}"   >
+                        <f:selectItems value="#{elevebean.listeAnneeSelect}" /> 
+                    </p:selectOneMenu> 
+
+                    <p:outputLabel value="{msg.matricule}" for="nom" />
+                    <p:inputText id="nom" value="#{fraisbean.matEleve}"  />
+
+                    <p:outputLabel value="{msg.montant}" for="m" />
+                    <p:inputText id="m" value="#{fraisbean.fraisDiverselected.montant}"  />
+
+
+
+                </p:panelGrid>
+                <p:commandButton actionListener="#{fraisbean.creer}" value="#{msg.Save}" />
+
+
+            </h:form>
+            
+            
+                     <h:form id="EleveListForm">
+
+        <p:panel header="#{myBundle.ListEleveTitle}">
+
+            <p:dataTable id="datalist" value="#{fraisbean.fraisDivers}" var="item"
+                         selectionMode="single" selection="#{fraisbean.fraisDiverselected}"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,8,10"
+                         >
+                <p:column sortBy="#{item.motif.libele}" filterBy="#{item.motif.libele}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.motif}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.motif.libele}"/>
+                </p:column>
+                         
+                
+                <p:column sortBy="#{item.montant}" filterBy="#{item.montant}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.montant}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.montant}"/>
+                </p:column>
+                <p:column sortBy="#{item.eleve.nom} '' #{item.eleve.prenom}" filterBy="#{item.eleve.nom} ''#{item.eleve.prenom}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.eleve}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.eleve.nom} #{item.eleve.prenom}"/>
+                </p:column>
+                
+                <p:column sortBy="#{item.annee.code}" filterBy="#{item.annee.code}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.anneescolaire}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.annee.code}"/>
+                </p:column>
+<!--                <p:column sortBy="#{item.dateVersement}" filterBy="#{item.dateVersement}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dateVersement}"/>
+                </p:column>-->
+                
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.Id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                
+               
+               <f:facet name="footer">
+                   
+                   <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}"  />
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{msg.Edit}"  />
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{msg.Delete}" actionListener="{.delete}" />
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+
+    </h:form>-->
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

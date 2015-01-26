@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:view locale="#{changeLocale.locale}">
+        <ui:composition>
+                   
+            <table width="0%" align="right" style="height: 20px;"><tr><td>
+                        <h:form id="formulaire">
+                            <h:panelGrid columns="2" >
+                                <h:commandLink value="#{msg['welcome.langue1']}" action="#{changeLocale.setFrenchLocale}"/>
+                                <h:commandLink value="#{msg['welcome.langue2']}" action="#{changeLocale.setEnglishLocale}"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </td></tr>
+
+
+            </table><br /><br />
+            <h:form id="menuForm">
+                <p:menubar style="height: 25px; margin-left: 12%;margin-right: 12%; border-radius: 20px">  
+                   <p:menuitem value="#{msg['welcome.welcome']}" url="/index" icon="ui-icon-home"/>
+
+
+                    <p:menuitem value="{msg.ImopterNote}" url="ImportNote.xhtml" /> 
+
+                    <p:menuitem value="InsertionMan" url="InserNote.xhtml" /> 
+
+
+                    <p:menuitem value="#{msg.Edit}" url="Update.xhtml" /> 
+
+            
+                    <p:menuitem style="margin-left:20%" value="#{msg['welcome.depart']}" url="/index.xhtml"  />
+
+                </p:menubar>  
+
+            </h:form>
+
+
+        </ui:composition>
+    </f:view>
+</html>
+

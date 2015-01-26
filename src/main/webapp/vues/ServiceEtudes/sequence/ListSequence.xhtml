@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="SequenceListForm">
+
+        <p:panel header="#{msg.liste_Sequence}">
+
+            <p:dataTable id="datalist" value="#{sequenceController.items}" var="item"
+                         selectionMode="single" selection="#{sequenceController.selected}"
+                         rowKey="#{item.id}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30"
+                         >
+
+                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSequenceTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                <p:column sortBy="#{item.intitule}" filterBy="#{item.intitule}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSequenceTitle_intitule}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.intitule}"/>
+                </p:column>
+                <p:column sortBy="#{item.trimestre}" filterBy="#{item.trimestre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSequenceTitle_trimestre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.trimestre}"/>
+                </p:column>
+                <p:column sortBy="#{item.anneeId.id}" filterBy="#{item.anneeId.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSequenceTitle_anneeId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.anneeId.id}"/>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{msg.Create}" actionListener="#{sequenceController.prepareCreate}" update=":SequenceCreateForm" oncomplete="SequenceCreateDialog.show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}" update=":SequenceViewForm" oncomplete="SequenceViewDialog.show()" disabled="#{empty sequenceController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{msg.Edit}" update=":SequenceEditForm" oncomplete="SequenceEditDialog.show()" disabled="#{empty sequenceController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{msg.Delete}" actionListener="#{sequenceController.delete}" update=":growl,datalist" disabled="#{empty sequenceController.selected}"/>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+
+    </h:form>
+
+</ui:composition>

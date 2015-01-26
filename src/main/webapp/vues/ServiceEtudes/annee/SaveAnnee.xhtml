@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="AdminTemplate.xhtml">
+        <ui:define name="content" >
+            <h:form id="AnneeCreateForm">
+
+                <p:panelGrid columns="2"  >
+
+                    <p:outputLabel value="#{msg.debut}" for="dateJour" />
+                    <p:calendar id="dateJour" pattern="dd/MM/yyyy" value="#{anneeScolairebean.anneeScolaireSelected.debut}"  showOn="button"/>
+
+
+                    <p:outputLabel value="#{msg.fin}" for="dateJour2" />
+                    <p:calendar id="dateJour2" pattern="dd/MM/yyyy" value="#{anneeScolairebean.anneeScolaireSelected.fin}"  showOn="button"/>
+                    
+                    
+
+                    
+                    <p:commandButton actionListener="#{anneeScolairebean.creerAnnee}" value="#{msg.Save}" update=":form11:cars" />
+                </p:panelGrid>
+       
+            </h:form>
+            
+            <div id="top">
+
+
+                    <h:form id="form11" prependId="false">  
+
+                        <p:growl id="growl2" showDetail="true" /> 
+
+                        <p:dataTable id="cars" var="nat" value="#{anneeScolairebean.listeAnnee}"  widgetVar="carsTable" emptyMessage="" style=" width: 40%; margin-left: 30%"
+                                     paginator="true" rows="5"  
+                                     selection="#{anneeScolairebean.anneeScolaireSelected}"
+                                     rowKey="#{nat.id}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selectionMode="single"
+                                     >  
+
+                            <p:column id="idn" filterBy="#{nat.id}"   
+                                      headerText="#{msg.Id}"
+                                      filterMatchMode="contains" style=" width: 60%">  
+                                <h:outputText value="#{nat.id}" />  
+                            </p:column> 
+
+
+                            <p:column id="debut" filterBy="#{nat.debut}"   
+                                      headerText="#{msg.debut}"
+                                      filterMatchMode="contains" style=" width: 60%">  
+                                <h:outputText value="#{nat.debut}" />  
+                            </p:column> 
+
+
+                            <p:column id="fin" filterBy="#{nat.fin}"   
+                                      headerText="#{msg.fin}"
+                                      filterMatchMode="contains" style=" width: 60%">  
+                                <h:outputText value="#{nat.fin}" />  
+                            </p:column> 
+
+
+                            <p:column id="code" filterBy="#{nat.code}"   
+                                      headerText="#{msg.code}"
+                                      filterMatchMode="contains">  
+                                <h:outputText value="#{nat.code}" />  
+                            </p:column> 
+
+
+                        </p:dataTable>  
+
+                    </h:form>  
+
+
+                </div>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

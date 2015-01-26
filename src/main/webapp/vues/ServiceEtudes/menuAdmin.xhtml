@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:view locale="#{changeLocale.locale}">
+        <ui:composition>
+            <p:accordionPanel dynamic="true" >
+                <p:tab title="reduire">
+
+                </p:tab>
+            </p:accordionPanel> 
+
+            <table width="0%" align="right" style="height: 20px;"><tr><td>
+                        <h:form id="formulaire">
+                            <h:panelGrid columns="2" >
+                                <h:commandLink value="#{msg['welcome.langue1']}" action="#{changeLocale.setFrenchLocale}"/>
+                                <h:commandLink value="#{msg['welcome.langue2']}" action="#{changeLocale.setEnglishLocale}"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </td></tr>
+            </table>
+            <br /><br />
+            <h:form id="menuForm">
+                <p:menubar style="height: 25px; margin-left: 0%;margin-right: 0%; border-radius: 20px">  
+
+
+                    <p:submenu   label="#{msg.nationalite}" >  
+                        <p:menuitem value="Ajouter/Supprimer" url="/vues/ServiceEtudes/nationalite/indexNationalite.xhtml" /> 
+
+                    </p:submenu> 
+
+                    <p:menuitem value="#{msg.eleve}" url="/vues/ServiceEtudes/eleve/indexEleve.xhtml" /> 
+
+                    <p:menuitem value="Professeur" url="/vues/ServiceEtudes/professeur/indexprofesseur.xhtml" /> 
+
+
+                    <p:menuitem value="#{msg.classe}" url="/vues/ServiceEtudes/classe/indexClasse.xhtml" /> 
+
+                    <p:menuitem value="#{msg.matiere}" url="/vues/ServiceEtudes/matiere/indexMatiere.xhtml" /> 
+
+
+                    <p:menuitem value="#{msg.anneescolaire}" url="/vues/ServiceEtudes/annee/indexAnnee.xhtml" /> 
+
+                    <p:menuitem value="Notes" url="/vues/ServiceEtudes/notes/index.xhtml"/> 
+
+                    <p:submenu   label="Rapports" > 
+                        <p:submenu label="Emploi" icon="ui-icon-contact">  
+                            <p:menuitem value="New" url="/vues/ServiceEtudes/emploiDeTemps/indexEmploi.xhtml" />  
+                            <p:menuitem value="Export" url="/vues/ServiceEtudes/Emploi.xhtml" />  
+                        </p:submenu>    
+
+                        <p:submenu label="bulletin" icon="ui-icon-contact">  
+                            <p:menuitem value="#" url="#" />  
+                            <p:menuitem value="Export" url="/vues/ServiceEtudes/bulletin.xhtml" />  
+                        </p:submenu> 
+
+                    </p:submenu> 
+
+                    <p:menuitem value="Sequence" url="/vues/ServiceEtudes/sequence/indexSequence.xhtml" /> 
+
+                    <p:submenu   label="Affectation" >  
+                        <p:menuitem value="AffecterEn" url="/vues/ServiceEtudes/SaveProfClasse.xhtml" /> 
+
+                        <p:menuitem value="AffecterMat" url="/vues/ServiceEtudes/maClaCoef/index.xhtml" /> 
+
+
+                    </p:submenu> 
+
+                    <p:submenu   label="Imports" >  
+                        <p:menuitem value="Notes(excel)" url="#" /> 
+
+
+                    </p:submenu> 
+
+
+                    <p:submenu   label="Options" >  
+                        <p:menuitem value="deconnecter" url="#" /> 
+
+                        <p:menuitem value="Personnaliise" url="#" /> 
+
+
+                    </p:submenu> 
+
+                </p:menubar>  
+
+            </h:form>
+
+
+        </ui:composition>
+    </f:view>
+</html>
+

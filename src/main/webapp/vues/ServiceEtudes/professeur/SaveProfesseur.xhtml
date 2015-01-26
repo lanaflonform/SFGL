@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:composition template="AdminTemplate.xhtml">
+        <ui:define name="content" >
+
+            <h:form id="ProfesseurCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{professeurbean.professeurselected != null}">
+
+                        <p:outputLabel value="#{msg.nomprenom}" for="n" />
+                        <p:inputText id="n" value="#{professeurbean.professeurselected.nom}"  />
+
+                        <p:outputLabel value="#{msg.contact}" for="contact" />
+                        <p:inputText id="contact" value="#{professeurbean.professeurselected.contact}"  />
+
+
+                        <p:outputLabel value="#{msg.login}" for="co" />
+                        <p:inputText id="co" value="#{professeurbean.professeurselected.username}"  />
+
+
+                        <p:outputLabel value="#{msg.password}" for="pas" />
+                        <p:inputText id="pas" value="#{professeurbean.professeurselected.password}"  />
+
+
+                        <p:outputLabel value="{msg.dateprise}" for="dateAffectation" />
+                        <p:calendar id="dateAffectation" pattern="dd/MM/yyyy" value="#{professeurbean.professeurselected.datePriseService}" title="#{myBundle.EditProfesseurTitle_dateAffectation}"  showOn="button"/>
+
+                        <h:outputLabel value="{msg.diplome}" for="diplome" style="width: 100%"/>
+                        <p:selectOneMenu id="diplome" value="#{professeurbean.professeurselected.diplome}"  >
+                            <f:selectItem itemValue="#" itemLabel="choisir" /> 
+                            <f:selectItem itemValue="Probatoire" itemLabel="Probatoire" /> 
+                            <f:selectItem itemValue="BAC" itemLabel="BAC" /> 
+                            <f:selectItem itemValue="PCEG" itemLabel="PCEG" /> 
+                            <f:selectItem itemValue="PCET" itemLabel="PCET" />  
+                            <f:selectItem itemValue="PLEG" itemLabel="PLEG" />  
+                            <f:selectItem itemValue="PLET" itemLabel="PLET" />  
+
+                        </p:selectOneMenu> 
+
+
+                        <h:outputLabel value="#{msg.statut}" for="status" style="width: 100%"/>
+                        <p:selectOneMenu id="status" value="#{professeurbean.userRole.statut}"  >
+                            <f:selectItem itemValue="#" itemLabel="choisir" /> 
+                            <f:selectItem itemValue="ROLE_PROFESSEUR" itemLabel="Professeur" /> 
+                            <f:selectItem itemValue="ROLE_INTENTANT" itemLabel="Intendant" /> 
+                            <f:selectItem itemValue="ROLE_CENCEUR" itemLabel="Cenceur" />
+                            <f:selectItem itemValue="ROLE_PROVISEUR" itemLabel="Proviseur" /> 
+                        </p:selectOneMenu> 
+
+                        <h:outputLabel value="#{msg.specialite}" for="specialite" />
+                        <p:selectOneMenu id="specialite" value="#{professeurbean.professeurselected.specialite}"  >
+                            <f:selectItem itemValue="#" itemLabel="choisir" /> 
+                            <f:selectItem itemValue="Anglais" itemLabel="Aglais" /> 
+                            <f:selectItem itemValue="Francais" itemLabel="Francais" /> 
+                            <f:selectItem itemValue="Mathematique" itemLabel="Mathematique" /> 
+                            <f:selectItem itemValue="Physique" itemLabel="Physique" /> 
+                            <f:selectItem itemValue="Chimie" itemLabel="Chimie" /> 
+                            <f:selectItem itemValue="Phylosophie" itemLabel="Phylosophie" /> 
+                            <f:selectItem itemValue="Informatique" itemLabel="Informatique" /> 
+                            <f:selectItem itemValue="Sport" itemLabel="Sport" /> 
+                        </p:selectOneMenu> 
+
+
+
+
+                        <h:outputLabel value="#{msg.sexe}" for="sexe" style="width: 100%"/>
+                        <p:selectOneMenu id="sexe" value="#{professeurbean.professeurselected.sexe}"  >
+                            <f:selectItem itemValue="#" itemLabel="choisir" /> 
+                            <f:selectItem itemValue="M" itemLabel="Masculin" /> 
+                            <f:selectItem itemValue="F" itemLabel="Feminin" />  
+                        </p:selectOneMenu> 
+
+
+                        <p:outputLabel value="#{msg.dateNais}" for="date" />
+                        <p:calendar id="date" pattern="dd/MM/yyyy" value="#{professeurbean.professeurselected.dateNais}"  showOn="button"/>
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{professeurbean.create}" value="#{msg.Save}"  />
+
+                </h:panelGroup>
+
+            </h:form>
+
+
+            <h:form id="ProfesseurListForm">
+
+                <p:panel header="#{myBundle.ListEleveTitle}">
+
+                    <p:dataTable id="datalist" value="#{professeurbean.professeurs}" var="item"
+                                 selectionMode="single" selection="#{professeurbean.professeurselected}"
+                                 rowKey="#{item.id}"
+                                 paginator="true"
+                                 rows="5"
+                                 rowsPerPageTemplate="5,8,10"
+                                 >
+<!--                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.Id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>-->
+
+
+                        <p:column sortBy="#{item.nom}" filterBy="#{item.nom}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.nomprenom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+
+
+
+                        <p:column sortBy="#{item.matricule}" filterBy="#{item.matricule}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.matricule}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.matricule}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.contact}" filterBy="#{item.contact}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.contact}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contact}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.diplome}" filterBy="#{item.diplome}">
+                            <f:facet name="header">
+                                <h:outputText value="{msg.}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.diplome}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.dateNais}" filterBy="#{item.dateNais}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.dateNais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateNais}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.datePriseService}" filterBy="#{item.datePriseService}">
+                            <f:facet name="header">
+                                <h:outputText value="{msg.prise}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datePriseService}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.sexe}" filterBy="#{item.sexe}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.sexe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sexe}"/>
+                        </p:column>
+
+
+
+                        <p:column sortBy="#{item.specialite}" filterBy="#{item.specialite}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.specialite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.specialite}"/>
+                        </p:column>
+
+
+
+
+                        <p:column sortBy="#{item.statut}" filterBy="#{item.statut}">
+                            <f:facet name="header">
+                                <h:outputText value="{msg.statut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statut}"/>
+                        </p:column>
+
+
+
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}"  disabled="#{empty sequencebean.sequenceSelected}"/>
+                            <p:commandButton id="editButton" actionListener="#"  icon="ui-icon-pencil" value="#{msg.Edit}" ajax="false">
+
+                                <f:setPropertyActionListener target="#{professeurbean.professeurselected}" value="#{item}" /> 
+
+
+                            </p:commandButton>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{msg.Delete}" actionListener="{.delete}" disabled="#{empty sequencebean.sequenceSelected}"/>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</html>

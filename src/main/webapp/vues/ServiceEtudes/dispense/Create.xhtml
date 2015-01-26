@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DispenseCreateDlg" widgetVar="DispenseCreateDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.CreateDispenseTitle}">
+
+            <h:form id="DispenseCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dispenseController.selected != null}">
+
+                        <p:outputLabel value="#{myBundle.CreateDispenseLabel_matiereId}" for="matiereId" />
+                        <p:selectOneMenu id="matiereId" value="#{dispenseController.selected.matiereId}" >
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{matiereController.items}"
+                                           var="matiereIdItem"
+                                           itemValue="#{matiereIdItem}"
+                                           itemLabel="#{matiereIdItem.id.toString()}"
+                                           />
+                            <f:converter binding="#{matiereConverter}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDispenseLabel_professeurId}" for="professeurId" />
+                        <p:selectOneMenu id="professeurId" value="#{dispenseController.selected.professeurId}" >
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{professeurController.items}"
+                                           var="professeurIdItem"
+                                           itemValue="#{professeurIdItem}"
+                                           itemLabel="#{professeurIdItem.username.toString()}"
+                                           />
+                            <f:converter binding="#{professeurConverter}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{dispenseController.saveNew}" value="#{myBundle.Save}" update="display,:DispenseListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,DispenseCreateDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="DispenseCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnneeScolaireViewDlg" widgetVar="AnneeScolaireViewDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.ViewAnneeScolaireTitle}">
+
+            <h:form id="AnneeScolaireViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{anneeScolaireController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAnneeScolaireLabel_id}"/>
+                        <h:outputText value="#{anneeScolaireController.selected.id}" title="#{myBundle.ViewAnneeScolaireTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAnneeScolaireLabel_code}"/>
+                        <h:outputText value="#{anneeScolaireController.selected.code}" title="#{myBundle.ViewAnneeScolaireTitle_code}"/>
+
+                        <h:outputText value="#{myBundle.ViewAnneeScolaireLabel_debut}"/>
+                        <h:outputText value="#{anneeScolaireController.selected.debut}" title="#{myBundle.ViewAnneeScolaireTitle_debut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAnneeScolaireLabel_fin}"/>
+                        <h:outputText value="#{anneeScolaireController.selected.fin}" title="#{myBundle.ViewAnneeScolaireTitle_fin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAnneeScolaireLabel_eleveList}"/>
+
+                        <h:outputText value="#{myBundle.ViewAnneeScolaireLabel_notesList}"/>
+
+                        <h:outputText value="#{myBundle.ViewAnneeScolaireLabel_fraisDiverList}"/>
+
+                        <h:outputText value="#{myBundle.ViewAnneeScolaireLabel_sequenceList}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="AnneeScolaireViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

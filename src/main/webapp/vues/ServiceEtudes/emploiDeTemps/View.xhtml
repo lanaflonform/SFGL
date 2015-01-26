@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmploiDeTempsViewDlg" widgetVar="EmploiDeTempsViewDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.ViewEmploiDeTempsTitle}">
+
+            <h:form id="EmploiDeTempsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{emploiDeTempsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewEmploiDeTempsLabel_id}"/>
+                        <h:outputText value="#{emploiDeTempsController.selected.id}" title="#{myBundle.ViewEmploiDeTempsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmploiDeTempsLabel_heureDebut}"/>
+                        <h:outputText value="#{emploiDeTempsController.selected.heureDebut}" title="#{myBundle.ViewEmploiDeTempsTitle_heureDebut}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEmploiDeTempsLabel_heureFin}"/>
+                        <h:outputText value="#{emploiDeTempsController.selected.heureFin}" title="#{myBundle.ViewEmploiDeTempsTitle_heureFin}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEmploiDeTempsLabel_jour}"/>
+                        <h:outputText value="#{emploiDeTempsController.selected.jour}" title="#{myBundle.ViewEmploiDeTempsTitle_jour}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmploiDeTempsLabel_matiereId}"/>
+                        <h:outputText value="#{emploiDeTempsController.selected.matiereId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmploiDeTempsLabel_classeId}"/>
+                        <h:outputText value="#{emploiDeTempsController.selected.classeId.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="EmploiDeTempsViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

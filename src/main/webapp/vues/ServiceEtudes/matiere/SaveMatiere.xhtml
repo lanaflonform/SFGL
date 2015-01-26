@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="AdminTemplate.xhtml">
+            <ui:define name="content" >
+                <h:form id="form">
+
+                    <p:growl id="growl" showDetail="true" />
+                    <p:panel style="background-color: #90b4bd ;margin-left: 30%;margin-right: 30%">
+
+                        <p:panelGrid columns="2" >
+                            <h:outputLabel value="Libele" for="pays" />
+                            <p:inputText id="pays" value="#{matierebean.matiereSelected.intitule}" required="True" requiredMessage="ce champ est obligatoire"/>
+                        </p:panelGrid>
+                        <p:commandButton   actionListener="#{matierebean.createMatiere()}" update=":form11:cars"  icon="ui-icon-check" ajax="true"  value="Save"  />
+
+                    </p:panel>
+
+                </h:form>
+
+                <div id="top">
+
+
+                    <h:form id="form11" prependId="false">  
+
+                        <p:growl id="growl2" showDetail="true" /> 
+
+                        <p:dataTable id="cars" var="nat" value="#{matierebean.matieres}" emptyMessage="" style=" width: 40%; margin-left: 30%"
+                                     paginator="true" rows="5"  
+                                     selection="#{matierebean.matiereSelected}"
+                                     rowKey="#{nat.id}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selectionMode="single"
+                                     >  
+                            
+<!--                            <p:column id="idn" filterBy="#{nat.id}"   
+                                      headerText="Idn"
+                                      filterMatchMode="contains">  
+                                <h:outputText value="#{nat.id}" />  
+                            </p:column> 
+                            -->
+                            
+                            <p:column id="p" filterBy="#{matierebean.matiereSelected.intitule}"   
+                                      headerText="Pays"
+                                      filterMatchMode="contains" >  
+                                <h:outputText value="#{matierebean.matiereSelected.intitule}" />  
+                            </p:column> 
+
+                           
+
+
+                        </p:dataTable>  
+
+                    </h:form>  
+
+
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

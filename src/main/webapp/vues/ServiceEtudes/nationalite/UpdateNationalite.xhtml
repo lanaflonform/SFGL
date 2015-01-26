@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="AdminTemplate.xhtml">
+            <ui:define name="content" >
+                <h:form id="form">
+
+                    <p:growl id="growl" showDetail="true" />
+                    <p:panel style="background-color: #90b4bd ;margin-left: 30%;margin-right: 30%">
+
+                        <p:panelGrid columns="2" >
+                           
+
+                            <h:outputLabel value="Pays" for="pays" />
+                            <p:inputText id="pays" value="#{nationnalitebean.nationnaliteSelected.pays}" required="True" requiredMessage="ce champ est obligatoire"/>
+
+                            <h:outputLabel value="Quantite" for="Code" />
+                            <p:inputText id="Code" value="#{nationnalitebean.nationnaliteSelected.code}"/>
+                           
+                             <p:panel visible="false">
+                                <h:outputLabel value="ID" for="id" />
+                                <p:inputText id="id" value="#{nationnalitebean.nationnaliteSelected.id}" />
+                            </p:panel>
+
+                        </p:panelGrid>
+                        <p:commandButton value="modifier" action="#{nationnalitebean.updateNat()}" onclick="submit();"   ajax="true">
+                            <f:setPropertyActionListener target="#{nationnalitebean.nationnaliteSelected}"  value="#{nationnalitebean.nationnaliteSelected}" />
+                        </p:commandButton>
+                    </p:panel>
+
+                </h:form>
+
+                <div id="top">
+
+
+                    <h:form id="form11" prependId="false">  
+
+                        <p:growl id="growl2" showDetail="true" /> 
+
+                        <p:dataTable id="cars" var="nat" value="#{nationnalitebean.nationalites}"  widgetVar="carsTable" emptyMessage="" style=" width: 40%; margin-left: 30%"
+                                     paginator="true" rows="5"  
+                                     selection="#{nationnalitebean.nationnaliteSelected}"
+                                     rowKey="#{nat.id}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selectionMode="single"
+
+                                     >  
+
+                            <p:column id="idn" filterBy="#{nat.id}"   
+                                      headerText="Idn"
+                                      filterMatchMode="contains" style=" width: 60%">  
+                                <h:outputText value="#{nat.id}" />  
+                            </p:column> 
+
+
+                            <p:column id="pays" filterBy="#{nat.pays}"   
+                                      headerText="Pays"
+                                      filterMatchMode="contains" style=" width: 60%">  
+                                <h:outputText value="#{nat.pays}" />  
+                            </p:column> 
+
+                            <p:column id="iden" filterBy="#{nat.code}"   
+                                      headerText="Code"
+                                      filterMatchMode="contains">  
+                                <h:outputText value="#{nat.code}" />  
+                            </p:column> 
+
+                            <f:facet name="footer">
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}"  />
+                                <p:commandButton id="editButton" actionListener="#"  icon="ui-icon-pencil" value="#{msg.Edit}" ajax="false" >
+
+                                    <f:setPropertyActionListener target="#{professeurbean.professeurselected}" value="#{item}" /> 
+
+
+                                </p:commandButton>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{msg.Delete}" actionListener="{.delete}" disabled="#{empty sequencebean.sequenceSelected}"/>
+                            </f:facet>
+
+                        </p:dataTable>  
+
+                    </h:form>  
+
+
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

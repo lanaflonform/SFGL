@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClasseEditDlg" widgetVar="ClasseEditDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.EditClasseTitle}">
+
+            <h:form id="ClasseEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" rendered="#{classeController.selected != null}">
+
+                        <h:outputLabel value="#{myBundle.EditClasseLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{classeController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditClasseLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{classeController.selected.code}" title="#{myBundle.EditClasseTitle_code}" required="true" requiredMessage="#{myBundle.EditClasseRequiredMessage_code}"/>
+
+                        <p:outputLabel value="#{myBundle.EditClasseLabel_libele}" for="libele" />
+                        <p:inputText id="libele" value="#{classeController.selected.libele}" title="#{myBundle.EditClasseTitle_libele}" required="true" requiredMessage="#{myBundle.EditClasseRequiredMessage_libele}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{classeController.save}" value="#{myBundle.Save}" update="display,:ClasseListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ClasseEditDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ClasseEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

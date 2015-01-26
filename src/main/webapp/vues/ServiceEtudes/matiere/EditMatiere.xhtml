@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MatiereEditDlg" widgetVar="MatiereEditDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.EditMatiereTitle}">
+
+            <h:form id="MatiereEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" rendered="#{matiereController.selected != null}">
+
+                        <h:outputLabel value="#{myBundle.EditMatiereLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{matiereController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditMatiereLabel_intitule}" for="intitule" />
+                        <p:inputText id="intitule" value="#{matiereController.selected.intitule}" title="#{myBundle.EditMatiereTitle_intitule}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{matiereController.save}" value="#{myBundle.Save}" update="display,:MatiereListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,MatiereEditDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="MatiereEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

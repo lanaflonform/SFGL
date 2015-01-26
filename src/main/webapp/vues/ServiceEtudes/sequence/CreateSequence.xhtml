@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SequenceCreateDlg" widgetVar="SequenceCreateDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.CreateSequenceTitle}">
+
+            <h:form id="SequenceCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{sequencebean.sequenceSelected != null}">
+
+                        <h:outputLabel value="{msg.Trimestre}" />
+                    <p:selectOneMenu id="options" value="#{sequencebean.sequenceSelected.trimestre}"  required="true" >  
+                        <f:selectItem itemLabel="choisir" itemValue="" /> 
+                        <f:selectItem itemLabel="1er Trimestre" itemValue="1er Trimestre" /> 
+                        <f:selectItem itemLabel="2er Trimestre" itemValue="2er Trimestre" />  
+                        <f:selectItem itemLabel="3er Trimestre" itemValue="3er Trimestre" />  
+
+                    </p:selectOneMenu> 
+
+
+                    <h:outputLabel value="{msg.intitule}"  />
+                    <p:selectOneMenu id="options1" value="#{sequencebean.sequenceSelected.intitule}"  required="true" >  
+                        <f:selectItem itemLabel="choisir" itemValue="" /> 
+                        <f:selectItem itemLabel="1er Sequence" itemValue="Seq1" /> 
+                        <f:selectItem itemLabel="2er Sequence" itemValue="Seq2" />  
+                        <f:selectItem itemLabel="3er Sequence" itemValue="Seq3" /> 
+                        <f:selectItem itemLabel="4er Sequence" itemValue="Seq4" /> 
+                        <f:selectItem itemLabel="5er Sequence" itemValue="Seq5" /> 
+                        <f:selectItem itemLabel="6er Sequence" itemValue="Seq6" /> 
+
+                    </p:selectOneMenu> 
+
+
+
+                    <h:outputLabel value="#{msg.anneescolaire}" for="annee" />
+                    <p:selectOneMenu id="annee" value="#{sequencebean.codeAnnee}"   >
+                        <f:selectItems value="#{sequencebean.listeAnneeSelect}" /> 
+                    </p:selectOneMenu> 
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sequencebean.creeSequence}" value="#{msg.Save}"  update="display,:SequenceListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,SequenceCreateDialog);"/>
+                    <p:commandButton value="#{msg.Cancel}" onclick="SequenceCreateDialog.hide();"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

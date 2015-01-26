@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EleveViewDlg" widgetVar="EleveViewDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.ViewEleveTitle}">
+
+            <h:form id="EleveViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{eleveController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_contactPrarent}"/>
+                        <h:outputText value="#{eleveController.selected.contactPrarent}" title="#{myBundle.ViewEleveTitle_contactPrarent}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_nomMere}"/>
+                        <h:outputText value="#{eleveController.selected.nomMere}" title="#{myBundle.ViewEleveTitle_nomMere}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_nomPere}"/>
+                        <h:outputText value="#{eleveController.selected.nomPere}" title="#{myBundle.ViewEleveTitle_nomPere}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_quartier}"/>
+                        <h:outputText value="#{eleveController.selected.quartier}" title="#{myBundle.ViewEleveTitle_quartier}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_redoublant}"/>
+                        <h:outputText value="#{eleveController.selected.redoublant}" title="#{myBundle.ViewEleveTitle_redoublant}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_id}"/>
+                        <h:outputText value="#{eleveController.selected.id}" title="#{myBundle.ViewEleveTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_observationList}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_nationaliteId}"/>
+                        <h:outputText value="#{eleveController.selected.nationaliteId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_anneeId}"/>
+                        <h:outputText value="#{eleveController.selected.anneeId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_classeId}"/>
+                        <h:outputText value="#{eleveController.selected.classeId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_personne}"/>
+                        <h:outputText value="#{eleveController.selected.personne.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_notesList}"/>
+
+                        <h:outputText value="#{myBundle.ViewEleveLabel_fraisDiverList}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="EleveViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

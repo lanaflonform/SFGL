@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SequenceEditDlg" widgetVar="SequenceEditDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.EditSequenceTitle}">
+
+            <h:form id="SequenceEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" rendered="#{sequenceController.selected != null}">
+
+                        <h:outputLabel value="#{myBundle.EditSequenceLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{sequenceController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditSequenceLabel_intitule}" for="intitule" />
+                        <p:inputText id="intitule" value="#{sequenceController.selected.intitule}" title="#{myBundle.EditSequenceTitle_intitule}" />
+
+                        <p:outputLabel value="#{myBundle.EditSequenceLabel_trimestre}" for="trimestre" />
+                        <p:inputText id="trimestre" value="#{sequenceController.selected.trimestre}" title="#{myBundle.EditSequenceTitle_trimestre}" />
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sequenceController.save}" value="#{myBundle.Save}" update="display,:SequenceListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,SequenceEditDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="SequenceEditDialog.hide();"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

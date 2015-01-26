@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProfesseurCreateDlg" widgetVar="ProfesseurCreateDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.CreateProfesseurTitle}">
+
+            <h:form id="ProfesseurCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{professeurbean.professeurselected  != null}">
+
+               <p:outputLabel value="#{msg.nomprenom}" for="n" />
+                        <p:inputText id="n" value="#{professeurbean.professeurselected.nom}"  />
+
+                        <p:outputLabel value="#{msg.contact}" for="contact" />
+                        <p:inputText id="contact" value="#{professeurbean.professeurselected.contact}"  />
+
+
+                        <p:outputLabel value="#{msg.login}" for="co" />
+                        <p:inputText id="co" value="#{professeurbean.professeurselected.username}"  />
+
+
+                        <p:outputLabel value="#{msg.dateNais}" for="date" />
+                        <p:calendar id="date" pattern="dd/MM/yyyy" value="#{professeurbean.professeurselected.dateNais}"  showOn="button"/>
+
+                        <p:outputLabel value="{msg.dateprise}" for="dateAffectation" />
+                        <p:calendar id="dateAffectation" pattern="dd/MM/yyyy" value="#{professeurbean.professeurselected.datePriseService}" title="#{myBundle.EditProfesseurTitle_dateAffectation}"  showOn="button"/>
+
+                        <h:outputLabel value="#{msg.specialite}" for="specialite" />
+                        <p:selectOneMenu id="specialite" value="#{professeurbean.professeurselected.specialite}"  >
+                            <f:selectItem itemValue="#" itemLabel="choisir" /> 
+                            <f:selectItem itemValue="Anglais" itemLabel="Aglais" /> 
+                            <f:selectItem itemValue="Francais" itemLabel="Francais" /> 
+                            <f:selectItem itemValue="Mathematique" itemLabel="Mathematique" /> 
+                            <f:selectItem itemValue="Physique" itemLabel="Physique" /> 
+                            <f:selectItem itemValue="Chimie" itemLabel="Chimie" /> 
+                            <f:selectItem itemValue="Phylosophie" itemLabel="Phylosophie" /> 
+                            <f:selectItem itemValue="Informatique" itemLabel="Informatique" /> 
+                            <f:selectItem itemValue="Sport" itemLabel="Sport" /> 
+                        </p:selectOneMenu> 
+
+                        
+                        <h:outputLabel value="#{msg.statut}" for="status" style="width: 100%"/>
+                        <p:selectOneMenu id="status" value="#{professeurbean.userRole.statut}"  >
+                            <f:selectItem itemValue="#" itemLabel="choisir" /> 
+                            <f:selectItem itemValue="ROLE_PROFESSEUR" itemLabel="Professeur" /> 
+                            <f:selectItem itemValue="ROLE_INTENTANT" itemLabel="Intendant" /> 
+                            <f:selectItem itemValue="ROLE_CENCEUR" itemLabel="Cenceur" />
+                            <f:selectItem itemValue="ROLE_PROVISEUR" itemLabel="Proviseur" /> 
+                        </p:selectOneMenu> 
+                        
+                        <h:outputLabel value="{msg.diplome}" for="diplome" style="width: 100%"/>
+                        <p:selectOneMenu id="diplome" value="#{professeurbean.professeurselected.diplome}"  >
+                            <f:selectItem itemValue="#" itemLabel="choisir" /> 
+                            <f:selectItem itemValue="Probatoire" itemLabel="Probatoire" /> 
+                            <f:selectItem itemValue="BAC" itemLabel="BAC" /> 
+                            <f:selectItem itemValue="PCEG" itemLabel="PCEG" /> 
+                            <f:selectItem itemValue="PCET" itemLabel="PCET" />  
+                            <f:selectItem itemValue="PLEG" itemLabel="PLEG" />  
+                            <f:selectItem itemValue="PLET" itemLabel="PLET" />  
+
+                        </p:selectOneMenu> 
+
+
+
+                       
+
+
+
+                        <h:outputLabel value="#{msg.sexe}" for="sexe" style="width: 100%"/>
+                        <p:selectOneMenu id="sexe" value="#{professeurbean.professeurselected.sexe}"  >
+                            <f:selectItem itemValue="#" itemLabel="choisir" /> 
+                            <f:selectItem itemValue="M" itemLabel="Masculin" /> 
+                            <f:selectItem itemValue="F" itemLabel="Feminin" />  
+                        </p:selectOneMenu> 
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{professeurbean.create}" value="#{msg.Save}" update="display,:ProfesseurListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ProfesseurCreateDialog);"/>
+                    <p:commandButton value="#{msg.Cancel}" onclick="ProfesseurCreateDialog.hide();"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaClaCoefViewDlg" widgetVar="MaClaCoefViewDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.ViewMaClaCoefTitle}">
+
+            <h:form id="MaClaCoefViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maClaCoefController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMaClaCoefLabel_id}"/>
+                        <h:outputText value="#{maClaCoefController.selected.id}" title="#{myBundle.ViewMaClaCoefTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaClaCoefLabel_coeficient}"/>
+                        <h:outputText value="#{maClaCoefController.selected.coeficient}" title="#{myBundle.ViewMaClaCoefTitle_coeficient}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaClaCoefLabel_heureDebut}"/>
+                        <h:outputText value="#{maClaCoefController.selected.heureDebut}" title="#{myBundle.ViewMaClaCoefTitle_heureDebut}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewMaClaCoefLabel_heureFin}"/>
+                        <h:outputText value="#{maClaCoefController.selected.heureFin}" title="#{myBundle.ViewMaClaCoefTitle_heureFin}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewMaClaCoefLabel_jour}"/>
+                        <h:outputText value="#{maClaCoefController.selected.jour}" title="#{myBundle.ViewMaClaCoefTitle_jour}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaClaCoefLabel_quotahoraire}"/>
+                        <h:outputText value="#{maClaCoefController.selected.quotahoraire}" title="#{myBundle.ViewMaClaCoefTitle_quotahoraire}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaClaCoefLabel_classeId}"/>
+                        <h:outputText value="#{maClaCoefController.selected.classeId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaClaCoefLabel_matiereId}"/>
+                        <h:outputText value="#{maClaCoefController.selected.matiereId.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="MaClaCoefViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
