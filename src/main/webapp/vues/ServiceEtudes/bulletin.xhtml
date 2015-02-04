@@ -11,9 +11,14 @@
             <h:form id="form">
 
                 <p:panelGrid style="width: 400px; margin-left: 30%;margin-right: 20%; background-color: buttonface" columns="2">
+                     <h:outputLabel value="Cycle" for="cy" />
+                     <p:selectOneMenu id="cy" value="#{bulletinbean.cycleSelected}"   >
+                         <f:selectItems value="#{bulletinbean.cycles}" /> 
+                    </p:selectOneMenu> 
+                    
                     <h:outputLabel value="Classe" for="cl" />
-                    <p:selectOneMenu id="cl" value="#{bulletinbean.codeClasse}"   >
-                        <f:selectItems value="#{bulletinbean.classes}" var="clas" itemValue="#{clas.code}" itemLabel="#{clas.libele}"/> 
+                    <p:selectOneMenu id="cl" value="#{bulletinbean.idClasse}"   >
+                        <f:selectItems value="#{bulletinbean.classes}" var="clas" itemValue="#{clas.id}" itemLabel="#{clas.libele}"/> 
                     </p:selectOneMenu> 
 
                     <h:outputLabel value="Annee" for="an" />

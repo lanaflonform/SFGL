@@ -8,6 +8,7 @@ import com.douwe.generic.dao.DataAccessException;
 import com.douwe.generic.dao.IDao;
 import com.lateu.projet.lycee.entities.Classe;
 import com.lateu.projet.lycee.entities.Eleve;
+import com.lateu.projet.lycee.entities.MaClaCoef;
 import com.lateu.projet.lycee.entities.Matiere;
 import com.lateu.projet.lycee.entities.Nationalite;
 import com.lateu.projet.lycee.entities.Notes;
@@ -20,13 +21,21 @@ import java.util.List;
  * @author richardlateu
  */
 public interface Elevedao extends IDao<Eleve, Long> {
-    Eleve findElevebyMatricule(String matricule)throws DataAccessException; 
-    List<PV> GeneralPV(String classe)throws DataAccessException; 
-    Eleve findMyMarks()throws DataAccessException; 
-    List<Eleve> findElevebyNom(String nom)throws DataAccessException; 
-   
-    Classe rechercheMaClasse(String matricule/*,AnneeScolaire annee*/)throws DataAccessException;
-    List<ReportEntry> maSectionBulletin(String codeClasse,String levelmat)throws DataAccessException; 
-    List<Notes> findNotebyMatricule(Matiere m, Classe cl)throws DataAccessException; 
+
+    Eleve findElevebyMatricule(String matricule) throws DataAccessException;
+
+     List<PV> GeneralPV(String matricule,Long idMatiere) throws DataAccessException;
+    
+    Eleve findMyMarks() throws DataAccessException;
+
+    List<Eleve> findElevebyNom(String nom) throws DataAccessException;
+
+    Classe rechercheMaClasse(String matricule/*,AnneeScolaire annee*/) throws DataAccessException;
+
+    List<ReportEntry> maSectionBulletin(String codeClasse, String levelmat) throws DataAccessException;
+    MaClaCoef getLevelMatiere(Long idmat) throws DataAccessException;
+
+    List<Notes> findNotebyMatricule(Matiere m, Classe cl) throws DataAccessException;
+
     List<Eleve> findElevebyNationalite(Nationalite nationalite) throws DataAccessException;
 }

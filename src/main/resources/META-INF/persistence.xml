@@ -28,5 +28,6 @@
           <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>-->
     <class>com.lateu.projet.lycee.entities.EmploiDeTemps</class>
+    <class>com.lateu.projet.lycee.entities.ClasseLevel</class>
   </persistence-unit>
 </persistence>

@@ -7,10 +7,13 @@ package com.lateu.projet.lycee.Test;
 import com.douwe.generic.dao.DataAccessException;
 import com.lateu.projet.lycee.entities.AnneeScolaire;
 import com.lateu.projet.lycee.entities.Classe;
+import com.lateu.projet.lycee.entities.Eleve;
 import com.lateu.projet.lycee.entities.Matiere;
 import com.lateu.projet.lycee.entities.Motif;
 import com.lateu.projet.lycee.entities.Nationalite;
 import com.lateu.projet.lycee.entities.Notes;
+import com.lateu.projet.lycee.entities.Sequence;
+import com.lateu.projet.lycee.projection.PV;
 
 import com.lateu.projet.lycee.service.ServiceAnneeScolaire;
 import com.lateu.projet.lycee.service.ServiceClasse;
@@ -94,13 +97,24 @@ public class TestService {
        // List<EmploiDeTemps> tmp = serviceEmploi.Valider(1L, 1L, "LUNDI");
         //  System.out.println(serveleve.LastIndex(tmp));
 
-        List<Matiere> mt=servmat.findMatiereByClasseID(1L);
-        for (Matiere matiere : mt) {
-            System.out.println(matiere); 
-        }
+        //List<Matiere> mt=servmat.findMatiereByClasseID(2L);
+       
+           // System.out.println("===================="+mt.size()); 
+        
+       
+       // servnote.create(n, "14L2", "seq1", "Chimie",1L);
+        
+//         List<Eleve> elvs= servcla.FindByClasse("PC", "2014/2015");
+//        for (Eleve e : elvs) {
+//            System.out.println(e);    
+//        }
+//        
+//        List<PV> liste= serveleve.GeneralPV("14L2");
+//        for (PV pv : liste) {
+//            System.out.println(pv);    
+//        }
        
 
-//InitLycee lycee =new InitLycee("Batcham");
         //cldao.MatiereValide("MATH", "TleC");
         //eldao.findElevebyNom("mbut");
         // System.out.println(servcla.findBylibele("PC"));
@@ -113,7 +127,7 @@ public class TestService {
         //servnat.create(nat);
         //  serveleve.create(el,"13/14","Cameroun","PC");
         // servmat.create(mat);
-        //  servseq.create(sq, "1er-trimestre", 1L);
-        //   servnote.create(n, "07v721", "sequence3", "MATH",1L);
+         // servseq.create(sq, "1er-trimestre", 1L);
+         
     }
 }

@@ -4,68 +4,75 @@
  */
 package com.lateu.projet.lycee.projection;
 
-import com.lateu.projet.lycee.entities.Classe;
-import com.lateu.projet.lycee.entities.Eleve;
-import com.lateu.projet.lycee.entities.Matiere;
-import com.lateu.projet.lycee.entities.Notes;
+import com.lateu.projet.lycee.entities.MaClaCoef;
 
 /**
  *
  * @author richardlateu
  */
 public class PV {
-    private Eleve eleve;
-    private Notes note;
-    private Matiere matiere;
-     private Classe classe;
+   // private String eleve;
+    private double note;
+    private String matiere;
+    // private String classe;
+     private MaClaCoef maClaCoef;
+     private double note_coef;
+     
     public PV() {
     }
 
-    public Matiere getMatiere() {
-        return matiere;
-    }
-
-    public PV(Eleve eleve, Notes note, Matiere matiere, Classe classe) {
-        this.eleve = eleve;
+    public PV(double note, String matiere, MaClaCoef maClaCoef, double note_coef) {
         this.note = note;
         this.matiere = matiere;
-        this.classe = classe;
+        this.maClaCoef = maClaCoef;
+        this.note_coef = note_coef;
     }
 
-    public void setMatiere(Matiere matiere) {
-        this.matiere = matiere;
-    }
+   
 
-  
-    public Eleve getEleve() {
-        return eleve;
-    }
-
-  
-    public void setEleve(Eleve eleve) {
-        this.eleve = eleve;
-    }
-
-    public Notes getNote() {
+ 
+    public double getNote() {
         return note;
     }
 
-    public void setNote(Notes note) {
+    public void setNote(double note) {
         this.note = note;
     }
 
-    public Classe getClasse() {
-        return classe;
+    public String getMatiere() {
+        return matiere;
     }
 
-    public void setClasse(Classe classe) {
-        this.classe = classe;
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
+
+   
+    public MaClaCoef getMaClaCoef() {
+        return maClaCoef;
+    }
+
+    public void setMaClaCoef(MaClaCoef maClaCoef) {
+        this.maClaCoef = maClaCoef;
     }
 
     @Override
     public String toString() {
-        return "EleveNotes{"+"matricule= " +eleve.getMatricule()+ ", nom=" + eleve.getNom() +", prenom= "+eleve.getPrenom()+ ", matiere="+matiere.getIntitule()+", note=" + note.getNote() +'}';
+        return "PV{" + "note=" + note + ", matiere=" + matiere + ", maClaCoef=" + maClaCoef + '}';
     }
+
+    public double getNote_coef() {
+        return note_coef;
+    }
+
+    public void setNote_coef(double note_coef) {
+        this.note_coef = note_coef;
+    }
+
+    
+
+   
+   
 
    
     

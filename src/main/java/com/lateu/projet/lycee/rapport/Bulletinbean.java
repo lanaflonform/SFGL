@@ -4,34 +4,33 @@
  */
 package com.lateu.projet.lycee.rapport;
 
+import com.lateu.projet.lycee.Enum.Cycle;
 import com.lateu.projet.lycee.entities.AnneeScolaire;
 import com.lateu.projet.lycee.entities.Classe;
 import com.lateu.projet.lycee.entities.Eleve;
+import com.lateu.projet.lycee.entities.MaClaCoef;
+import com.lateu.projet.lycee.entities.Matiere;
+import com.lateu.projet.lycee.projection.PV;
 import com.lateu.projet.lycee.projection.ReportEntry;
 import com.lateu.projet.lycee.service.ServiceAnneeScolaire;
 import com.lateu.projet.lycee.service.ServiceClasse;
 import com.lateu.projet.lycee.service.ServiceEleve;
 import com.lateu.projet.lycee.service.ServiceException;
+import com.lateu.projet.lycee.service.ServiceMatiere;
 import com.lowagie.text.BadElementException;
-import com.lowagie.text.Cell;
-import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
-import com.lowagie.text.Table;
-import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -57,12 +56,22 @@ public class Bulletinbean {
     private ServiceClasse serviceClasse;
     @ManagedProperty(value = "#{ServiceAnneeScolaire}")
     private ServiceAnneeScolaire serviceAnneeScolaire;
+    @ManagedProperty(value = "#{ServiceMatiere}")
+    private ServiceMatiere serviceMatiere;
+    private List<Matiere> matieres = new ArrayList<Matiere>();
     private List<Classe> classes = new ArrayList<Classe>();
-     private List<Eleve> eleves=new ArrayList<Eleve>();
+    private List<Eleve> eleves = new ArrayList<Eleve>();
     private List<AnneeScolaire> anneeScolaires = new ArrayList<AnneeScolaire>();
+    List<PV> listeLevel1;
+    List<PV> listeLevel2;
+    List<PV> listeLevel3;
+    private PV pvIntry = new PV();
+    private MaClaCoef mcc = new MaClaCoef();
     private ServletOutputStream output;
-    private String codeClasse;
+    private Long idClasse;
     private String codeAnnee;
+    private List<Cycle> cycles=new  ArrayList<Cycle>();
+    private Cycle cycleSelected;
     private Color bg = Color.WHITE;
     private static final Font catFont = new Font(Font.TIMES_ROMAN, 8, Font.BOLD);
     private static final Font font = new Font(Font.TIMES_ROMAN, 6, Font.BOLD);
@@ -148,11 +157,11 @@ public class Bulletinbean {
     private PdfPTable Identification(Eleve e) throws ServiceException, ServiceException, ServiceException, DocumentException {
 
         PdfPTable head = new PdfPTable(1);
-        PdfPCell cell1 = new PdfPCell(new Phrase("Nom et Prenom: "+e.getNom()+"-"+e.getPrenom(), catFont));
-        PdfPCell cell2 = new PdfPCell(new Phrase("Né le "+e.getDateNais()+"à "+"////////////", catFont));
-        PdfPCell cell3 = new PdfPCell(new Phrase("Redoublant: "+e.getRedoublant()));
-      PdfPCell cell0 = new PdfPCell(new Phrase("", catFont));
-      cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
+        PdfPCell cell1 = new PdfPCell(new Phrase("Nom et Prenom: " + e.getNom() + "-" + e.getPrenom(), catFont));
+        PdfPCell cell2 = new PdfPCell(new Phrase("Né le " + e.getDateNais() + " à " + "------", catFont));
+        PdfPCell cell3 = new PdfPCell(new Phrase("Redoublant: " + e.getRedoublant()));
+        PdfPCell cell0 = new PdfPCell(new Phrase("", catFont));
+        cell0.setHorizontalAlignment(Element.ALIGN_LEFT);
         cell0.setBorderColor(bg);
         cell1.setHorizontalAlignment(Element.ALIGN_LEFT);
         cell1.setBorderColor(bg);
@@ -160,7 +169,7 @@ public class Bulletinbean {
         cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
         cell2.setBorderColor(bg);
         head.addCell(cell2);
-        
+
         cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
         cell3.setBorderColor(bg);
         head.addCell(cell3);
@@ -177,8 +186,8 @@ public class Bulletinbean {
      * @throws ServiceException
      * @throws DocumentException
      */
-    public PdfPTable PremierGroupe(String codeClasse, String level) throws ServiceException, DocumentException {
-        PdfPTable table2 = new PdfPTable(4);
+    public PdfPTable Groupe(List<PV> l) throws ServiceException, DocumentException {
+        PdfPTable table2 = new PdfPTable(6);
 
         PdfPCell cell1 = new PdfPCell(new Phrase("Enseignant", catFont));
         cell1.setBackgroundColor(Color.GRAY);
@@ -194,79 +203,16 @@ public class Bulletinbean {
         cell4.setBackgroundColor(Color.GRAY);
         table2.addCell(cell4);
 
-        List<ReportEntry> l = serviceEleve.maSectionBulletin(codeClasse, level);
-        for (ReportEntry reportEntry : l) {
-            ajouterLingne(table2, reportEntry);
+        PdfPCell cell5 = new PdfPCell(new Phrase("NotexCoef", catFont));
+        cell5.setBackgroundColor(Color.GRAY);
+        table2.addCell(cell5);
 
-        }
-
-        return table2;
-
-    }
-
-    /**
-     *
-     * @param codeClasse
-     * @param level
-     * @return un tableau contenant les matieres du second groupe d'un bulletin
-     * @throws ServiceException
-     * @throws DocumentException
-     */
-    public PdfPTable DeuxiemeGroupe(String codeClasse, String level) throws ServiceException, DocumentException {
-        PdfPTable table2 = new PdfPTable(4);
-
-        PdfPCell cell1 = new PdfPCell(new Phrase("Enseignant", catFont));
-        cell1.setBackgroundColor(Color.GRAY);
-        table2.addCell(cell1);
-        PdfPCell cell2 = new PdfPCell(new Phrase("Matiére", catFont));
-        cell2.setBackgroundColor(Color.GRAY);
-        table2.addCell(cell2);
-
-        PdfPCell cell3 = new PdfPCell(new Phrase("Note", catFont));
-        cell3.setBackgroundColor(Color.GRAY);
-        table2.addCell(cell3);
-        PdfPCell cell4 = new PdfPCell(new Phrase("Coéficient", catFont));
-        cell4.setBackgroundColor(Color.GRAY);
-        table2.addCell(cell4);
-
-        List<ReportEntry> l = serviceEleve.maSectionBulletin(codeClasse, level);
-        for (ReportEntry reportEntry : l) {
-            ajouterLingne(table2, reportEntry);
-
-        }
-
-        return table2;
-
-    }
-
-    /**
-     *
-     * @param codeClasse
-     * @param level
-     * @return tableau des matiere trancversales d'un bulletin
-     * @throws ServiceException
-     * @throws DocumentException
-     */
-    public PdfPTable AutreGroupe(String codeClasse, String level) throws ServiceException, DocumentException {
-        PdfPTable table2 = new PdfPTable(4);
-
-        PdfPCell cell1 = new PdfPCell(new Phrase("Enseignant", catFont));
-        cell1.setBackgroundColor(Color.GRAY);
-        table2.addCell(cell1);
-        PdfPCell cell2 = new PdfPCell(new Phrase("Matiére", catFont));
-        cell2.setBackgroundColor(Color.GRAY);
-        table2.addCell(cell2);
-
-        PdfPCell cell3 = new PdfPCell(new Phrase("Note", catFont));
-        cell3.setBackgroundColor(Color.GRAY);
-        table2.addCell(cell3);
-        PdfPCell cell4 = new PdfPCell(new Phrase("Coéficient", catFont));
-        cell4.setBackgroundColor(Color.GRAY);
-        table2.addCell(cell4);
-
-        List<ReportEntry> l = serviceEleve.maSectionBulletin(codeClasse, level);
-        for (ReportEntry reportEntry : l) {
-            ajouterLingne(table2, reportEntry);
+        PdfPCell cell6 = new PdfPCell(new Phrase("Appreciation", catFont));
+        cell6.setBackgroundColor(Color.GRAY);
+        table2.addCell(cell6);
+        // List<ReportEntry> l = serviceEleve.maSectionBulletin(codeClasse, level);
+        for (PV pv : l) {
+            ajouterLingne(table2, pv);
 
         }
 
@@ -290,12 +236,72 @@ public class Bulletinbean {
         PdfWriter.getInstance(document, getOutput());
         document.open();
         int i;
-        eleves=serviceClasse.FindByClasse(codeClasse, codeAnnee);
-       // for (i = 0; i < eleves.size(); i++) {
+        String level;
+        matieres = serviceMatiere.findMatiereByClasseID(idClasse);
 
-            for (Eleve eleve : eleves) {
-                
-           
+
+
+        eleves = serviceClasse.FindByClasse(idClasse, codeAnnee);
+        
+
+        for (Eleve eleve : eleves) {
+            listeLevel1 = new ArrayList<PV>();
+            listeLevel2 = new ArrayList<PV>();
+            listeLevel3 = new ArrayList<PV>();
+
+            for (Matiere m : matieres) {
+
+                List< PV> lstepv = serviceEleve.GeneralPV(eleve.getMatricule(), m.getId());
+                if (lstepv.isEmpty()) {
+                    System.out.println("++++++++++++++++++++++++++++++++++++++");
+                    System.out.println("++++++++++++" +cycleSelected.ordinal()+ "++++++++++++");
+
+                    mcc = serviceEleve.getLevelMat(m.getId());
+                    level = mcc.getLevelMatiere();
+                    pvIntry = new PV(0.0, m.getIntitule(), mcc, 0.0);
+                    if (level.equals("1")) {
+                        listeLevel1.add(pvIntry);
+                    }
+
+                    if (level.equals("2")) {
+                        listeLevel2.add(pvIntry);
+                    }
+
+                    if (level.equals("3")) {
+                        listeLevel3.add(pvIntry);
+                    }
+
+                }
+
+                for (PV pv : lstepv) {
+                    if (pv != null) {
+
+
+                        if (pv.getMaClaCoef().getLevelMatiere().equals("1")) {
+                            listeLevel1.add(pv);
+                        }
+
+
+                        if (pv.getMaClaCoef().getLevelMatiere().equals("2")) {
+                            listeLevel2.add(pv);
+                        }
+
+
+                        if (pv.getMaClaCoef().getLevelMatiere().equals("3")) {
+                            listeLevel3.add(pv);
+                        }
+
+                    } else {
+                    }
+                }
+
+
+
+
+
+
+            }
+
             document.add(EnteteBuletin());
 
             document.add(Banniere());
@@ -303,20 +309,20 @@ public class Bulletinbean {
             Paragraph p = new Paragraph(new Phrase("MATIERE DU PREMIER GROUPE", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
             p.setAlignment(Element.ALIGN_CENTER);
             document.add(p);
-            document.add(PremierGroupe("PC", "1"));
+            document.add(Groupe(listeLevel1));
 
             Paragraph p1 = new Paragraph(new Phrase("MATIERE DU DEUXIEME GROUPE", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
             p1.setAlignment(Element.ALIGN_CENTER);
             document.add(p1);
 
-            document.add(PremierGroupe("PC", "2"));
+            document.add(Groupe(listeLevel2));
 
             Paragraph p3 = new Paragraph(new Phrase("MATIERE DU TROISIEME GROUPE", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
             p3.setAlignment(Element.ALIGN_CENTER);
             document.add(p3);
 
 
-            document.add(PremierGroupe("PC", "3"));
+            document.add(Groupe(listeLevel3));
             document.newPage();
 
         }
@@ -333,23 +339,28 @@ public class Bulletinbean {
      * @param entree
      * @throws DocumentException
      */
-    public void ajouterLingne(PdfPTable table2, ReportEntry entree) throws DocumentException {
+    public void ajouterLingne(PdfPTable table2, PV pv) throws DocumentException {
         PdfPCell cell1 = new PdfPCell(new Phrase("lateu-richard ", catFont));
         //cell1.setBackgroundColor(Color.GRAY);
         table2.addCell(cell1);
 
 
-        PdfPCell cell2 = new PdfPCell(new Phrase(entree.getMatiere().getIntitule(), catFont));
+        PdfPCell cell2 = new PdfPCell(new Phrase(pv.getMatiere(), catFont));
         //cell2.setBackgroundColor(Color.GRAY);
         table2.addCell(cell2);
 
-        PdfPCell cell3 = new PdfPCell(new Phrase("0.0", catFont));
+        PdfPCell cell3 = new PdfPCell(new Phrase(pv.getNote() + "", catFont));
         // cell3.setBackgroundColor(Color.GRAY);
         table2.addCell(cell3);
 
-        PdfPCell cell4 = new PdfPCell(new Phrase(entree.getMatClaCoef().toString(), catFont));
-        // cell4.setBackgroundColor(Color.GRAY);
+        PdfPCell cell4 = new PdfPCell(new Phrase(pv.getMaClaCoef().getCoeficient() + "", catFont));
         table2.addCell(cell4);
+
+        PdfPCell cell5 = new PdfPCell(new Phrase(pv.getNote_coef() + "", catFont));
+        table2.addCell(cell5);
+
+        PdfPCell cell6 = new PdfPCell(new Phrase("Not-yet", catFont));
+        table2.addCell(cell6);
 
     }
 
@@ -385,14 +396,6 @@ public class Bulletinbean {
         this.classes = classe;
     }
 
-    public String getCodeClasse() {
-        return codeClasse;
-    }
-
-    public void setCodeClasse(String codeClasse) {
-        this.codeClasse = codeClasse;
-    }
-
     public List<AnneeScolaire> getAnneeScolaires() throws ServiceException {
         return anneeScolaires = serviceAnneeScolaire.findAll();
     }
@@ -415,5 +418,71 @@ public class Bulletinbean {
 
     public void setCodeAnnee(String codeAnnee) {
         this.codeAnnee = codeAnnee;
+    }
+
+    public ServiceMatiere getServiceMatiere() {
+        return serviceMatiere;
+    }
+
+    public void setServiceMatiere(ServiceMatiere serviceMatiere) {
+        this.serviceMatiere = serviceMatiere;
+    }
+
+    public List<Matiere> getMatieres() {
+        return matieres;
+    }
+
+    public void setMatieres(List<Matiere> matieres) {
+        this.matieres = matieres;
+    }
+
+    public List<Eleve> getEleves() {
+        return eleves;
+    }
+
+    public void setEleves(List<Eleve> eleves) {
+        this.eleves = eleves;
+    }
+
+    public PV getPvIntry() {
+        return pvIntry;
+    }
+
+    public void setPvIntry(PV pvIntry) {
+        this.pvIntry = pvIntry;
+    }
+
+    public MaClaCoef getMcc() {
+        return mcc;
+    }
+
+    public void setMcc(MaClaCoef mcc) {
+        this.mcc = mcc;
+    }
+
+    public Long getIdClasse() {
+        return idClasse;
+    }
+
+    public void setIdClasse(Long idClasse) {
+        this.idClasse = idClasse;
+    }
+
+    public List<Cycle> getCycles() {
+        cycles.add(Cycle.Premiere_Cycle);
+        cycles.add(Cycle.Second_Cycle);
+        return cycles;
+    }
+
+    public void setCycles(List<Cycle> cycles) {
+        this.cycles = cycles;
+    }
+
+    public Cycle getCycleSelected() {
+        return cycleSelected;
+    }
+
+    public void setCycleSelected(Cycle cycleSelected) {
+        this.cycleSelected = cycleSelected;
     }
 }

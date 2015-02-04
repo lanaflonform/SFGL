@@ -49,9 +49,9 @@ public class ClassedaoImpl extends GenericDao<Classe, Long> implements Classedao
     }
 
     @Override
-    public List<Eleve> findElevebyClasse(String codeClasse, String codeAnnee) throws DataAccessException {
+    public List<Eleve> findElevebyClasse(Long idClasse, String codeAnnee) throws DataAccessException {
         return getManager().createNamedQuery("findByClasseAY")
-                .setParameter("codeClasse", codeClasse)
+                .setParameter("idClasse", idClasse)
                 .setParameter("codeAnnee", codeAnnee)
                 .getResultList();
 

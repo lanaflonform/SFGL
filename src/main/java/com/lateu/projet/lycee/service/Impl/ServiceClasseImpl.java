@@ -46,6 +46,7 @@ private Classedao classedao;
     * @throws ServiceException 
     * cette methode determine le coef total pour une classe donnee
     */
+@Override
     public Long TotalCoeficient(String nomClasse) throws ServiceException {
          Classe cl=new Classe();
     try {
@@ -101,9 +102,9 @@ private Classedao classedao;
     }
 
     @Override
-    public List<Eleve> FindByClasse(String codeClasse, String codeAnnee) {
+    public List<Eleve> FindByClasse(Long idClasse, String codeAnnee) {
     try {
-        return classedao.findElevebyClasse(codeClasse, codeAnnee);
+        return classedao.findElevebyClasse(idClasse, codeAnnee);
     } catch (DataAccessException ex) {
         Logger.getLogger(ServiceClasseImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -112,11 +113,13 @@ private Classedao classedao;
 
     @Override
     public Classe findById(Long id) throws ServiceException {
+      //  Classe c=null;
     try {
         return classedao.findById(id);
     } catch (DataAccessException ex) {
-        Logger.getLogger(ServiceClasseImpl.class.getName()).log(Level.SEVERE, null, ex);
+        return new Classe("erreur libelle");
+        //Logger.getLogger(ServiceClasseImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
-    return null;
+   // return null;
     }
 }

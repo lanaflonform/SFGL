@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,7 +28,7 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "findClasebycode", query = "select p from Classe p where p.code=:code"),
    //   @NamedQuery(name = "SommeCoef", query = "select mcc from MaClaCoef mcc , Classe cl join cl.maclacoef cl_mcc where (cl.id=cl_mcc.id)and(cl.id=mcc.classe)and(cl.libele=:libele)"),
   //  @NamedQuery(name = "MatiereValide", query = "select c  from Classe c,MaClaCoef mcc, Matiere m join c.maclacoef c_mcc join m.maclacoef m_mcc where (m.intitule=:matiere)and(c.libele=:classe)and(c.id=c_mcc.id)and(mcc.classe=mcc.matiere)"),
-     @NamedQuery(name = "findByClasseAY", query = "select e  from Classe c,Eleve e, AnneeScolaire an join e.classe e_cc join e.annee e_an where (c.id=e_cc.id)and(an.id=e_an.id)and(c.code=:codeClasse)and(an.code=:codeAnnee)"),  
+     @NamedQuery(name = "findByClasseAY", query = "select e  from Classe c,Eleve e, AnneeScolaire an join e.classe e_cc join e.annee e_an where (c.id=e_cc.id)and(an.id=e_an.id)and(c.id=:idClasse)and(an.code=:codeAnnee)"),  
 
 })
 public class Classe implements Serializable {
@@ -40,9 +42,8 @@ public class Classe implements Serializable {
     @OneToMany(mappedBy ="classe")
     private List<EmploiDeTemps> emploiDeTempses=new ArrayList<EmploiDeTemps>();
     
-    /**
-     * 
-     */
+   @ManyToOne(fetch = FetchType.EAGER)
+    private ClasseLevel classeLevel;
    
    @Column(unique = true,nullable = false)
     private String libele;

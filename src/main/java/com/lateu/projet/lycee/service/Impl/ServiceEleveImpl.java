@@ -15,7 +15,9 @@ import com.lateu.projet.lycee.dao.Observationdao;
 import com.lateu.projet.lycee.entities.AnneeScolaire;
 import com.lateu.projet.lycee.entities.Classe;
 import com.lateu.projet.lycee.entities.Eleve;
+import com.lateu.projet.lycee.entities.MaClaCoef;
 import com.lateu.projet.lycee.entities.Nationalite;
+import com.lateu.projet.lycee.projection.PV;
 import com.lateu.projet.lycee.projection.ReportEntry;
 import com.lateu.projet.lycee.service.ServiceEleve;
 import com.lateu.projet.lycee.service.ServiceException;
@@ -181,6 +183,30 @@ private AnneeScolairedao anneeScoaliredao;
         Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
     return null;
+    }
+
+    @Override
+    public   List<PV> GeneralPV(String matricule,Long idMatiere) throws ServiceException {
+    try {
+        return elevedao.GeneralPV(matricule,idMatiere);
+    } catch (DataAccessException ex) {
+        return null;
+       // Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+    }
+   // return null;
+    }
+    
+  
+    @Override
+    public MaClaCoef getLevelMat(Long idMatiere) throws ServiceException {
+    try {
+        return elevedao.getLevelMatiere(idMatiere);
+    } catch (DataAccessException ex) {
+        Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+  
+    
     }
 
    

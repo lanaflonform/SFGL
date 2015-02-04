@@ -115,6 +115,8 @@ public class MaClaCoef implements Serializable {
 
     @Override
     public String toString() {
-        return "" + coeficient + "";
+        return "MaClaCoef{" + "id=" + id + ", matiere=" + matiere + ", professeur=" + professeur + ", classe=" + classe + ", coeficient=" + coeficient + ", quotahoraire=" + quotahoraire + ", levelMatiere=" + levelMatiere + '}';
     }
+
+   
 }

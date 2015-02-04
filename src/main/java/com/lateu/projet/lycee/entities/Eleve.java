@@ -25,8 +25,10 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "findElevebyMatricule", query = "select p from Eleve p where p.matricule=:matricule"),
     @NamedQuery(name = "rechercheMaClasse", query = "select c from Classe c,AnneeScolaire a,Eleve e join e.annee e_a join e.classe e_c where (e.matricule=:matricule)and(a.id=e_a.id)and(c.id=e_c.id)"),
     @NamedQuery(name = "findElevebyNom", query = "select p from Eleve p where p.nom=:nom"),
-    //@NamedQuery(name = "GeneralPV", query = "select new com.lateu.projet.lycee.projection.PV(eleve,note,matiere,classe) from Eleve eleve,Classe classe,Matiere matiere,Notes note join note.eleve nt_el join eleve.classe el_cl join matiere.note mat_not where (eleve.id=nt_el.id) and (matiere.id=mat_not.id )and(classe.id=el_cl.id)and (classe.libele=:classe)"),
- @NamedQuery(name = "SectionBulletin", query ="select new com.lateu.projet.lycee.projection.ReportEntry(mat, mcc, cl) from Matiere mat,MaClaCoef mcc,Classe cl  join mcc.classe mcc_cl join mcc.matiere mcc_mat where(cl.id=mcc_cl.id)and(mcc_mat.id=mat.id)and(cl.code=:codeClasse)and(mcc.levelMatiere=:levelmat)")
+
+    @NamedQuery(name = "GeneralPV", query = "select new com.lateu.projet.lycee.projection.PV(n.note,matiere.intitule,matClaCoef,(n.note)*(matClaCoef.coeficient)) from Eleve e,Matiere matiere,Notes n,MaClaCoef matClaCoef join n.eleve nt_el join n.matiere not_mat join matClaCoef.matiere mcc_mat where (e.id=nt_el.id)and(matiere.id=not_mat.id)and(mcc_mat.id=matiere.id)and(matiere.id=:idmat)and(e.matricule=:matricule)"),
+    @NamedQuery(name = "SectionBulletin", query = "select new com.lateu.projet.lycee.projection.ReportEntry(mat, mcc, cl) from Matiere mat,MaClaCoef mcc,Classe cl  join mcc.classe mcc_cl join mcc.matiere mcc_mat where(cl.id=mcc_cl.id)and(mcc_mat.id=mat.id)and(cl.code=:codeClasse)and(mcc.levelMatiere=:levelmat)"),
+    @NamedQuery(name = "getLevelMatiere", query = "select mcc from Matiere mat,MaClaCoef mcc join mcc.matiere mcc_mat where(mcc_mat.id=mat.id)and(mat.id=:idmat)")
 })
 public class Eleve extends Personne implements Serializable {
 
@@ -170,4 +172,13 @@ public class Eleve extends Personne implements Serializable {
     public void setConvocation(List<Observation> convocation) {
         this.convocation = convocation;
     }
+
+    @Override
+    public String toString() {
+        return "Eleve{" + "nationalite=" + nationalite +  ", classe=" + classe + ", annee=" + annee +  ", contactPrarent=" + contactPrarent + ", nomPere=" + nomPere + ", nomMere=" + nomMere + ", quartier=" + quartier + ", redoublant=" + redoublant + '}';
+    }
+    
+    
+    
+    
 }
