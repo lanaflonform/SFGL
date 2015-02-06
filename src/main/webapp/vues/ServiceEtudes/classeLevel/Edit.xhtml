@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClasseLevelEditDlg" widgetVar="ClasseLevelEditDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.EditClasseLevelTitle}">
+
+            <h:form id="ClasseLevelEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" rendered="#{classeLevelController.selected != null}">
+
+                        <h:outputLabel value="#{myBundle.EditClasseLevelLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{classeLevelController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditClasseLevelLabel_cycleEtude}" for="cycleEtude" />
+                        <p:inputText id="cycleEtude" value="#{classeLevelController.selected.cycleEtude}" title="#{myBundle.EditClasseLevelTitle_cycleEtude}" />
+
+                        <p:outputLabel value="#{myBundle.EditClasseLevelLabel_niveau}" for="niveau" />
+                        <p:inputText id="niveau" value="#{classeLevelController.selected.niveau}" title="#{myBundle.EditClasseLevelTitle_niveau}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{classeLevelController.save}" value="#{myBundle.Save}" update="display,:ClasseLevelListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ClasseLevelEditDialog);"/>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ClasseLevelEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

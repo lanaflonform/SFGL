@@ -12,8 +12,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
    
     <bean id="Elevedao" class="com.lateu.projet.lycee.dao.Impl.ElevedaoImpl"/>
     <bean id="AnneeScolairedao" class="com.lateu.projet.lycee.dao.Impl.AnneeScolairedaoImpl"/>
-    <bean id="Professeurdao" class="com.lateu.projet.lycee.dao.Impl.ProfesseurdaoImpl"/>
-   
+    <bean id="Professeurdao" class="com.lateu.projet.lycee.dao.Impl.ProfesseurdaoImpl"/>  
     <bean id="Nationalitedao" class="com.lateu.projet.lycee.dao.Impl.NationalitedaoImpl"/>
     <bean id="FraisDiverdao" class="com.lateu.projet.lycee.dao.Impl.FraisDiverdaoImpl"/>
     <bean id="Classedao" class="com.lateu.projet.lycee.dao.Impl.ClassedaoImpl"/>
@@ -25,9 +24,9 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <bean id="FraisCumuledao" class="com.lateu.projet.lycee.dao.Impl.FraisCumuledaoImpl"/>
     <bean id="MaClaCoefdao" class="com.lateu.projet.lycee.dao.Impl.MaClaCoefdaoImpl"/>
     <bean id="InitLyceedao" class="com.lateu.projet.lycee.dao.Impl.InitLyceedaoImpl"/>
-  
     <bean id="roledao" class="com.lateu.projet.lycee.dao.Impl.roledaoImpl"/>
     <bean id="EmploiDeTempsdao" class="com.lateu.projet.lycee.dao.Impl.EmploiDeTempsdaoImpl"/>
+        <bean id="ClasseLeveldao" class="com.lateu.projet.lycee.dao.Impl.ClasseLeveldaoImpl"/>
 
     <bean id="ServiceEleve" class="com.lateu.projet.lycee.service.Impl.ServiceEleveImpl">
         <property name="elevedao" ref="Elevedao"/>
@@ -105,9 +104,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="motifdao" ref="Motifdao"/>
         <property name="fraisCumuledao" ref="FraisCumuledao"/>
     </bean>
-    
-    
-            
+             
     <bean id="ServiceFraisCumule" class="com.lateu.projet.lycee.service.Impl.ServiceFraisCumuleImpl">
         <property name="fraisCumuledao" ref="FraisCumuledao"/>
     </bean> 
@@ -118,6 +115,11 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="matieredao" ref="Matieredao"/>
     </bean> 
 
+
+          
+    <bean id="ServiceClasseLevel" class="com.lateu.projet.lycee.service.Impl.ServiceClasseLevelImpl">
+        <property name="classeLeveldao" ref="ClasseLeveldao"/>
+    </bean> 
     <!-- la source de donnéees DBCP -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
         <property name="username" value="root"/>

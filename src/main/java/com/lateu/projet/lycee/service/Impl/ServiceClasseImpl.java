@@ -5,8 +5,8 @@
 package com.lateu.projet.lycee.service.Impl;
 
 import com.douwe.generic.dao.DataAccessException;
+import com.lateu.projet.lycee.dao.ClasseLeveldao;
 import com.lateu.projet.lycee.dao.Classedao;
-import com.lateu.projet.lycee.entities.AnneeScolaire;
 import com.lateu.projet.lycee.entities.Classe;
 import com.lateu.projet.lycee.entities.Eleve;
 import com.lateu.projet.lycee.entities.MaClaCoef;
@@ -26,11 +26,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ServiceClasseImpl implements ServiceClasse{
 private Classedao classedao;
+private ClasseLeveldao classeLeveldao;
 /**
  * cette methode enregistre une nouvelle classe
  * @param classe
  * @throws ServiceException 
  */
+@Override
     public void create(Classe classe) throws ServiceException {
     try {
         classedao.create(classe);
@@ -121,5 +123,13 @@ private Classedao classedao;
         //Logger.getLogger(ServiceClasseImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
    // return null;
+    }
+
+    public ClasseLeveldao getClasseLeveldao() {
+        return classeLeveldao;
+    }
+
+    public void setClasseLeveldao(ClasseLeveldao classeLeveldao) {
+        this.classeLeveldao = classeLeveldao;
     }
 }

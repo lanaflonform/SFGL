@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -19,6 +21,9 @@ import javax.persistence.OneToMany;
  * @author ing-lateu
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findbyCycleId", query = "select p from ClasseLevel p where p.cycleEtude=:idCycle")
+})
 public class ClasseLevel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -70,11 +75,7 @@ public class ClasseLevel implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "com.lateu.projet.lycee.entities.ClasseLevel[ id=" + id + " ]";
-    }
-
+ 
     public String getNiveau() {
         return niveau;
     }
@@ -98,4 +99,12 @@ public class ClasseLevel implements Serializable {
     public void setCycleEtude(Cycle cycleEtude) {
         this.cycleEtude = cycleEtude;
     }
+
+    @Override
+    public String toString() {
+        return "ClasseLevel{" + "id=" + id + ", niveau=" + niveau + ", cycleEtude=" + cycleEtude + '}';
+    }
+    
+    
+    
 }

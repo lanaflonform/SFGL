@@ -36,8 +36,13 @@
 
                     <p:menuitem value="Professeur" url="/vues/ServiceEtudes/professeur/indexprofesseur.xhtml" /> 
 
+                      <p:submenu   label="Classe" > 
+                         
+                            <p:menuitem value="#{msg.classe}" url="/vues/ServiceEtudes/classe/indexClasse.xhtml" />  
+                            <p:menuitem value="Niveau" url="/vues/ServiceEtudes/classeLevel/index.xhtml" />  
+                        </p:submenu>   
 
-                    <p:menuitem value="#{msg.classe}" url="/vues/ServiceEtudes/classe/indexClasse.xhtml" /> 
+                
 
                     <p:menuitem value="#{msg.matiere}" url="/vues/ServiceEtudes/matiere/indexMatiere.xhtml" /> 
 

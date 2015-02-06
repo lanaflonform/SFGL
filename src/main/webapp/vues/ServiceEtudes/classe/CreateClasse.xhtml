@@ -15,6 +15,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{classebean.classeselected != null}">
 
+                        
                         <p:outputLabel value="#{msg.code}" for="code" />
                         <p:inputText id="code" value="#{classebean.classeselected.code}" title="#{myBundle.CreateClasseTitle_code}" required="true" requiredMessage="#{myBundle.CreateClasseRequiredMessage_code}"/>
 

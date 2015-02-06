@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClasseLevelCreateDlg" widgetVar="ClasseLevelCreateDialog" modal="true" resizable="false" appendToBody="true" header="#{myBundle.CreateClasseLevelTitle}">
+
+            <h:form id="ClasseLevelCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{classeLevelBean.classeLevelSelected != null}">
+                        <h:outputLabel value="Cycle" for="cy" />
+                        <p:selectOneMenu id="cy" value="#{classeLevelBean.cycleSelected}"   >
+                            <f:selectItems value="#{classeLevelBean.cycles}" /> 
+                        </p:selectOneMenu> 
+                        
+                        <p:outputLabel value="niveau" for="niveau" />
+                        <p:inputText id="niveau" value="#{classeLevelBean.niveau}"  />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{classeLevelBean.save()}" value="#{msg.Save}" update="display,:ClasseLevelListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ClasseLevelCreateDialog);"/>
+                    <p:commandButton value="#{msg.Cancel}" onclick="ClasseLevelCreateDialog.hide();"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
