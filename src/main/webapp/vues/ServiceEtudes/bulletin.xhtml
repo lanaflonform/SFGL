@@ -14,8 +14,16 @@
                      <h:outputLabel value="Cycle" for="cy" />
                      <p:selectOneMenu id="cy" value="#{bulletinbean.cycleSelected}"   >
                          <f:selectItems value="#{bulletinbean.cycles}" /> 
+                         <p:ajax update="nv"  listener="#{bulletinbean.handleCycleChange()}"/>
                     </p:selectOneMenu> 
                     
+                     
+                      <h:outputLabel value="Niveau" for="nv" />
+                      <p:selectOneMenu id="nv" value="#{bulletinbean.idNiveau}"   >
+                          <f:selectItems value="#{bulletinbean.classeLevels}" var="clas" itemValue="#{clas.id}" itemLabel="#{clas.niveau}"/> 
+                          <p:ajax update="cl"  listener="#{bulletinbean.handleNiveauChange()}"/>
+                      </p:selectOneMenu> 
+                     
                     <h:outputLabel value="Classe" for="cl" />
                     <p:selectOneMenu id="cl" value="#{bulletinbean.idClasse}"   >
                         <f:selectItems value="#{bulletinbean.classes}" var="clas" itemValue="#{clas.id}" itemLabel="#{clas.libele}"/> 

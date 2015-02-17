@@ -86,7 +86,7 @@ public class TestService {
         // Historique h=new Historique(fr.getMontant(),fr);
         //Sequence sq=new Sequence("sequence1");
         Matiere mat = new Matiere("PCT");
-        Notes n = new Notes(15);
+        Notes n = new Notes(15,"bien");
 
 
         //    MaClaCoef coef=new MaClaCoef(2L,"25h");
@@ -102,7 +102,7 @@ public class TestService {
            // System.out.println("===================="+mt.size()); 
         
        
-       // servnote.create(n, "14L2", "seq1", "Chimie",1L);
+        servnote.create(n, "15L2", "seq1", "Mathematique",1L);
         
 //         List<Eleve> elvs= servcla.FindByClasse("PC", "2014/2015");
 //        for (Eleve e : elvs) {

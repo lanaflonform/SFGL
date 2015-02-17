@@ -20,5 +20,6 @@ public interface ServiceClasse {
      Classe findBylibele(String s)throws ServiceException;
      Long TotalCoeficient(String libele)throws ServiceException;
             public  List<Eleve> FindByClasse(Long idClasse,String codeAnnee)throws ServiceException;
+            List<Classe> findByNiveau(Long idNiveau)throws ServiceException;
     
 }

@@ -58,5 +58,16 @@ private ClasseLeveldao classeLeveldao;
     }
     return null;
     }
+
+    @Override
+    public ClasseLevel findbyId(Long c) {
+    try {
+        return classeLeveldao.findById(c);
+    } catch (DataAccessException ex) {
+           return null;
+      //  Logger.getLogger(ServiceClasseLevelImpl.class.getName()).log(Level.SEVERE, null, ex);
+    }
+ 
+    }
     
 }

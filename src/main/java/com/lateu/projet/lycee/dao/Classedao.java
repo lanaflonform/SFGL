@@ -21,5 +21,6 @@ public interface Classedao extends IDao<Classe, Long>{
      Classe MatiereValide(String matiere,String classe)throws DataAccessException;
      List <MaClaCoef> SommeCoef(String classe)throws DataAccessException;
       List<Eleve> findElevebyClasse(Long idClasse,String codeAnnee)throws DataAccessException; 
+       List<Classe> findByNiveau(Long idNiveau)throws DataAccessException; 
     
 }

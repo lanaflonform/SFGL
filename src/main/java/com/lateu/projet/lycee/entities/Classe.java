@@ -26,7 +26,7 @@ import javax.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(name = "findClasebylibele", query = "select p from Classe p where p.libele=:libele"),
     @NamedQuery(name = "findClasebycode", query = "select p from Classe p where p.code=:code"),
-   //   @NamedQuery(name = "SommeCoef", query = "select mcc from MaClaCoef mcc , Classe cl join cl.maclacoef cl_mcc where (cl.id=cl_mcc.id)and(cl.id=mcc.classe)and(cl.libele=:libele)"),
+      @NamedQuery(name = "findByNiveau", query = "select cl from Classe cl where(cl.classeLevel.id=:idNiveau)"),
   //  @NamedQuery(name = "MatiereValide", query = "select c  from Classe c,MaClaCoef mcc, Matiere m join c.maclacoef c_mcc join m.maclacoef m_mcc where (m.intitule=:matiere)and(c.libele=:classe)and(c.id=c_mcc.id)and(mcc.classe=mcc.matiere)"),
      @NamedQuery(name = "findByClasseAY", query = "select e  from Classe c,Eleve e, AnneeScolaire an join e.classe e_cc join e.annee e_an where (c.id=e_cc.id)and(an.id=e_an.id)and(c.id=:idClasse)and(an.code=:codeAnnee)"),  
 
@@ -107,6 +107,14 @@ public class Classe implements Serializable {
     @Override
     public String toString() {
         return "Classe{" + "id=" + id + ", libele=" + libele + '}';
+    }
+
+    public ClasseLevel getClasseLevel() {
+        return classeLevel;
+    }
+
+    public void setClasseLevel(ClasseLevel classeLevel) {
+        this.classeLevel = classeLevel;
     }
 
     

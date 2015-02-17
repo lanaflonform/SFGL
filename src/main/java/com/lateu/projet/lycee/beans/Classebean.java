@@ -16,15 +16,14 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author lateu
  */
 @ManagedBean
-@ViewScoped
-//@RequestScoped
+//@ViewScoped
+@RequestScoped
 public class Classebean implements Serializable{
 
     @ManagedProperty(value = "#{ServiceClasse}")
@@ -44,23 +43,29 @@ public class Classebean implements Serializable{
     }
 
     public void SaveClasse() throws ServiceException {
-
+        classeLevelSelect=serviceClasseLevel.findbyId(idClasseLevel);
+        if(classeLevelSelect!=null){
+            classeselected.setClasseLevel(classeLevelSelect);
         serviceClasse.create(classeselected);
         
-       // System.out.println("----"+ serviceClasseLevel.findbyCycleId(cycleSelected));
-    }
     
-    
-     public void handleCycleChange() {
-        if (cycleSelected!=null) {
-               System.out.println("-----------"+serviceClasseLevel.findbyCycleId(cycleSelected)+"--------"); 
-             classeLevels = serviceClasseLevel.findbyCycleId(cycleSelected);
-        } else {
-            System.out.println("-----------c est bon--------");
-             classeLevels = new ArrayList<ClasseLevel>();
+    }else{
+           System.out.println("----echec car la reference est nulle");
+        
+        
         }
-       
     }
+    
+//     public void handleCycleChange() {
+//        if (cycleSelected!=null) {
+//               System.out.println("-----------"+serviceClasseLevel.findbyCycleId(cycleSelected)+"--------"); 
+//             classeLevels = serviceClasseLevel.findbyCycleId(cycleSelected);
+//        } else {
+//            System.out.println("-----------c est bon--------");
+//             classeLevels = new ArrayList<ClasseLevel>();
+//        }
+//       
+//    }
 
     public ServiceClasse getServiceClasse() {
         return serviceClasse;
@@ -105,8 +110,7 @@ public class Classebean implements Serializable{
     }
 
     public List<ClasseLevel> getClasseLevels() throws ServiceException {
-        return classeLevels ;
-                //= serviceClasseLevel.findAll();
+        return classeLevels= serviceClasseLevel.findAll();
     }
 
     public void setClasseLevels(List<ClasseLevel> classeLevels) {

@@ -5,6 +5,7 @@
 package com.lateu.projet.lycee.projection;
 
 import com.lateu.projet.lycee.entities.MaClaCoef;
+import com.lateu.projet.lycee.entities.Notes;
 
 /**
  *
@@ -12,7 +13,7 @@ import com.lateu.projet.lycee.entities.MaClaCoef;
  */
 public class PV {
    // private String eleve;
-    private double note;
+    private Notes note;
     private String matiere;
     // private String classe;
      private MaClaCoef maClaCoef;
@@ -21,23 +22,22 @@ public class PV {
     public PV() {
     }
 
-    public PV(double note, String matiere, MaClaCoef maClaCoef, double note_coef) {
+    public PV(Notes note, String matiere, MaClaCoef maClaCoef, double note_coef) {
         this.note = note;
         this.matiere = matiere;
         this.maClaCoef = maClaCoef;
         this.note_coef = note_coef;
     }
 
-   
-
- 
-    public double getNote() {
+    public Notes getNote() {
         return note;
     }
 
-    public void setNote(double note) {
+    public void setNote(Notes note) {
         this.note = note;
     }
+
+
 
     public String getMatiere() {
         return matiere;

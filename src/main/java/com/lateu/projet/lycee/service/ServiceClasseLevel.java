@@ -17,5 +17,6 @@ public interface ServiceClasseLevel {
     public void save(ClasseLevel clevel)throws ServiceException;
     public List<ClasseLevel>findbyCycleId(Cycle c);
     public List<ClasseLevel>findAll()throws ServiceException;
+    public ClasseLevel findbyId(Long c);
     
 }

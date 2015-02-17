@@ -8,10 +8,10 @@
 
     <h:form id="ClasseLevelListForm">
 
-        <p:panel header="#{myBundle.ListClasseLevelTitle}">
+        <p:panel header="List des niveau}">
 
-            <p:dataTable id="datalist" value="#{classeLevelController.items}" var="item"
-                         selectionMode="single" selection="#{classeLevelController.selected}"
+            <p:dataTable id="datalist" value="#{classeLevelBean.classeLevels}" var="item"
+                         selectionMode="single" selection="#{classeLevelBean.classeLevelSelected}"
                          rowKey="#{item.id}"
                          paginator="true"
                          rows="10"

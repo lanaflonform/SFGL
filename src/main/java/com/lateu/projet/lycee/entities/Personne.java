@@ -21,32 +21,37 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public  class Personne implements Serializable {
+public class Personne implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+    @Column(nullable = false)
     private String nom;
     private String prenom;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateNais;
+    @Column(nullable = false)
+    private String lieuxNais;
     private String sexe;
-    @Column(unique = true,nullable = false)
-     private String matricule;
+    @Column(unique = true, nullable = false)
+    private String matricule;
+    @Column(nullable = false)
     private String statut;
+
     public Personne() {
     }
 
-    public Personne(String nom, String prenom, Date dateNais, String sexe, String matricule, String statut) {
+    public Personne(String nom, String prenom, Date dateNais, String lieuxNais, String sexe, String matricule, String statut) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNais = dateNais;
+        this.lieuxNais = lieuxNais;
         this.sexe = sexe;
         this.matricule = matricule;
         this.statut = statut;
     }
-
-  
 
     public String getMatricule() {
         return matricule;
@@ -56,14 +61,10 @@ public  class Personne implements Serializable {
         this.matricule = matricule;
     }
 
-  
-
-
     public String getNom() {
         return nom;
     }
 
-   
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -99,8 +100,7 @@ public  class Personne implements Serializable {
     public void setSexe(String sexe) {
         this.sexe = sexe;
     }
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -109,5 +109,11 @@ public  class Personne implements Serializable {
         this.id = id;
     }
 
-  
+    public String getLieuxNais() {
+        return lieuxNais;
+    }
+
+    public void setLieuxNais(String lieuxNais) {
+        this.lieuxNais = lieuxNais;
+    }
 }

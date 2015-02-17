@@ -56,4 +56,11 @@ public class ClassedaoImpl extends GenericDao<Classe, Long> implements Classedao
                 .getResultList();
 
     }
+
+    @Override
+    public List<Classe> findByNiveau(Long idNiveau) throws DataAccessException {
+    return getManager().createNamedQuery("findByNiveau")
+                .setParameter("idNiveau", idNiveau)
+                .getResultList();
+    }
 }

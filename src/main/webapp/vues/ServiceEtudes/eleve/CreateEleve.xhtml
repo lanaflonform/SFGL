@@ -13,24 +13,33 @@
             <h:form id="EleveCreateForm">
 
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{elevebean.eleveSelected != null}">
+                    <p:panelGrid columns="4" rendered="#{elevebean.eleveSelected != null}">
                         <p:outputLabel value="#{msg.nom}" for="nom" />
                         <p:inputText id="nom" value="#{elevebean.eleveSelected.nom}"   />
 
+                        <p:outputLabel value="#{msg.nomPere}" for="nomPere" />
+                        <p:inputText id="nomPere" value="#{elevebean.eleveSelected.nomPere}"  />
+                        
                         <p:outputLabel value="#{msg.prenom}" for="prenom" />
                         <p:inputText id="prenom" value="#{elevebean.eleveSelected.prenom}"  />
 
-
-                        <p:outputLabel value="#{msg.nomPere}" for="nomPere" />
-                        <p:inputText id="nomPere" value="#{elevebean.eleveSelected.nomPere}"  />
-
-                        <p:outputLabel value="#{msg.nomMere}" for="nomMere" />
-                        <p:inputText id="nomMere" value="#{elevebean.eleveSelected.nomMere}"  />
-
-
-                        <p:outputLabel value="#{msg.contact}" for="contactP" />
+                            <p:outputLabel value="#{msg.contact}" for="contactP" />
                         <p:inputText id="contactP" value="#{elevebean.eleveSelected.contactPrarent}"  />
 
+                        <p:outputLabel value="dateNais" for="dateNais" />
+                        <p:calendar id="dateNais" pattern="dd/MM/yyyy" value="#{elevebean.eleveSelected.dateNais}"   showOn="button"/>
+
+
+
+                        <h:outputLabel value="#{msg.classe}" for="classe" />
+                        <p:selectOneMenu id="classe" value="#{elevebean.classe}"   >
+                            <f:selectItems value="#{elevebean.listeClasseSelect}" /> 
+                        </p:selectOneMenu> 
+
+                        <p:outputLabel value="né-à" for="nomMere" />
+                        <p:inputText id="nomMere" value="#{elevebean.eleveSelected.lieuxNais}"  />
+                      
+                     
 
                         <p:outputLabel value="#{msg.quartier}" for="quartier" />
                         <p:inputText id="quartier" value="#{elevebean.eleveSelected.quartier}"  />
@@ -40,10 +49,6 @@
                             <f:selectItems value="#{elevebean.listeAnneeSelect}" /> 
                         </p:selectOneMenu> 
 
-                        <h:outputLabel value="#{msg.classe}" for="classe" />
-                        <p:selectOneMenu id="classe" value="#{elevebean.classe}"   >
-                            <f:selectItems value="#{elevebean.listeClasseSelect}" /> 
-                        </p:selectOneMenu> 
 
 
 
@@ -61,8 +66,8 @@
                             <f:selectItem itemLabel="FEMININ" itemValue="F" />  
                         </p:selectOneMenu>
 
-                        
-                        
+
+
                         <h:outputLabel value="Redoublant" />
                         <p:selectOneRadio id="options" value="#{elevebean.eleveSelected.redoublant}"  required="true" >  
                             <f:selectItem itemLabel="NOM" itemValue="0" />  

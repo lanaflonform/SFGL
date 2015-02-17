@@ -39,6 +39,12 @@
                     </f:facet>
                     <h:outputText value="#{item.libele}"/>
                 </p:column>
+                <p:column sortBy="#{item.classeLevel.niveau}" filterBy="#{item.classeLevel.niveau}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.niveau}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.classeLevel.niveau}"/>
+                </p:column>
                 <f:facet name="footer">
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{msg.Create}"   oncomplete="ClasseCreateDialog.show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}" update=":ClasseViewForm" oncomplete="ClasseViewDialog.show()" disabled="#{empty classebean.classeselected}"/>

@@ -132,4 +132,14 @@ private ClasseLeveldao classeLeveldao;
     public void setClasseLeveldao(ClasseLeveldao classeLeveldao) {
         this.classeLeveldao = classeLeveldao;
     }
+
+    @Override
+    public List<Classe> findByNiveau(Long idNiveau) throws ServiceException {
+    try {
+        return  classedao.findByNiveau(idNiveau);
+    } catch (DataAccessException ex) {
+        Logger.getLogger(ServiceClasseImpl.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+    }
 }

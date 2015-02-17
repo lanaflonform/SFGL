@@ -6,6 +6,7 @@ package com.lateu.projet.lycee.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,9 @@ public class FraisDiver implements Serializable {
     private Motif motif;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateVersement;
+    @Column(unique = true, nullable = false)
     private String libele;
+    @Column(unique = true, nullable = false)
     private Long montant;
 
     public FraisDiver(Eleve eleve, AnneeScolaire annee, Motif motif, Date dateVersement, String libele, Long montant) {

@@ -49,8 +49,8 @@ public class Professeur extends Personne implements Serializable {
     public Professeur() {
     }
 
-    public Professeur(Date datePriseService, String specialite, String diplome, String username, String password, String contact, String titulaire, String etatCompte, String nom, String prenom, Date dateNais, String sexe, String matricule, String statut) {
-        super(nom, prenom, dateNais, sexe, matricule, statut);
+    public Professeur(Date datePriseService, String specialite, String diplome, String username, String password, String contact, String titulaire, String etatCompte, String nom, String prenom, Date dateNais, String lieuxNais, String sexe, String matricule, String statut) {
+        super(nom, prenom, dateNais, lieuxNais, sexe, matricule, statut);
         this.datePriseService = datePriseService;
         this.specialite = specialite;
         this.diplome = diplome;
@@ -60,6 +60,8 @@ public class Professeur extends Personne implements Serializable {
         this.titulaire = titulaire;
         this.etatCompte = etatCompte;
     }
+
+    
 
     public List<MaClaCoef> getMaClaCoefs() {
         return maClaCoefs;

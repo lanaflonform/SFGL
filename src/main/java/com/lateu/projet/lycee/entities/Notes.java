@@ -5,6 +5,7 @@
 package com.lateu.projet.lycee.entities;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,8 @@ public class Notes implements Serializable {
     @Max(20)   
     @Min(0)
     private double note;
+    @Column(nullable = false)
+    private String appreciation;
     /**
      * 
      */
@@ -48,12 +51,13 @@ public class Notes implements Serializable {
     @ManyToOne(fetch= FetchType.LAZY)
   private Matiere matiere;
 
-    public Notes(double note) {
+    public Notes(double note, String appreciation) {
         this.note = note;
-       
+        this.appreciation = appreciation;
+
     }
 
-    
+  
     
     
     public Matiere getMatiere() {
@@ -135,6 +139,14 @@ public class Notes implements Serializable {
     @Override
     public String toString() {
         return "com.lateu.projet.lycee.entities.Notes[ id=" + id + " ]";
+    }
+
+    public String getAppreciation() {
+        return appreciation;
+    }
+
+    public void setAppreciation(String appreciation) {
+        this.appreciation = appreciation;
     }
     
 }

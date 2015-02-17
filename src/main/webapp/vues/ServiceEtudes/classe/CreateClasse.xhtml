@@ -14,13 +14,18 @@
 
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{classebean.classeselected != null}">
-
+                       
+                         <h:outputLabel value="Niveau" for="n" />
+                         <p:selectOneMenu id="n" value="#{classebean.idClasseLevel}"   >
+                             <f:selectItems value="#{classebean.classeLevels}" var="cl" itemLabel="#{cl.niveau}" itemValue="#{cl.id}"/> 
+                        </p:selectOneMenu> 
                         
                         <p:outputLabel value="#{msg.code}" for="code" />
                         <p:inputText id="code" value="#{classebean.classeselected.code}" title="#{myBundle.CreateClasseTitle_code}" required="true" requiredMessage="#{myBundle.CreateClasseRequiredMessage_code}"/>
 
                         <p:outputLabel value="{msg.libele}" for="libele" />
                         <p:inputText id="libele" value="#{classebean.classeselected.libele}" title="#{myBundle.CreateClasseTitle_libele}" required="true" requiredMessage="#{myBundle.CreateClasseRequiredMessage_libele}"/>
+                   
                     </p:panelGrid>
                     <p:commandButton actionListener="#{classebean.SaveClasse}" value="#{msg.Save}" update="display,:ClasseListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ClasseCreateDialog);"/>
                     <p:commandButton value="#{msg.Cancel}" onclick="ClasseCreateDialog.hide();"/>

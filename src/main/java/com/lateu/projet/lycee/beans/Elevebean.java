@@ -61,6 +61,7 @@ public class Elevebean {
         //String s1=tmp.format(dt);
         String s = buildeMatricule(new Date(), "L", 1+(index));
         eleveSelected.setMatricule(s);
+        eleveSelected.setStatut("eleve");
         serviceEleve.create(eleveSelected, CodeAnnee, pays, classe);
 
         //System.out.println("====="+eleveSelected);

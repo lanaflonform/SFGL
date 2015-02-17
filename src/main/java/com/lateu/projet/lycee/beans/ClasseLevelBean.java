@@ -4,6 +4,8 @@
  */
 package com.lateu.projet.lycee.beans;
 
+import com.lateu.projet.lycee.Common.IPartage;
+import com.lateu.projet.lycee.Common.IPartageImpl;
 import com.lateu.projet.lycee.Enum.Cycle;
 import com.lateu.projet.lycee.entities.ClasseLevel;
 import com.lateu.projet.lycee.service.ServiceClasseLevel;
@@ -28,6 +30,8 @@ public class ClasseLevelBean {
     private Cycle cycleSelected;
     private String niveau;
     private List<Cycle> cycles = new ArrayList<Cycle>();
+    private IPartage iPartage=new IPartageImpl();
+     private List<ClasseLevel>classeLevels=new ArrayList<ClasseLevel>();
 
     /**
      * Creates a new instance of ClasseLevelBean
@@ -37,14 +41,15 @@ public class ClasseLevelBean {
 
     public void save() throws ServiceException {
         classeLevelSelected.setCycleEtude(cycleSelected);
-        classeLevelSelected.setNiveau(secure(niveau));
+        
+        classeLevelSelected.setNiveau(iPartage.secureChaine(niveau));
         serviceClasseLevel.save(classeLevelSelected);
     }
 
-    public String secure(String s) {
-        s = s.toLowerCase().trim().replace(" ", "_");
-        return s;
-    }
+//    public String secure(String s) {
+//        s = s.toLowerCase().trim().replace(" ", "_");
+//        return s;
+//    }
 
     public Cycle getCycleSelected() {
         return cycleSelected;
@@ -86,5 +91,21 @@ public class ClasseLevelBean {
 
     public void setNiveau(String niveau) {
         this.niveau = niveau;
+    }
+
+    public List<ClasseLevel> getClasseLevels() throws ServiceException {
+        return classeLevels=serviceClasseLevel.findAll();
+    }
+
+    public void setClasseLevels(List<ClasseLevel> classeLevels) {
+        this.classeLevels = classeLevels;
+    }
+
+    public IPartage getiPartage() {
+        return iPartage;
+    }
+
+    public void setiPartage(IPartage iPartage) {
+        this.iPartage = iPartage;
     }
 }
