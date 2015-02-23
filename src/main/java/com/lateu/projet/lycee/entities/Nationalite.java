@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "findNationalitebypays", query = "select p from Nationalite p where p.pays=:pays")
+    @NamedQuery(name = "findNationalitebyCodepays", query = "select p from Nationalite p where p.code=:pays")
 })
 public class Nationalite implements Serializable {
 

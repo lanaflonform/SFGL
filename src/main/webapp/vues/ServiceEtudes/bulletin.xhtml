@@ -19,15 +19,21 @@
                     
                      
                       <h:outputLabel value="Niveau" for="nv" />
-                      <p:selectOneMenu id="nv" value="#{bulletinbean.idNiveau}"   >
-                          <f:selectItems value="#{bulletinbean.classeLevels}" var="clas" itemValue="#{clas.id}" itemLabel="#{clas.niveau}"/> 
+                      <p:selectOneMenu id="nv" value="#{bulletinbean.niveau}"   >
+                          <f:selectItems value="#{bulletinbean.listeNivSelect}"/> 
                           <p:ajax update="cl"  listener="#{bulletinbean.handleNiveauChange()}"/>
                       </p:selectOneMenu> 
                      
                     <h:outputLabel value="Classe" for="cl" />
-                    <p:selectOneMenu id="cl" value="#{bulletinbean.idClasse}"   >
-                        <f:selectItems value="#{bulletinbean.classes}" var="clas" itemValue="#{clas.id}" itemLabel="#{clas.libele}"/> 
+                    <p:selectOneMenu id="cl" value="#{bulletinbean.classecode}"   >
+                        <f:selectItems value="#{bulletinbean.listeClasseSelect}" /> 
                     </p:selectOneMenu> 
+                    
+                       <h:outputLabel value="Sequence" for="s" />
+                       <p:selectOneMenu id="s" value="#{bulletinbean.sequencecode}"   >
+                           <f:selectItems value="#{bulletinbean.listeSequenceSelect}" var="cls" itemValue="#{clas.description}" itemLabel="#{cls.description}"/> 
+                    </p:selectOneMenu> 
+
 
                     <h:outputLabel value="Annee" for="an" />
                     <p:selectOneMenu id="an" value="#{bulletinbean.codeAnnee}"   >

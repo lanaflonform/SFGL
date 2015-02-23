@@ -16,11 +16,11 @@ import java.util.List;
  * @author richardlateu
  */
 public interface Classedao extends IDao<Classe, Long>{
-     Classe findClassebylibele(String libele)throws DataAccessException; 
-     Classe findClassebycode(String code)throws DataAccessException; 
+     Classe findClassebyCode(String libele)throws DataAccessException; 
+    // Classe findClassebycode(String code)throws DataAccessException; 
      Classe MatiereValide(String matiere,String classe)throws DataAccessException;
      List <MaClaCoef> SommeCoef(String classe)throws DataAccessException;
       List<Eleve> findElevebyClasse(Long idClasse,String codeAnnee)throws DataAccessException; 
-       List<Classe> findByNiveau(Long idNiveau)throws DataAccessException; 
+       List<Classe> findByNiveau(String idNiveau)throws DataAccessException; 
     
 }

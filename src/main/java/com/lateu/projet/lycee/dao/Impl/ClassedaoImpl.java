@@ -19,9 +19,9 @@ import java.util.List;
 public class ClassedaoImpl extends GenericDao<Classe, Long> implements Classedao {
 
     @Override
-    public Classe findClassebylibele(String libele) throws DataAccessException {
-        return (Classe) getManager().createNamedQuery("findClasebylibele")
-                .setParameter("libele", libele)
+    public Classe findClassebyCode(String code) throws DataAccessException {
+        return (Classe) getManager().createNamedQuery("findClasebyCode")
+                .setParameter("code", code)
                 .getSingleResult();
     }
 
@@ -41,12 +41,12 @@ public class ClassedaoImpl extends GenericDao<Classe, Long> implements Classedao
                 .getResultList();
     }
 
-    @Override
-    public Classe findClassebycode(String code) throws DataAccessException {
-        return (Classe) getManager().createNamedQuery("findClasebycode")
-                .setParameter("code", code)
-                .getSingleResult();
-    }
+//    @Override
+//    public Classe findClassebycode(String code) throws DataAccessException {
+//        return (Classe) getManager().createNamedQuery("findClasebycode")
+//                .setParameter("code", code)
+//                .getSingleResult();
+//    }
 
     @Override
     public List<Eleve> findElevebyClasse(Long idClasse, String codeAnnee) throws DataAccessException {
@@ -58,9 +58,9 @@ public class ClassedaoImpl extends GenericDao<Classe, Long> implements Classedao
     }
 
     @Override
-    public List<Classe> findByNiveau(Long idNiveau) throws DataAccessException {
+    public List<Classe> findByNiveau(String idNiveau) throws DataAccessException {
     return getManager().createNamedQuery("findByNiveau")
-                .setParameter("idNiveau", idNiveau)
+                .setParameter("niveau", idNiveau)
                 .getResultList();
     }
 }

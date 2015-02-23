@@ -60,6 +60,17 @@ public class ServiceAnneeScolaireImpl implements ServiceAnneeScolaire{
         return null;
     }
 
+    @Override
+    public AnneeScolaire finAnneeScolairebyCode(String s) throws ServiceException {
+        try {
+            return anneeScolairedao.findByCode(s);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceAnneeScolaireImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    
+    }
+
    
    
     

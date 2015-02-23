@@ -14,5 +14,6 @@ import java.util.List;
 public interface ServiceAnneeScolaire {
     public void create(AnneeScolaire annee)throws ServiceException;
     public AnneeScolaire finAnneeScolairebyID(Long id)throws ServiceException;
+      public AnneeScolaire finAnneeScolairebyCode(String s)throws ServiceException;
     public  List<AnneeScolaire> findAll()throws ServiceException;
 }

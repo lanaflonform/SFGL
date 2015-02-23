@@ -24,9 +24,8 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "findClasebylibele", query = "select p from Classe p where p.libele=:libele"),
-    @NamedQuery(name = "findClasebycode", query = "select p from Classe p where p.code=:code"),
-      @NamedQuery(name = "findByNiveau", query = "select cl from Classe cl where(cl.classeLevel.id=:idNiveau)"),
+    @NamedQuery(name = "findClasebyCode", query = "select p from Classe p where p.code=:code"),
+      @NamedQuery(name = "findByNiveau", query = "select cl from Classe cl where(cl.classeLevel.niveau=:niveau)"),
   //  @NamedQuery(name = "MatiereValide", query = "select c  from Classe c,MaClaCoef mcc, Matiere m join c.maclacoef c_mcc join m.maclacoef m_mcc where (m.intitule=:matiere)and(c.libele=:classe)and(c.id=c_mcc.id)and(mcc.classe=mcc.matiere)"),
      @NamedQuery(name = "findByClasseAY", query = "select e  from Classe c,Eleve e, AnneeScolaire an join e.classe e_cc join e.annee e_an where (c.id=e_cc.id)and(an.id=e_an.id)and(c.id=:idClasse)and(an.code=:codeAnnee)"),  
 

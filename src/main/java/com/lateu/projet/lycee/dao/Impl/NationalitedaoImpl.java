@@ -16,7 +16,7 @@ import com.lateu.projet.lycee.entities.Nationalite;
 public class NationalitedaoImpl extends GenericDao<Nationalite, Long> implements Nationalitedao{
 
     public Nationalite findNationalitebypays(String pays) throws DataAccessException {
-         return  (Nationalite) getManager().createNamedQuery("findNationalitebypays")
+         return  (Nationalite) getManager().createNamedQuery("findNationalitebyCodepays")
                 .setParameter("pays", pays)
                 .getSingleResult();
     }

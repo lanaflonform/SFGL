@@ -4,6 +4,7 @@
  */
 package com.lateu.projet.lycee.beans;
 
+import com.douwe.generic.dao.DataAccessException;
 import com.lateu.projet.lycee.entities.AnneeScolaire;
 import com.lateu.projet.lycee.entities.Classe;
 import com.lateu.projet.lycee.entities.Eleve;
@@ -13,14 +14,24 @@ import com.lateu.projet.lycee.service.ServiceClasse;
 import com.lateu.projet.lycee.service.ServiceEleve;
 import com.lateu.projet.lycee.service.ServiceException;
 import com.lateu.projet.lycee.service.ServiceNationalite;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -41,11 +52,12 @@ public class Elevebean {
     private ServiceClasse serviceClasse;
     private Nationalite nationnaliteSelected = new Nationalite();
     public List<Nationalite> nationalites;
-     public List<Eleve> eleves;
+    public List<Eleve> eleves;
     private SelectItem[] listeNationSelect;
     public List<AnneeScolaire> anneeScolaires;
     public List<Classe> classes = new ArrayList<Classe>();
     private Eleve eleveSelected = new Eleve();
+    private Classe classeSelect = new Classe();
     private String CodeAnnee;
     private String pays;
     private String classe;
@@ -57,9 +69,9 @@ public class Elevebean {
 
     public void create() throws ServiceException {
         SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-yyyy");
-        Long index=serviceEleve.LastIndex(serviceEleve.FindAll());
+        Long index = serviceEleve.LastIndex(serviceEleve.FindAll());
         //String s1=tmp.format(dt);
-        String s = buildeMatricule(new Date(), "L", 1+(index));
+        String s = buildeMatricule(new Date(), "L", 1 + (index));
         eleveSelected.setMatricule(s);
         eleveSelected.setStatut("eleve");
         serviceEleve.create(eleveSelected, CodeAnnee, pays, classe);
@@ -79,17 +91,13 @@ public class Elevebean {
     }
 
     public List<Eleve> getEleves() throws ServiceException {
-        return eleves=serviceEleve.FindAll();
+        return eleves = serviceEleve.FindAll();
     }
 
     public void setEleves(List<Eleve> eleves) {
         this.eleves = eleves;
     }
 
-    
-    
-    
-    
     public ServiceEleve getServiceEleve() {
         return serviceEleve;
     }
@@ -236,5 +244,127 @@ public class Elevebean {
 
     public void setPays(String pays) {
         this.pays = pays;
+    }
+
+    public void importationEleve(FileUploadEvent event) throws DataAccessException, ServiceException {
+      System.out.println("je suis au debut de ma liste d'insertion --------------: ");
+//        // Agence a=serviceAgence.findAgenceByUsername(name);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        int cpt = 0;
+        if (event.getFile() == null) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Le fichier est vide", ""));
+        }
+
+        InputStream file;
+        HSSFWorkbook workbook = null;
+        try {
+            file = event.getFile().getInputstream();
+            workbook = new HSSFWorkbook(file);
+        } catch (IOException e) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur lors de la lecture du fichier" + e, ""));
+        }
+
+        HSSFSheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rowIterator = sheet.iterator();
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+            System.out.println("Ligne numero: " + row.getRowNum());
+            if (row.getRowNum() == 0) {
+                continue;
+            }
+
+            String codeAnnee = null;
+            String codeClasse = null;
+            String CodeNationalite = null;
+            Iterator<Cell> cellIterator = row.cellIterator();
+            eleveSelected = new Eleve();
+            nationnaliteSelected = new Nationalite();
+            anneeScolaireSelected = new AnneeScolaire();
+
+            while (cellIterator.hasNext()) {
+                System.out.println("---------je suis dans la boucle-------");
+                Cell cell = cellIterator.next();
+                System.out.println("colonne numero: " + cell.getColumnIndex() + "  " + cell);
+                switch (cell.getColumnIndex()) {
+                    case 0:
+                        String nom = cell.getStringCellValue();
+                        eleveSelected.setNom(nom);
+                        break;
+                    case 1:
+                        String prenom = cell.getStringCellValue();
+                        eleveSelected.setPrenom(prenom);
+                        break;
+                    case 2:
+                        String sexe = cell.getStringCellValue();
+                        eleveSelected.setSexe(sexe);
+                        break;
+                    case 3:
+                        String statut = cell.getStringCellValue();
+                        eleveSelected.setStatut(statut);
+                        break;
+                    case 4:
+                        String matricule = cell.getStringCellValue();
+                        eleveSelected.setMatricule(matricule);
+                        break;
+                    case 5:
+                        String lNais = cell.getStringCellValue();
+                        eleveSelected.setLieuxNais(lNais);
+                        break;
+                    case 6:
+                        Date datnais = cell.getDateCellValue();
+                        eleveSelected.setDateNais(datnais);
+                        break;
+                    case 7:
+                        String contactP = cell.getStringCellValue();
+                        eleveSelected.setContactPrarent(contactP);
+                        break;
+                    case 8:
+                        String nomParent = cell.getStringCellValue();
+                        eleveSelected.setNomPere(nomParent);
+                        break;
+                    case 9:
+                        String quartier = cell.getStringCellValue();
+                        eleveSelected.setQuartier(quartier);
+                        break;
+                    case 10:
+                        String redouble = cell.getStringCellValue();
+                        eleveSelected.setRedoublant(redouble);
+                        break;
+                    case 11:
+                        codeAnnee = cell.getStringCellValue();
+//                        anneeScolaireSelected = serviceAnneeScolaire.finAnneeScolairebyCode(CodeAnnee);
+//                        eleveSelected.setAnnee(anneeScolaireSelected);
+                        break;
+                    case 12:
+                        codeClasse = cell.getStringCellValue();
+//                        classeSelect = serviceClasse.findByCode(codeClasse);
+//                        eleveSelected.setClasse(classeSelect);
+                        break;
+                    case 13:
+                        CodeNationalite = cell.getStringCellValue();
+//                        nationnaliteSelected = serviceNationalite.FindBypays(CodeNationalite);
+//                        eleveSelected.setNationalite(nationnaliteSelected);
+                        break;
+
+                    default:
+                }
+
+            }
+            serviceEleve.create(eleveSelected, codeAnnee, CodeNationalite, codeClasse);
+            cpt++;
+            // serviceArchivage.create(archivageselect, serviceAgence.findAgenceByUsername(name));
+
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " " + cpt + " lignes enregistrées", ""));
+
+    }
+
+    public Classe getClasseSelect() {
+        return classeSelect;
+    }
+
+    public void setClasseSelect(Classe classeSelect) {
+        this.classeSelect = classeSelect;
     }
 }

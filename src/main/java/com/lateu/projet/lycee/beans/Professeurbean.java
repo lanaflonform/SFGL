@@ -4,7 +4,6 @@
  */
 package com.lateu.projet.lycee.beans;
 
-import com.lateu.projet.lycee.entities.Classe;
 import com.lateu.projet.lycee.entities.Professeur;
 import com.lateu.projet.lycee.entities.UserRole;
 import com.lateu.projet.lycee.service.ServiceException;

@@ -24,32 +24,42 @@
             </table>
             <br /><br />
             <h:form id="menuForm">
-                <p:menubar style="height: 25px; margin-left: 0%;margin-right: 0%; border-radius: 20px">  
+                <p:menubar style="height: 25px; margin-left: 5%;margin-right: 5%; border-radius: 20px">  
 
 
                     <p:submenu   label="#{msg.nationalite}" >  
-                        <p:menuitem value="Ajouter/Supprimer" url="/vues/ServiceEtudes/nationalite/indexNationalite.xhtml" /> 
+                        <p:menuitem value="Ajouter" url="/vues/ServiceEtudes/nationalite/indexNationalite.xhtml" /> 
 
                     </p:submenu> 
 
-                    <p:menuitem value="#{msg.eleve}" url="/vues/ServiceEtudes/eleve/indexEleve.xhtml" /> 
+                    <p:submenu   label="Personne" > 
 
-                    <p:menuitem value="Professeur" url="/vues/ServiceEtudes/professeur/indexprofesseur.xhtml" /> 
+                        <p:menuitem value="#{msg.eleve}" url="/vues/ServiceEtudes/eleve/indexEleve.xhtml" /> 
 
-                      <p:submenu   label="Classe" > 
-                         
-                            <p:menuitem value="#{msg.classe}" url="/vues/ServiceEtudes/classe/indexClasse.xhtml" />  
-                            <p:menuitem value="Niveau" url="/vues/ServiceEtudes/classeLevel/index.xhtml" />  
-                        </p:submenu>   
+                        <p:menuitem value="Professeur" url="/vues/ServiceEtudes/professeur/indexprofesseur.xhtml" /> 
 
-                
+                    </p:submenu>   
+
+
+                    <p:submenu   label="Classe" > 
+
+                        <p:menuitem value="#{msg.classe}" url="/vues/ServiceEtudes/classe/indexClasse.xhtml" />  
+                        <p:menuitem value="Niveau" url="/vues/ServiceEtudes/classeLevel/index.xhtml" />  
+                    </p:submenu>   
+
+
 
                     <p:menuitem value="#{msg.matiere}" url="/vues/ServiceEtudes/matiere/indexMatiere.xhtml" /> 
 
 
                     <p:menuitem value="#{msg.anneescolaire}" url="/vues/ServiceEtudes/annee/indexAnnee.xhtml" /> 
 
-                    <p:menuitem value="Notes" url="/vues/ServiceEtudes/notes/index.xhtml"/> 
+
+
+                    <p:submenu label="Notes">          
+                        <p:menuitem value="Manuelle" url="/vues/ServiceEtudes/notes/index.xhtml"/> 
+                        <p:menuitem value="Importation" url="/vues/ServiceEtudes/importationEleveListe.xhtml"/> 
+                    </p:submenu> 
 
                     <p:submenu   label="Rapports" > 
                         <p:submenu label="Emploi" icon="ui-icon-contact">  
@@ -58,8 +68,8 @@
                         </p:submenu>    
 
                         <p:submenu label="bulletin" icon="ui-icon-contact">  
-                            <p:menuitem value="#" url="#" />  
-                            <p:menuitem value="Export" url="/vues/ServiceEtudes/bulletin.xhtml" />  
+                            <p:menuitem value="Sequentiel" url="/vues/ServiceEtudes/bulletin.xhtml" />  
+                            <p:menuitem value="Trimestriel" url="#" />  
                         </p:submenu> 
 
                     </p:submenu> 
@@ -70,12 +80,6 @@
                         <p:menuitem value="AffecterEn" url="/vues/ServiceEtudes/SaveProfClasse.xhtml" /> 
 
                         <p:menuitem value="AffecterMat" url="/vues/ServiceEtudes/maClaCoef/index.xhtml" /> 
-
-
-                    </p:submenu> 
-
-                    <p:submenu   label="Imports" >  
-                        <p:menuitem value="Notes(excel)" url="#" /> 
 
 
                     </p:submenu> 

@@ -52,7 +52,7 @@ private ClasseLeveldao classeLeveldao;
     public Long TotalCoeficient(String nomClasse) throws ServiceException {
          Classe cl=new Classe();
     try {
-        cl=classedao.findClassebylibele(nomClasse);
+        cl=classedao.findClassebyCode(nomClasse);
     } catch (DataAccessException ex) {
         Logger.getLogger(ServiceClasseImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -93,10 +93,10 @@ private ClasseLeveldao classeLeveldao;
     return null;
     }
 
-    @Override
-    public Classe findBylibele(String s) throws ServiceException {
+@Override
+    public Classe findByCode(String s) throws ServiceException {
     try {
-        return classedao.findClassebylibele(s);
+        return classedao.findClassebyCode(s);
     } catch (DataAccessException ex) {
         Logger.getLogger(ServiceClasseImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -134,7 +134,7 @@ private ClasseLeveldao classeLeveldao;
     }
 
     @Override
-    public List<Classe> findByNiveau(Long idNiveau) throws ServiceException {
+    public List<Classe> findByNiveau(String idNiveau) throws ServiceException {
     try {
         return  classedao.findByNiveau(idNiveau);
     } catch (DataAccessException ex) {

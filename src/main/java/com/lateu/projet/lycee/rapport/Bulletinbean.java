@@ -12,14 +12,15 @@ import com.lateu.projet.lycee.entities.Eleve;
 import com.lateu.projet.lycee.entities.MaClaCoef;
 import com.lateu.projet.lycee.entities.Matiere;
 import com.lateu.projet.lycee.entities.Notes;
+import com.lateu.projet.lycee.entities.Sequence;
 import com.lateu.projet.lycee.projection.PV;
-import com.lateu.projet.lycee.projection.ReportEntry;
 import com.lateu.projet.lycee.service.ServiceAnneeScolaire;
 import com.lateu.projet.lycee.service.ServiceClasse;
 import com.lateu.projet.lycee.service.ServiceClasseLevel;
 import com.lateu.projet.lycee.service.ServiceEleve;
 import com.lateu.projet.lycee.service.ServiceException;
 import com.lateu.projet.lycee.service.ServiceMatiere;
+import com.lateu.projet.lycee.service.ServiceSequence;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -35,14 +36,15 @@ import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,7 +55,7 @@ import javax.servlet.http.HttpServletResponse;
 @ManagedBean
 //@RequestScoped
 @ViewScoped
-public class Bulletinbean {
+public class Bulletinbean implements Serializable{
 
     @ManagedProperty(value = "#{ServiceEleve}")
     private ServiceEleve serviceEleve;
@@ -65,12 +67,18 @@ public class Bulletinbean {
     private ServiceMatiere serviceMatiere;
     @ManagedProperty(value = "#{ServiceClasseLevel}")
     private ServiceClasseLevel serviceClasseLevel;
+    @ManagedProperty(value = "#{ServiceSequence}")
+    private ServiceSequence serviceSequence;
     private List<ClasseLevel> classeLevels = new ArrayList<ClasseLevel>();
     private ClasseLevel classeLevelSelect = new ClasseLevel();
     private List<Matiere> matieres = new ArrayList<Matiere>();
     private List<Classe> classes = new ArrayList<Classe>();
     private List<Eleve> eleves = new ArrayList<Eleve>();
+    private List<Sequence> sequences = new ArrayList<Sequence>();
     private List<AnneeScolaire> anneeScolaires = new ArrayList<AnneeScolaire>();
+    private SelectItem[] listeNivSelect;
+    private SelectItem[] listeClasseSelect;
+    private SelectItem[] listeSequenceSelect;
     List<PV> listeLevel1;
     List<PV> listeLevel2;
     List<PV> listeLevel3;
@@ -81,7 +89,9 @@ public class Bulletinbean {
     private String codeAnnee;
     private List<Cycle> cycles = new ArrayList<Cycle>();
     private Cycle cycleSelected;
-    private Long idNiveau;
+    private String niveau;
+    private String sequencecode;
+    private String classecode;
     private Color bg = Color.WHITE;
     private static final Font catFont = new Font(Font.TIMES_ROMAN, 8, Font.BOLD);
     private static final Font font = new Font(Font.TIMES_ROMAN, 6, Font.BOLD);
@@ -135,18 +145,19 @@ public class Bulletinbean {
 
     }
 
-    private PdfPTable Banniere() throws ServiceException, ServiceException, ServiceException, DocumentException, BadElementException, MalformedURLException, IOException {
+    private PdfPTable Banniere(String picture) throws ServiceException, ServiceException, ServiceException, DocumentException, BadElementException, MalformedURLException, IOException {
 
         PdfPTable table = new PdfPTable(3);
 
 
         PdfPCell cell2 = new PdfPCell(new Phrase("PREMIER-TRIMESTRE", new Font(Font.COURIER, 12, Font.BOLD, Color.DARK_GRAY)));
-        String filename = "/home/ing-lateu/Téléchargements/1.jpg";
+        String filename = "/home/ing-lateu/NetBeansProjects/SFGL/src/main/webapp/images/" + picture + ".jpg";
+
         Image image2 = Image.getInstance(filename);
         image2.scaleAbsolute(50, 50);
         PdfPCell cell1 = new PdfPCell(image2, false);
 
-        String filename_d = "/home/ing-lateu/Téléchargements/d.JPG";
+        String filename_d = "//home/ing-lateu/NetBeansProjects/SFGL/src/main/webapp/images/d.JPG";
         Image image_d = Image.getInstance(filename_d);
         //  image_d.scaleAbsoluteWidth(100);
         image_d.scaleAbsolute(50, 50);
@@ -249,16 +260,16 @@ public class Bulletinbean {
         String level;
         matieres = serviceMatiere.findMatiereByClasseID(idClasse);
 
+        String matricule;
 
-
-        eleves = serviceClasse.FindByClasse(idClasse, codeAnnee);
+        eleves = serviceClasse.FindByClasse(serviceClasse.findByCode(classecode).getId(), codeAnnee);
 
 
         for (Eleve eleve : eleves) {
             listeLevel1 = new ArrayList<PV>();
             listeLevel2 = new ArrayList<PV>();
             listeLevel3 = new ArrayList<PV>();
-
+            matricule = eleve.getMatricule();
             for (Matiere m : matieres) {
 
                 List< PV> lstepv = serviceEleve.GeneralPV(eleve.getMatricule(), m.getId());
@@ -268,7 +279,7 @@ public class Bulletinbean {
 
                     mcc = serviceEleve.getLevelMat(m.getId());
                     level = mcc.getLevelMatiere();
-                    Notes n=new Notes(0.0, "not-yet");
+                    Notes n = new Notes(0.0, "not-yet");
                     pvIntry = new PV(n, m.getIntitule(), mcc, 0.0);
                     if (level.equals("1")) {
                         listeLevel1.add(pvIntry);
@@ -315,7 +326,7 @@ public class Bulletinbean {
 
             document.add(EnteteBuletin());
 
-            document.add(Banniere());
+            document.add(Banniere(matricule));
             document.add(Identification(eleve));
             Paragraph p = new Paragraph(new Phrase("MATIERE DU PREMIER GROUPE", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
             p.setAlignment(Element.ALIGN_CENTER);
@@ -556,9 +567,9 @@ public class Bulletinbean {
     }
 
     public void handleNiveauChange() throws ServiceException {
-        if (idNiveau != null) {
+        if (niveau != null) {
 
-            classes = serviceClasse.findByNiveau(idNiveau);
+            classes = serviceClasse.findByNiveau(niveau);
             System.out.println("-----------" + classes + "--------");
         } else {
             System.out.println("-----------c est bon--------");
@@ -591,11 +602,85 @@ public class Bulletinbean {
         this.classeLevelSelect = classeLevelSelect;
     }
 
-    public Long getIdNiveau() {
-        return idNiveau;
+    public SelectItem[] getListeNivSelect() {
+        classeLevels = serviceClasseLevel.findbyCycleId(cycleSelected);
+        listeNivSelect = new SelectItem[classeLevels.size() + 1];
+        listeNivSelect[0] = new SelectItem("choisir");
+
+        for (int i = 1; i < classeLevels.size() + 1; i++) {
+            listeNivSelect[i] = new SelectItem(classeLevels.get(i - 1).getNiveau());
+        }
+        return listeNivSelect;
     }
 
-    public void setIdNiveau(Long idNiveau) {
-        this.idNiveau = idNiveau;
+    public void setListeNivSelect(SelectItem[] listeNivSelect) {
+        this.listeNivSelect = listeNivSelect;
+    }
+
+    public SelectItem[] getListeClasseSelect() throws ServiceException {
+        classes = serviceClasse.findByNiveau(niveau);
+        listeClasseSelect = new SelectItem[classes.size() + 1];
+        listeClasseSelect[0] = new SelectItem("choisir");
+
+        for (int i = 1; i < classes.size() + 1; i++) {
+            listeClasseSelect[i] = new SelectItem(classes.get(i - 1).getCode());
+        }
+        return listeClasseSelect;
+    }
+
+    public void setListeClasseSelect(SelectItem[] listeClasseSelect) {
+        this.listeClasseSelect = listeClasseSelect;
+    }
+
+    public String getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
+    }
+
+    public ServiceSequence getServiceSequence() {
+        return serviceSequence;
+    }
+
+    public void setServiceSequence(ServiceSequence serviceSequence) {
+        this.serviceSequence = serviceSequence;
+    }
+
+    public SelectItem[] getListeSequenceSelect() throws ServiceException {
+        sequences = serviceSequence.findAll();
+        listeSequenceSelect = new SelectItem[sequences.size() + 1];
+        listeSequenceSelect[0] = new SelectItem("choisir");
+
+        for (int i = 1; i < sequences.size() + 1; i++) {
+            listeSequenceSelect[i] = new SelectItem(sequences.get(i - 1).getIntitule());
+        }
+
+        return listeSequenceSelect;
+    }
+
+    public void setListeSequenceSelect(SelectItem[] listeSequenceSelect) {
+        this.listeSequenceSelect = listeSequenceSelect;
+    }
+
+    public List<Sequence> getSequences() {
+        return sequences;
+    }
+
+    public String getSequencecode() {
+        return sequencecode;
+    }
+
+    public String getClassecode() {
+        return classecode;
+    }
+
+    public void setClassecode(String classecode) {
+        this.classecode = classecode;
+    }
+
+    public void setSequencecode(String sequencecode) {
+        this.sequencecode = sequencecode;
     }
 }

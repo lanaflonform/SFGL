@@ -23,27 +23,28 @@ import org.springframework.transaction.annotation.Transactional;
  * @author richardlateu
  */
 @Transactional
-public class ServiceMaClaCoefImpl implements ServiceMaClaCoef{
+public class ServiceMaClaCoefImpl implements ServiceMaClaCoef {
+
     private Matieredao matieredao;
     private Classedao classedao;
     private MaClaCoefdao maClaCoefdao;
-    
+
     @Override
- public void create(MaClaCoef mcf,String matiere, String classe) throws ServiceException {
-     Matiere m=new Matiere();
-     Classe cl=new Classe();
+    public void create(MaClaCoef mcf, String matiere, String classe) throws ServiceException {
+        Matiere m = new Matiere();
+        Classe cl = new Classe();
         try {
-            cl=classedao.findClassebycode(classe);
+            cl = classedao.findClassebyCode(classe);
         } catch (DataAccessException ex) {
             Logger.getLogger(ServiceMaClaCoefImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
-            m=matieredao.findMatierebyIntitule(matiere);
+            m = matieredao.findMatierebyIntitule(matiere);
         } catch (DataAccessException ex) {
             Logger.getLogger(ServiceMaClaCoefImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         mcf.setClasse(cl);
         mcf.setMatiere(m);
         try {
@@ -51,9 +52,9 @@ public class ServiceMaClaCoefImpl implements ServiceMaClaCoef{
         } catch (DataAccessException ex) {
             Logger.getLogger(ServiceMaClaCoefImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public Matieredao getMatieredao() {
         return matieredao;
     }
@@ -87,7 +88,4 @@ public class ServiceMaClaCoefImpl implements ServiceMaClaCoef{
         }
         return null;
     }
-
- 
-    
 }

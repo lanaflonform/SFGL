@@ -58,7 +58,7 @@ private AnneeScolairedao anneeScoaliredao;
         Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
     }
     try {
-        cl=classedao.findClassebylibele(classe);
+        cl=classedao.findClassebyCode(classe);
     } catch (DataAccessException ex) {
         Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
     }

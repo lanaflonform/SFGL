@@ -8,7 +8,7 @@
 
     <h:form id="ClasseLevelListForm">
 
-        <p:panel header="List des niveau}">
+        <p:panel header="List des niveaux}">
 
             <p:dataTable id="datalist" value="#{classeLevelBean.classeLevels}" var="item"
                          selectionMode="single" selection="#{classeLevelBean.classeLevelSelected}"
@@ -21,13 +21,13 @@
                 <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}" style="height: 0.001px;width: 10%" >
                     <f:facet name="header">
                         <h:outputText value="#{myBundle.ListClasseLevelTitle_id}"/>
                     </f:facet>
                     <h:outputText value="#{item.id}"/>
                 </p:column>
-                <p:column sortBy="#{item.cycleEtude}" filterBy="#{item.cycleEtude}">
+                <p:column sortBy="#{item.cycleEtude}" filterBy="#{item.cycleEtude}" style="height: 1px;">
                     <f:facet name="header">
                         <h:outputText value="#{myBundle.ListClasseLevelTitle_cycleEtude}"/>
                     </f:facet>

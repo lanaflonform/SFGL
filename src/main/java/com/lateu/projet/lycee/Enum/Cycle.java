@@ -9,7 +9,6 @@ package com.lateu.projet.lycee.Enum;
  * @author ing-lateu
  */
 public enum Cycle {
-    
-    Premiere_Cycle,Second_Cycle;
+   Premiere_Cycle,Second_Cycle;
     
 }
