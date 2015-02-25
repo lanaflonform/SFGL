@@ -28,11 +28,11 @@
                     </f:facet>
                     <h:outputText value="#{item.note}"/>
                 </p:column>
-                <p:column sortBy="#{item.eleve.id}" filterBy="#{item.eleve.id}">
+                <p:column sortBy="#{item.eleve.nom} #{item.eleve.prenom}" filterBy="#{item.eleve.nom} #{item.eleve.prenom}">
                     <f:facet name="header">
                         <h:outputText value="eleve"/>
                     </f:facet>
-                    <h:outputText value="#{item.eleve.id}"/>
+                    <h:outputText value="#{item.eleve.nom} #{item.eleve.prenom}"/>
                 </p:column>
                 <p:column sortBy="#{item.annee.code}" filterBy="#{item.annee.code}">
                     <f:facet name="header">

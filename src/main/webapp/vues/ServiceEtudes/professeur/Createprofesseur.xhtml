@@ -22,8 +22,8 @@
                         <p:inputText id="contact" value="#{professeurbean.professeurselected.contact}"  />
 
 
-                        <p:outputLabel value="#{msg.login}" for="co" />
-                        <p:inputText id="co" value="#{professeurbean.professeurselected.username}"  />
+                        <p:outputLabel value="msg.lieuNais" for="l" />
+                        <p:inputText id="l" value="#{professeurbean.professeurselected.lieuxNais}"  />
 
 
                         <p:outputLabel value="#{msg.dateNais}" for="date" />
@@ -80,6 +80,9 @@
                             <f:selectItem itemValue="F" itemLabel="Feminin" />  
                         </p:selectOneMenu> 
 
+
+                        <p:outputLabel value="#{msg.login}" for="co" />
+                        <p:inputText id="co" value="#{professeurbean.professeurselected.username}"  />
 
                     </p:panelGrid>
                     <p:commandButton actionListener="#{professeurbean.create}" value="#{msg.Save}" update="display,:ProfesseurListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ProfesseurCreateDialog);"/>

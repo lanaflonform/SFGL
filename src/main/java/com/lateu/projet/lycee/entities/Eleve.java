@@ -71,8 +71,8 @@ public class Eleve extends Personne implements Serializable {
     public Eleve() {
     }
 
-    public Eleve(Nationalite nationalite, Classe classe, AnneeScolaire annee, String contactPrarent, String nomPere, String quartier, String redoublant, String nom, String prenom, Date dateNais, String lieuxNais, String sexe, String matricule, String statut) {
-        super(nom, prenom, dateNais, lieuxNais, sexe, matricule, statut);
+    public Eleve(Nationalite nationalite, Classe classe, AnneeScolaire annee, String contactPrarent, String nomPere, String quartier, String redoublant, String nom, String prenom, Date dateNais, String lieuxNais, String sexe, String matricule) {
+        super(nom, prenom, dateNais, lieuxNais, sexe, matricule);
         this.nationalite = nationalite;
         this.classe = classe;
         this.annee = annee;

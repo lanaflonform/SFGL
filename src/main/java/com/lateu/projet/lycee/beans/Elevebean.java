@@ -73,7 +73,7 @@ public class Elevebean {
         //String s1=tmp.format(dt);
         String s = buildeMatricule(new Date(), "L", 1 + (index));
         eleveSelected.setMatricule(s);
-        eleveSelected.setStatut("eleve");
+        //eleveSelected.setStatut("eleve");
         serviceEleve.create(eleveSelected, CodeAnnee, pays, classe);
 
         //System.out.println("====="+eleveSelected);
@@ -299,43 +299,39 @@ public class Elevebean {
                         eleveSelected.setSexe(sexe);
                         break;
                     case 3:
-                        String statut = cell.getStringCellValue();
-                        eleveSelected.setStatut(statut);
-                        break;
-                    case 4:
                         String matricule = cell.getStringCellValue();
                         eleveSelected.setMatricule(matricule);
                         break;
-                    case 5:
+                    case 4:
                         String lNais = cell.getStringCellValue();
                         eleveSelected.setLieuxNais(lNais);
                         break;
-                    case 6:
+                    case 5:
                         Date datnais = cell.getDateCellValue();
                         eleveSelected.setDateNais(datnais);
                         break;
-                    case 7:
+                    case 6:
                         String contactP = cell.getStringCellValue();
                         eleveSelected.setContactPrarent(contactP);
                         break;
-                    case 8:
+                    case 7:
                         String nomParent = cell.getStringCellValue();
                         eleveSelected.setNomPere(nomParent);
                         break;
-                    case 9:
+                    case 8:
                         String quartier = cell.getStringCellValue();
                         eleveSelected.setQuartier(quartier);
                         break;
-                    case 10:
+                    case 9:
                         String redouble = cell.getStringCellValue();
                         eleveSelected.setRedoublant(redouble);
                         break;
-                    case 11:
+                    case 10:
                         codeAnnee = cell.getStringCellValue();
 //                        anneeScolaireSelected = serviceAnneeScolaire.finAnneeScolairebyCode(CodeAnnee);
 //                        eleveSelected.setAnnee(anneeScolaireSelected);
                         break;
-                    case 12:
+                    case 11:
                         codeClasse = cell.getStringCellValue();
 //                        classeSelect = serviceClasse.findByCode(codeClasse);
 //                        eleveSelected.setClasse(classeSelect);

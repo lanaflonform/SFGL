@@ -9,15 +9,17 @@
         <ui:composition>
             <p:accordionPanel dynamic="true" >
                 <p:tab title="reduire">
-
+                    <p:graphicImage url="/images/banniere.jpg" alt="image" style="width: 80%; margin-left: 8%;margin-right: 8%; height: 70px;"></p:graphicImage>
                 </p:tab>
             </p:accordionPanel> 
 
             <table width="0%" align="right" style="height: 20px;"><tr><td>
                         <h:form id="formulaire">
-                            <h:panelGrid columns="2" >
-                                <h:commandLink value="#{msg['welcome.langue1']}" action="#{changeLocale.setFrenchLocale}"/>
-                                <h:commandLink value="#{msg['welcome.langue2']}" action="#{changeLocale.setEnglishLocale}"/>
+                            <h:panelGrid columns="3" >
+                                <h:outputLabel    value="#{msg.connecte}   "    style="margin-left: 5%;margin-right: 10%;font-weight: bold; color: black"/> 
+
+                                <h:commandButton value="#{msg['welcome.langue1']}" image="/images/fr.png" action="#{changeLocale.setFrenchLocale}"/>
+                                <h:commandButton value="#{msg['welcome.langue2']}" image="/images/en.png" action="#{changeLocale.setEnglishLocale}"/>
                             </h:panelGrid>
                         </h:form>
                     </td></tr>
@@ -34,10 +36,15 @@
 
                     <p:submenu   label="Personne" > 
 
-                        <p:menuitem value="#{msg.eleve}" url="/vues/ServiceEtudes/eleve/indexEleve.xhtml" /> 
+                        <p:submenu label="#{msg.eleve}" icon="ui-icon-contact">  
+                            <p:menuitem value="new" url="/vues/ServiceEtudes/eleve/indexEleve.xhtml" /> 
+                            <p:menuitem value="Observations" url="#" />   
+                        </p:submenu>  
 
-                        <p:menuitem value="Professeur" url="/vues/ServiceEtudes/professeur/indexprofesseur.xhtml" /> 
 
+                        <p:submenu label="Professeur" icon="ui-icon-contact"> 
+                            <p:menuitem value="new"  url="/vues/ServiceEtudes/professeur/indexprofesseur.xhtml" /> 
+                        </p:submenu> 
                     </p:submenu>   
 
 

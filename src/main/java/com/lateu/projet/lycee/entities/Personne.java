@@ -37,20 +37,18 @@ public class Personne implements Serializable {
     private String sexe;
     @Column(unique = true, nullable = false)
     private String matricule;
-    @Column(nullable = false)
-    private String statut;
 
     public Personne() {
     }
 
-    public Personne(String nom, String prenom, Date dateNais, String lieuxNais, String sexe, String matricule, String statut) {
+    public Personne(String nom, String prenom, Date dateNais, String lieuxNais, String sexe, String matricule) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNais = dateNais;
         this.lieuxNais = lieuxNais;
         this.sexe = sexe;
         this.matricule = matricule;
-        this.statut = statut;
+     
     }
 
     public String getMatricule() {
@@ -69,13 +67,6 @@ public class Personne implements Serializable {
         this.nom = nom;
     }
 
-    public String getStatut() {
-        return statut;
-    }
-
-    public void setStatut(String statut) {
-        this.statut = statut;
-    }
 
     public String getPrenom() {
         return prenom;

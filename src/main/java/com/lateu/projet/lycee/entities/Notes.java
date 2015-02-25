@@ -33,22 +33,22 @@ public class Notes implements Serializable {
     /**
      * 
      */
-     @ManyToOne(fetch = FetchType.LAZY)
+     @ManyToOne(fetch = FetchType.EAGER)
      private Eleve eleve;
      /**
       * 
       */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
      private AnneeScolaire annee;
 /**
  *
  */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
      private Sequence sequence;
 /**
  * 
  */
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
   private Matiere matiere;
 
     public Notes(double note, String appreciation) {
@@ -85,8 +85,6 @@ public class Notes implements Serializable {
     public void setSequence(Sequence sequence) {
         this.sequence = sequence;
     }
-    
-   
     
 
     public Notes() {

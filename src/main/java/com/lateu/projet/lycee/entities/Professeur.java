@@ -44,20 +44,19 @@ public class Professeur extends Personne implements Serializable {
     private String username;
     private String password;
     private String contact;
-    private String titulaire;
     private String etatCompte;
     public Professeur() {
     }
 
-    public Professeur(Date datePriseService, String specialite, String diplome, String username, String password, String contact, String titulaire, String etatCompte, String nom, String prenom, Date dateNais, String lieuxNais, String sexe, String matricule, String statut) {
-        super(nom, prenom, dateNais, lieuxNais, sexe, matricule, statut);
+    public Professeur(Date datePriseService, String specialite, String diplome, String username, String password, String contact, String etatCompte, String nom, String prenom, Date dateNais, String lieuxNais, String sexe, String matricule) {
+        super(nom, prenom, dateNais, lieuxNais, sexe, matricule);
         this.datePriseService = datePriseService;
         this.specialite = specialite;
         this.diplome = diplome;
         this.username = username;
         this.password = password;
         this.contact = contact;
-        this.titulaire = titulaire;
+      
         this.etatCompte = etatCompte;
     }
 
@@ -80,15 +79,6 @@ public class Professeur extends Personne implements Serializable {
     }
 
 
-    public String getTitulaire() {
-        return titulaire;
-    }
-
-    public void setTitulaire(String titulaire) {
-        this.titulaire = titulaire;
-    }
-
-   
     public String getUsername() {
         return username;
     }
@@ -153,7 +143,7 @@ public class Professeur extends Personne implements Serializable {
 
     @Override
     public String toString() {
-        return "Professeur{" + "datePriseService=" + datePriseService + ", specialite=" + specialite + ", diplome=" + diplome + ", username=" + username + ", password=" + password + ", contact=" + contact + ", titulaire=" + titulaire + ", etatCompte=" + etatCompte + '}';
+        return "Professeur{" + "datePriseService=" + datePriseService + ", specialite=" + specialite + ", diplome=" + diplome + ", username=" + username + ", password=" + password + ", contact=" + contact +", etatCompte=" + etatCompte + '}';
     }
 
     

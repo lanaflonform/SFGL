@@ -62,7 +62,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-       <welcome-file>vues/ServiceEtudes/index.xhtml</welcome-file>
-<!-- <welcome-file>vues/ServiceEconome/index.xhtml</welcome-file>-->
+  <!--     <welcome-file>vues/ServiceEtudes/index.xhtml</welcome-file>-->
+ <welcome-file>vues/ServiceEconome/index.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>
