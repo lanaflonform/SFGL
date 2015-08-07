@@ -59,9 +59,9 @@ public class ServiceMatiereImpl implements ServiceMatiere{
     }
 
     @Override
-    public List<Matiere> findMatiereByClasseID(Long id) throws ServiceException {
+    public List<Matiere> findMatiereByClasseCode(String id) throws ServiceException {
         try {
-            return matieredao.findMatiereByClasseId(id);
+            return matieredao.findMatiereByClasseCode(id);
         } catch (DataAccessException ex) {
             Logger.getLogger(ServiceMatiereImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

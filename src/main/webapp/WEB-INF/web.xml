@@ -22,6 +22,12 @@
         <param-value>client</param-value>
     </context-param>
   
+   <!-- changer le theme par defaut -->
+        <context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>glass-x</param-value>
+	</context-param>
+  
     <listener>
         <listener-class>
 		org.springframework.web.context.ContextLoaderListener
@@ -61,8 +67,8 @@
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-  <!--     <welcome-file>vues/ServiceEtudes/index.xhtml</welcome-file>-->
- <welcome-file>vues/ServiceEconome/index.xhtml</welcome-file>
+  <welcome-file-list>
+       <welcome-file>vues/ServiceEtudes/index.xhtml</welcome-file>
+<!-- <welcome-file>vues/ServiceEconome/index.xhtml</welcome-file>-->
     </welcome-file-list>
 </web-app>

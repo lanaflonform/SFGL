@@ -18,5 +18,5 @@ import java.util.List;
 public interface Matieredao extends IDao<Matiere, Long>{
   Matiere findMatierebyIntitule(String intitule)throws DataAccessException; 
   MaClaCoef findCoef(String Matiere,String classe)throws DataAccessException; 
-   List<Matiere> findMatiereByClasseId(Long idClasse)throws DataAccessException; 
+   List<Matiere> findMatiereByClasseCode(String idClasse)throws DataAccessException; 
 }

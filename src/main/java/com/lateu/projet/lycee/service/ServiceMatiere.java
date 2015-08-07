@@ -15,6 +15,6 @@ public interface ServiceMatiere {
     void create(Matiere matiere)throws ServiceException;
      public  List<Matiere>  findAll()throws ServiceException;
        public Matiere  findById(Long id)throws ServiceException;
-         public  List<Matiere>  findMatiereByClasseID(Long id)throws ServiceException;
+         public  List<Matiere>  findMatiereByClasseCode(String id)throws ServiceException;
     
 }

@@ -20,40 +20,25 @@
 
                         <p:outputLabel value="Matricule eleve" for="eleveId" />
                         <p:inputText id="eleveId" value="#{notebean.matricule}"  required="true" requiredMessage="ce champs est obligatoire"/>
-    
-                         <p:outputLabel value="#{msg.classe}" for="cl" />
-                         <p:selectOneMenu id="cl" value="#{notebean.idClasse}" >
-                      
-                             <f:selectItems value="#{notebean.classes}"
-                                           var="c"
-                                           itemValue="#{c.id}"
-                                           itemLabel="#{c.libele}"
-                                           />
-                             <p:ajax update="suburbs"  listener="#{notebean.filtreMatiere()}"/>
+
+                        <p:outputLabel value="#{msg.classe}" for="cl" />
+                        <p:selectOneMenu id="cl" value="#{notebean.idClasse}" >
+
+                            <f:selectItems value="#{notebean.classes}" var="c" itemValue="#{c.id}" itemLabel="#{c.libele}" />                                          
+                            <p:ajax update="suburbs"  listener="#{notebean.filtreMatiere()}"/>
                         </p:selectOneMenu>
-                        
-                       
 
                         <p:outputLabel value="matiere" for="suburbs" />
                         <p:selectOneMenu id="suburbs" value="#{notebean.idMatiere}" required="true" requiredMessage="ce champs est obligatoire">
-                            
-                            <f:selectItems value="#{notebean.matieres}"
-                                           var="m"
-                                           itemValue="#{m.id}"
-                                           itemLabel="#{m.intitule}"
-                                           />
-                         
+
+                            <f:selectItems value="#{notebean.matieres}" var="m" itemValue="#{m.id}"  itemLabel="#{m.intitule}" />
                         </p:selectOneMenu>
 
                         <p:outputLabel value="sequence" for="sequenceId" />
                         <p:selectOneMenu id="sequenceId" value="#{notebean.idSecquence}" >
-          
-                            <f:selectItems value="#{notebean.sequences}"
-                                           var="s"
-                                           itemValue="#{s.id}"
-                                           itemLabel="#{s.intitule}"
-                                           />
-                        
+
+                            <f:selectItems value="#{notebean.sequences}"  var="s" itemValue="#{s.id}" itemLabel="#{s.intitule}"  />
+
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{notebean.saveNote()}" value="#{msg.Save}" update="display,:NotesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,NotesCreateDialog);"/>

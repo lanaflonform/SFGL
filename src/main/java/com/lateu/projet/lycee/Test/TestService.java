@@ -86,7 +86,7 @@ public class TestService {
         // Historique h=new Historique(fr.getMontant(),fr);
         //Sequence sq=new Sequence("sequence1");
         Matiere mat = new Matiere("PCT");
-        Notes n = new Notes(15,"bien");
+        Notes n = new Notes(15, "bien");
 
 
         //    MaClaCoef coef=new MaClaCoef(2L,"25h");
@@ -94,16 +94,16 @@ public class TestService {
         //Dispense en = new Dispense(pf, mat);
 
 
-       // List<EmploiDeTemps> tmp = serviceEmploi.Valider(1L, 1L, "LUNDI");
+        // List<EmploiDeTemps> tmp = serviceEmploi.Valider(1L, 1L, "LUNDI");
         //  System.out.println(serveleve.LastIndex(tmp));
 
         //List<Matiere> mt=servmat.findMatiereByClasseID(2L);
-       
-           // System.out.println("===================="+mt.size()); 
-        
-       
-        servnote.create(n, "15L2", "seq1", "Mathematique",1L);
-        
+
+        // System.out.println("===================="+mt.size()); 
+
+
+        // servnote.create(n, "15L2", "seq1", "Mathematique",1L);
+
 //         List<Eleve> elvs= servcla.FindByClasse("PC", "2014/2015");
 //        for (Eleve e : elvs) {
 //            System.out.println(e);    
@@ -113,21 +113,21 @@ public class TestService {
 //        for (PV pv : liste) {
 //            System.out.println(pv);    
 //        }
-       
+
 
         //cldao.MatiereValide("MATH", "TleC");
         //eldao.findElevebyNom("mbut");
         // System.out.println(servcla.findBylibele("PC"));
 
-        //  servmcf.create("EPS","TleC", 2L,"40h"); 
+        // servmcf.create("EPS","TleC", 2L,"40h"); 
         // servtrim.create(tr);
         //    servannee.create(an);
-        //servcla.create(cl);
+       // servcla.create(cl);
         // servLycee.create(lycee);
-        //servnat.create(nat);
+        servnat.create(nat);
         //  serveleve.create(el,"13/14","Cameroun","PC");
-        // servmat.create(mat);
-         // servseq.create(sq, "1er-trimestre", 1L);
-         
+         //servmat.create(mat);
+        // servseq.create(sq, "1er-trimestre", 1L);
+
     }
 }

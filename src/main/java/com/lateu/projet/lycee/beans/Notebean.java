@@ -17,11 +17,11 @@ import com.lateu.projet.lycee.service.ServiceException;
 import com.lateu.projet.lycee.service.ServiceMatiere;
 import com.lateu.projet.lycee.service.ServiceNote;
 import com.lateu.projet.lycee.service.ServiceSequence;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -31,7 +31,7 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 //@RequestScoped
 @ViewScoped
-public class Notebean {
+public class Notebean implements Serializable{
 
     @ManagedProperty(value = "#{ServiceNote}")
     private ServiceNote serviceNote;
@@ -187,11 +187,13 @@ public class Notebean {
     }
 
     public void filtreMatiere() throws ServiceException {
-        if (idClasse != null) {
+      /*  if (idClasse != null) {
+            System.out.println("-------------id est-------"+idClasse);
             matieres = serviceMatiere.findMatiereByClasseID(idClasse);
         } else {
+             System.out.println("-------------rien n'est dispo-------");
             matieres = new ArrayList<Matiere>();
-        }
+        }*/
     }
 
     public ServiceMatiere getServiceMatiere() {

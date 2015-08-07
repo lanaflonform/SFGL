@@ -34,7 +34,7 @@ public class MatieredaoImpl extends GenericDao<Matiere, Long>implements Matiered
     }
 
     @Override
-    public List<Matiere> findMatiereByClasseId(Long idClasse) throws DataAccessException {
+    public List<Matiere> findMatiereByClasseCode(String idClasse) throws DataAccessException {
          return   getManager().createNamedQuery("findMatiereByClasseId")
                 .setParameter("idClasse", idClasse)
                 .getResultList();

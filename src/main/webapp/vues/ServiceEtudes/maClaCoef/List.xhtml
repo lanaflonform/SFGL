@@ -43,6 +43,15 @@
                     <h:outputText value="#{item.levelMatiere}"/>
                 </p:column>
                 
+                 
+                <p:column sortBy="#{item.professeur.nom}" filterBy="#{item.professeur.nom}">
+                    <f:facet name="header">
+                        <h:outputText value="{msg.professeur}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.professeur.nom}"/>
+                </p:column>
+                
+                
                 <p:column sortBy="#{item.classe.libele}" filterBy="#{item.classe.libele}">
                     <f:facet name="header">
                         <h:outputText value="{msg.classe}"/>
@@ -56,10 +65,10 @@
                     <h:outputText value="#{item.matiere.intitule}"/>
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{maClaCoefController.prepareCreate}" update=":MaClaCoefCreateForm" oncomplete="MaClaCoefCreateDialog.show()"/>
-                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{myBundle.View}" update=":MaClaCoefViewForm" oncomplete="MaClaCoefViewDialog.show()" disabled="#{empty maClaCoefController.selected}"/>
-                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MaClaCoefEditForm" oncomplete="MaClaCoefEditDialog.show()" disabled="#{empty maClaCoefController.selected}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{maClaCoefController.delete}" update=":growl,datalist" disabled="#{empty maClaCoefController.selected}"/>
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{msg.Create}" actionListener="#{maClaCoefController.prepareCreate}" update=":MaClaCoefCreateForm" oncomplete="MaClaCoefCreateDialog.show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{msg.View}" update=":MaClaCoefViewForm" oncomplete="MaClaCoefViewDialog.show()" disabled="#{empty maClaCoefController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{msg.Edit}" update=":MaClaCoefEditForm" oncomplete="MaClaCoefEditDialog.show()" disabled="#{empty maClaCoefController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{msg.Delete}" actionListener="#{maClaCoefController.delete}" update=":growl,datalist" disabled="#{empty maClaCoefController.selected}"/>
                 </f:facet>
 
             </p:dataTable>

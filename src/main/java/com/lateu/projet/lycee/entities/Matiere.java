@@ -21,38 +21,35 @@ import javax.persistence.OneToMany;
  * @author richardlateu
  */
 @Entity
-
 @NamedQueries({
-     @NamedQuery(name = "findMatierebyIntitule", query = "select p from Matiere p where p.intitule=:intitule"),
-    @NamedQuery(name = "findMatiereByClasseId", query = "select m from Matiere m,MaClaCoef mcc,Classe c where (c.id=:idClasse)AND(mcc.classe.id=c.id)AND(mcc.matiere.id=m.id) ")
+    @NamedQuery(name = "findMatierebyIntitule", query = "select p from Matiere p where p.intitule=:intitule"),
+    @NamedQuery(name = "findMatiereByClasseId", query = "select m from Matiere m,MaClaCoef mcc,Classe c where (c.code=:idClasse)AND(mcc.classe.id=c.id)AND(mcc.matiere.id=m.id) ")
 })
 public class Matiere implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-     private Long id;
-     @OneToMany(mappedBy ="matiere")
-    private List<Notes> note=new ArrayList<Notes>();
+    private Long id;
+    @OneToMany(mappedBy = "matiere")
+    private List<Notes> note = new ArrayList<Notes>();
     /**
-     * 
+     *
      */
-     @OneToMany(mappedBy ="matiere")
-    private List<MaClaCoef> maclacoef=new ArrayList<MaClaCoef>();
-     
-   @Column(unique = true, nullable = false)
+    @OneToMany(mappedBy = "matiere")
+    private List<MaClaCoef> maclacoef = new ArrayList<MaClaCoef>();
+    @Column(unique = true, nullable = false)
     private String intitule;
-    
-    @OneToMany(mappedBy ="matiere")
-    private List<EmploiDeTemps> emploiDeTempses=new ArrayList<EmploiDeTemps>();
-    
+    @OneToMany(mappedBy = "matiere")
+    private List<EmploiDeTemps> emploiDeTempses = new ArrayList<EmploiDeTemps>();
 
     public Matiere() {
     }
 
-    public Matiere( String intitule) {
-        
+    public Matiere(String intitule) {
+
         this.intitule = intitule;
-      
+
     }
 
     public List<Notes> getNote() {
@@ -89,9 +86,6 @@ public class Matiere implements Serializable {
 
     @Override
     public String toString() {
-        return ""+ intitule + "";
+        return "" + intitule + "";
     }
-    
-    
-    
 }

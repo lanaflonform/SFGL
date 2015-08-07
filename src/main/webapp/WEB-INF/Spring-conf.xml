@@ -123,11 +123,12 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     </bean> 
     <!-- la source de donnéees DBCP -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
-        <property name="username" value="root"/>
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="postgres"/>
+        <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="password" value="07v120!"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/Lycee"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/Lycee"/>
     </bean>
+    
     
     <!-- couche de persistance JPA -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -138,7 +139,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
                 
                 <property name="showSql" value="true" />  
               
-                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+                <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
                 <property name="generateDdl" value="true" />
             </bean>
         </property>
