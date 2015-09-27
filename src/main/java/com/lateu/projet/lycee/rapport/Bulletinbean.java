@@ -4,6 +4,7 @@
  */
 package com.lateu.projet.lycee.rapport;
 
+import com.lateu.projet.lycee.Enum.Appreciation;
 import com.lateu.projet.lycee.Enum.Cycle;
 import com.lateu.projet.lycee.entities.AnneeScolaire;
 import com.lateu.projet.lycee.entities.Classe;
@@ -275,7 +276,7 @@ public class Bulletinbean implements Serializable {
                     
                     mcc = serviceEleve.getLevelMat(m.getId());
                     level = mcc.getLevelMatiere();
-                    Notes n = new Notes(0.0, "not-yet");
+                    Notes n = new Notes(0.0, Appreciation.MEDIOCRE);
                     pvIntry = new PV(n, m.getIntitule(), mcc, 0.0);
                     if (level.equals("1")) {
                         listeLevel1.add(pvIntry);
@@ -381,7 +382,7 @@ public class Bulletinbean implements Serializable {
         PdfPCell cell5 = new PdfPCell(new Phrase(pv.getNote_coef() + "", catFont));
         table2.addCell(cell5);
         
-        PdfPCell cell6 = new PdfPCell(new Phrase(pv.getNote().getAppreciation(), catFont));
+        PdfPCell cell6 = new PdfPCell(new Phrase(pv.getNote().getAppreciation().toString(), catFont));
         table2.addCell(cell6);
         
     }

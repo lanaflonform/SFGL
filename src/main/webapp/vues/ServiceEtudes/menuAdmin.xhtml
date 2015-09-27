@@ -9,7 +9,7 @@
         <ui:composition>
             <p:accordionPanel dynamic="true" >
                 <p:tab title="reduire">
-                    <p:graphicImage url="/images/banniere.JPG" alt="image" style="width: 80%; margin-left: 8%;margin-right: 8%; height: 70px;"></p:graphicImage>
+                    <p:graphicImage url="/resources/images/banniere.JPG" alt="image" style="width: 80%; margin-left: 8%;margin-right: 8%; height: 70px;"></p:graphicImage>
                 </p:tab>
             </p:accordionPanel> 
 
@@ -18,8 +18,8 @@
                             <h:panelGrid columns="3" >
                                 <h:outputLabel    value="#{msg.connecte}   "    style="margin-left: 5%;margin-right: 10%;font-weight: bold; color: black"/> 
 
-                                <h:commandButton value="#{msg['welcome.langue1']}" image="/images/fr.png" action="#{changeLocale.setFrenchLocale}"/>
-                                <h:commandButton value="#{msg['welcome.langue2']}" image="/images/en.png" action="#{changeLocale.setEnglishLocale}"/>
+                                <h:commandButton value="#{msg['welcome.langue1']}" image="/resources/images/fr.png" action="#{changeLocale.setFrenchLocale}"/>
+                                <h:commandButton value="#{msg['welcome.langue2']}" image="/resources/images/en.png" action="#{changeLocale.setEnglishLocale}"/>
                             </h:panelGrid>
                         </h:form>
                     </td></tr>

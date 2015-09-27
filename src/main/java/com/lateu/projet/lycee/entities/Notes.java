@@ -4,6 +4,7 @@
  */
 package com.lateu.projet.lycee.entities;
 
+import com.lateu.projet.lycee.Enum.Appreciation;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class Notes implements Serializable {
     @Min(0)
     private double note;
     @Column(nullable = false)
-    private String appreciation;
+    private Appreciation appreciation;
     /**
      * 
      */
@@ -51,7 +52,7 @@ public class Notes implements Serializable {
     @ManyToOne(fetch= FetchType.EAGER)
   private Matiere matiere;
 
-    public Notes(double note, String appreciation) {
+    public Notes(double note, Appreciation appreciation) {
         this.note = note;
         this.appreciation = appreciation;
 
@@ -139,11 +140,11 @@ public class Notes implements Serializable {
         return "com.lateu.projet.lycee.entities.Notes[ id=" + id + " ]";
     }
 
-    public String getAppreciation() {
+    public Appreciation getAppreciation() {
         return appreciation;
     }
 
-    public void setAppreciation(String appreciation) {
+    public void setAppreciation(Appreciation appreciation) {
         this.appreciation = appreciation;
     }
     

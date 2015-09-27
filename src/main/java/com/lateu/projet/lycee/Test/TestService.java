@@ -5,6 +5,7 @@
 package com.lateu.projet.lycee.Test;
 
 import com.douwe.generic.dao.DataAccessException;
+import com.lateu.projet.lycee.Enum.Appreciation;
 import com.lateu.projet.lycee.entities.AnneeScolaire;
 import com.lateu.projet.lycee.entities.Classe;
 import com.lateu.projet.lycee.entities.Eleve;
@@ -86,7 +87,8 @@ public class TestService {
         // Historique h=new Historique(fr.getMontant(),fr);
         //Sequence sq=new Sequence("sequence1");
         Matiere mat = new Matiere("PCT");
-        Notes n = new Notes(15, "bien");
+     
+        Notes n = new Notes(15, Appreciation.BIEN);
 
 
         //    MaClaCoef coef=new MaClaCoef(2L,"25h");

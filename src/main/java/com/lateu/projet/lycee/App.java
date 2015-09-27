@@ -80,7 +80,7 @@ public class App
 //        Historique h=new Historique(fr.getMontant(),fr);
         
         Matiere mat=new Matiere("PCT");
-        Notes n=new Notes(15,"bien");
+      
 
         
     //    MaClaCoef coef=new MaClaCoef(2L,"25h");

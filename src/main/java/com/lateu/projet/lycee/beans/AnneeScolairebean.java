@@ -5,7 +5,6 @@
 package com.lateu.projet.lycee.beans;
 
 import com.lateu.projet.lycee.entities.AnneeScolaire;
-import com.lateu.projet.lycee.entities.Nationalite;
 import com.lateu.projet.lycee.service.ServiceAnneeScolaire;
 import com.lateu.projet.lycee.service.ServiceException;
 import java.text.SimpleDateFormat;
