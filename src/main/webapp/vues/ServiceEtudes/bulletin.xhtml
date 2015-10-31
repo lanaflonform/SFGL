@@ -12,31 +12,36 @@
 
                 <p:panelGrid style="width: 400px; margin-left: 30%;margin-right: 20%; background-color: buttonface" columns="2">
                      <h:outputLabel value="Cycle" for="cy" />
-                     <p:selectOneMenu id="cy" value="#{bulletinbean.cycleSelected}"   >
+                     <p:selectOneMenu id="cy" value="#{bulletinbean.cycleSelected}"   valueChangeListener="#{bulletinbean.handleCycleChange()}">
+                          <f:selectItem itemLabel="Choisir un Cycle" itemValue="" /> 
                          <f:selectItems value="#{bulletinbean.cycles}" /> 
-                         <p:ajax update="nv"  listener="#{bulletinbean.handleCycleChange()}"/>
+                         <p:ajax update="nv"  event="change"/>
                     </p:selectOneMenu> 
                     
                      
-                      <h:outputLabel value="Niveau" for="nv" />
-                      <p:selectOneMenu id="nv" value="#{bulletinbean.niveau}"   >
+                     <h:outputLabel value="Niveau" for="nv" />
+                      <p:selectOneMenu id="nv" value="#{bulletinbean.niveau}"  valueChangeListener="#{bulletinbean.handleNiveauChange()}" disabled="#{bulletinbean.niveauDisplay}">
+                          <f:selectItem itemLabel="Choisir un Niveau" itemValue="" />
                           <f:selectItems value="#{bulletinbean.listeNivSelect}"/> 
-                          <p:ajax update="cl"  listener="#{bulletinbean.handleNiveauChange()}"/>
+                          <p:ajax update="cl"   event="change"/>
                       </p:selectOneMenu> 
                      
                     <h:outputLabel value="Classe" for="cl" />
-                    <p:selectOneMenu id="cl" value="#{bulletinbean.classecode}"   >
+                    <p:selectOneMenu id="cl" value="#{bulletinbean.classecode}"   disabled="#{bulletinbean.classeDisplay}">
+                        <f:selectItem itemLabel="Choisir une Classe" itemValue="" />
                         <f:selectItems value="#{bulletinbean.listeClasseSelect}" /> 
                     </p:selectOneMenu> 
                     
                        <h:outputLabel value="Sequence" for="s" />
                        <p:selectOneMenu id="s" value="#{bulletinbean.sequencecode}"   >
+                           <f:selectItem itemLabel="Choisir une sequence" itemValue="" />
                            <f:selectItems value="#{bulletinbean.listeSequenceSelect}" var="cls" itemValue="#{clas.description}" itemLabel="#{cls.description}"/> 
                     </p:selectOneMenu> 
 
 
                     <h:outputLabel value="Annee" for="an" />
                     <p:selectOneMenu id="an" value="#{bulletinbean.codeAnnee}"   >
+                        <f:selectItem itemLabel="Choisir une Année scolaire" itemValue="" />
                         <f:selectItems value="#{bulletinbean.anneeScolaires}" var="a" itemValue="#{a.code}" itemLabel="#{a.code}"/> 
                     </p:selectOneMenu> 
 
