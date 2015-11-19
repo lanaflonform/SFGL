@@ -29,7 +29,7 @@ public interface ServiceEleve {
 
     public int EleveNumber(Classe cl, AnneeScolaire annee) throws ServiceException;
 
-    public Long LastIndex(List<Eleve> eleves) throws ServiceException;
+    public String LastIndex(List<Eleve> eleves) throws ServiceException;
 
     public List<Eleve> FindAll() throws ServiceException;
 
@@ -37,5 +37,5 @@ public interface ServiceEleve {
 
     public List<ReportEntry> maSectionBulletin(String codeClasse, String level) throws ServiceException;
     
-     MaClaCoef getLevelMat(Long idMatiere)  throws ServiceException;
+    
 }

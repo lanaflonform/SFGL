@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/vues/ServiceEtudes/AdminTemplate.xhtml">
+        <ui:define name="body" >
+            <h:form id="form">
+
+                <p:panelGrid style="width: 400px; margin-left: 20%;margin-right: 20%; background-color: buttonface" columns="4">
+                    <p:outputLabel value="#{msg.classe}" for="cl" />
+                    <p:selectOneMenu id="cl" value="#{notebean.idClasse}" valueChangeListener="#{notebean.filtreMatiere()}" >
+                        <f:selectItem itemLabel="choisir" itemValue="" />
+                        <f:selectItems value="#{notebean.classes}" var="c" itemValue="#{c.code}" itemLabel="#{c.libele}" />                                          
+                        <p:ajax update="suburbs"   event="change"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="matiere" for="suburbs" />
+                    <p:selectOneMenu id="suburbs" value="#{notebean.idMatiere}" disabled="#{notebean.matiereDisable}" >
+                        <f:selectItem itemLabel="choisir" itemValue="" />
+                        <f:selectItems value="#{notebean.matieres}" var="m" itemValue="#{m.id}"  itemLabel="#{m.intitule}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="sequence" for="sequenceId" />
+                    <p:selectOneMenu id="sequenceId" value="#{notebean.idSecquence}" >
+                        <f:selectItem itemLabel="choisir" itemValue="" />
+                        <f:selectItems value="#{notebean.sequences}"  var="s" itemValue="#{s.id}" itemLabel="#{s.intitule}"  />
+
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel value="note" for="note" />
+                    <p:inputText id="note" value="#{notebean.myNote}"  required="true" requiredMessage="ce champs est obligatoire"/>
+
+                    <p:outputLabel value="Matricule eleve" for="eleveId" />
+                    <p:inputText id="eleveId" value="#{notebean.matricule}"  required="true" requiredMessage="ce champs est obligatoire"/>
+
+                </p:panelGrid>
+
+                <p:commandButton actionListener="#{notebean.saveNote()}" value="#{msg.Save}" icon="ui-icon-check" ajax="false"  style="margin-left: 20%; margin-right: 20%" />
+             </h:form>
+                <div style="margin-left: 15%;margin-right: 15%">
+                    <h:form id="form2">
+                    <p:panel header="Liste des notes">
+
+                        <p:dataTable id="datalist" value="#{notebean.notes}" var="item"
+                                     selectionMode="single" selection="#{notebean.noteSelected}"
+                                     rowKey="#{item.id}"
+                                     paginator="true"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30"
+
+                                     >
+                            <p:column sortBy="#{item.eleve.nom} #{item.eleve.prenom}" filterBy="#{item.eleve.nom} #{item.eleve.prenom}">
+                                <f:facet name="header">
+                                    <h:outputText value="Eleve"/>
+                                </f:facet>
+                                <h:outputText value="#{item.eleve.nom} #{item.eleve.prenom}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.note}" filterBy="#{item.note}">
+                                <f:facet name="header">
+                                    <h:outputText value="Note"/>
+                                </f:facet>
+                                <h:outputText value="#{item.note}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.appreciation}" filterBy="#{item.appreciation}">
+                                <f:facet name="header">
+                                    <h:outputText value="Appreciation"/>
+                                </f:facet>
+                                <h:outputText value="#{item.appreciation}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.matiere.intitule}" filterBy="#{item.matiere.intitule}">
+                                <f:facet name="header">
+                                    <h:outputText value="Matiere"/>
+                                </f:facet>
+                                <h:outputText value="#{item.matiere.intitule}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.sequence.intitule}" filterBy="#{item.sequence.intitule}">
+                                <f:facet name="header">
+                                    <h:outputText value="Sequence"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sequence.intitule}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.annee.code}" filterBy="#{item.annee.code}">
+                                <f:facet name="header">
+                                    <h:outputText value="Annee"/>
+                                </f:facet>
+                                <h:outputText value="#{item.annee.code}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:panel>
+                          </h:form>
+                </div>
+          
+        </ui:define>
+    </ui:composition>
+
+</html>
+

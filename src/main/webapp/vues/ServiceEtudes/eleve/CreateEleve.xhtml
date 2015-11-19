@@ -33,7 +33,7 @@
 
                         <h:outputLabel value="#{msg.classe}" for="classe" />
                         <p:selectOneMenu id="classe" value="#{elevebean.classe}"   >
-                            <f:selectItems value="#{elevebean.listeClasseSelect}" /> 
+                            <f:selectItems value="#{elevebean.classes}" var="cl" itemValue="#{cl.code}" itemLabel="#{cl.code}" /> 
                         </p:selectOneMenu> 
 
                         <p:outputLabel value="né-à" for="nomMere" />
@@ -46,7 +46,8 @@
 
                         <h:outputLabel value="#{msg.anneescolaire}" for="annee" />
                         <p:selectOneMenu id="annee" value="#{elevebean.codeAnnee}"   >
-                            <f:selectItems value="#{elevebean.listeAnneeSelect}" /> 
+ <f:selectItem itemLabel="choisir" itemValue="" /> 
+ <f:selectItems value="#{elevebean.anneeScolaires}"   var="annee" itemValue="#{annee.code}" itemLabel="#{annee.code}"/> 
                         </p:selectOneMenu> 
 
 
@@ -55,7 +56,9 @@
 
                         <h:outputLabel value="#{msg.pays}" for="pays" />
                         <p:selectOneMenu id="pays" value="#{elevebean.pays}"   >
-                            <f:selectItems value="#{elevebean.listeNationSelect}" /> 
+                            <f:selectItem itemLabel="choisir" itemValue="" /> 
+                            <f:selectItems value="#{elevebean.nationalites}" var="codeP" itemValue="#{codeP.code}" itemLabel="#{codeP.pays}"/> 
+                            
                         </p:selectOneMenu> 
 
 

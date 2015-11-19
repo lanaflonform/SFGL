@@ -12,12 +12,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author richardlateu
  */
 @Entity
+@NamedQueries({
+  @NamedQuery(name = "getLevelMatiere", query = "select mcc from Matiere mat,MaClaCoef mcc, Classe c join mcc.matiere mcc_mat where(mcc_mat.id=mat.id)and(mat.id=:idmat)and(mcc.classe.id=:idClasse)")
+
+})
 public class MaClaCoef implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,15 +33,14 @@ public class MaClaCoef implements Serializable {
     /**
      *
      */
-    // @Column(nullable = false)
+    
     @ManyToOne(fetch = FetchType.EAGER)
     private Matiere matiere;
     /**
      *
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Professeur professeur;
-    //@Column(nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     private Classe classe;
     private int coeficient;

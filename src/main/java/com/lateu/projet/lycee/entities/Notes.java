@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
@@ -20,47 +22,51 @@ import javax.validation.constraints.Min;
  *
  * @author richardlateu
  */
+@NamedQueries({
+    @NamedQuery(name = "Note.All", query = "select n from Notes n ORDER BY n.id DESC")
+})
 @Entity
 public class Notes implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Max(20)   
+    @Max(20)
     @Min(0)
     private double note;
     @Column(nullable = false)
     private Appreciation appreciation;
     /**
-     * 
+     *
      */
-     @ManyToOne(fetch = FetchType.EAGER)
-     private Eleve eleve;
-     /**
-      * 
-      */
+
     @ManyToOne(fetch = FetchType.EAGER)
-     private AnneeScolaire annee;
-/**
- *
- */
+    private Eleve eleve;
+    /**
+     *
+     */
+ 
     @ManyToOne(fetch = FetchType.EAGER)
-     private Sequence sequence;
-/**
- * 
- */
-    @ManyToOne(fetch= FetchType.EAGER)
-  private Matiere matiere;
+    private AnneeScolaire annee;
+    /**
+     *
+     */
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Sequence sequence;
+    /**
+     *
+     */
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Matiere matiere;
 
     public Notes(double note, Appreciation appreciation) {
         this.note = note;
         this.appreciation = appreciation;
-
     }
 
-  
-    
-    
     public Matiere getMatiere() {
         return matiere;
     }
@@ -68,8 +74,6 @@ public class Notes implements Serializable {
     public void setMatiere(Matiere matiere) {
         this.matiere = matiere;
     }
-    
-   
 
     public AnneeScolaire getAnnee() {
         return annee;
@@ -86,7 +90,6 @@ public class Notes implements Serializable {
     public void setSequence(Sequence sequence) {
         this.sequence = sequence;
     }
-    
 
     public Notes() {
     }
@@ -106,7 +109,7 @@ public class Notes implements Serializable {
     public void setEleve(Eleve eleve) {
         this.eleve = eleve;
     }
-     
+
     public Long getId() {
         return id;
     }
@@ -147,5 +150,4 @@ public class Notes implements Serializable {
     public void setAppreciation(Appreciation appreciation) {
         this.appreciation = appreciation;
     }
-    
 }

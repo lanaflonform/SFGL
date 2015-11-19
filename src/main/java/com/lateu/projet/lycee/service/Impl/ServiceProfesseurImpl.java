@@ -54,13 +54,33 @@ private roledao rldao;
     }
 
     @Override
-    public int LastIndex(List<Professeur> professeurs) throws ServiceException {
-int i=0;
-    return i=professeurs.size();
-    // eleves.toArray();
-    // return professeurs.get(i+1).getId();
-   
-    
+    public String LastIndex(List<Professeur> professeurs) throws ServiceException {
+ int i = professeurs.size();
+        Professeur p = new Professeur();
+        String s = "";
+        String index = "";
+        int n = 0;
+        if (i == 0) {
+            return "001";
+
+        } else {
+            p = professeurs.get(i - 1);
+            s = p.getMatricule();
+            s = s.substring(3, 7);
+            
+            n =Integer.parseInt(s);
+            n++;
+
+            if (n < 10) {
+                index = "00" + n;
+            } else if ((n < 100) && (n >= 10)) {
+                index = "0" + n;
+            }else{
+            index=""+n;}
+
+
+            return index;
+        }
     }
 
     public roledao getRldao() {

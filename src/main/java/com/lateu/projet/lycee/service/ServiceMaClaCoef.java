@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ServiceMaClaCoef {
    
-    public void create(MaClaCoef mcf, String matiere, String classe)throws ServiceException;
+    public void create(MaClaCoef mcf, String matiere, String classe, Long idEns)throws ServiceException;
     public  List<MaClaCoef> findAll()throws ServiceException;
-    
+     MaClaCoef getLevelMat(Long idMatiere,Long idClasse)  throws ServiceException;
 }

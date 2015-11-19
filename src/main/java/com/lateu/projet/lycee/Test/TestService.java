@@ -101,7 +101,7 @@ public class TestService {
 
         //List<Matiere> mt=servmat.findMatiereByClasseID(2L);
 
-        // System.out.println("===================="+mt.size()); 
+         System.out.println("===================="+servmat.findMatiereByClassecode("PA4-E").size()); 
 
 
         // servnote.create(n, "15L2", "seq1", "Mathematique",1L);
@@ -126,7 +126,7 @@ public class TestService {
         //    servannee.create(an);
        // servcla.create(cl);
         // servLycee.create(lycee);
-        servnat.create(nat);
+       // servnat.create(nat);
         //  serveleve.create(el,"13/14","Cameroun","PC");
          //servmat.create(mat);
         // servseq.create(sq, "1er-trimestre", 1L);

@@ -5,6 +5,7 @@
 package com.lateu.projet.lycee.service.Impl;
 
 import com.douwe.generic.dao.DataAccessException;
+import com.lateu.projet.lycee.Enum.Appreciation;
 import com.lateu.projet.lycee.dao.AnneeScolairedao;
 import com.lateu.projet.lycee.dao.Elevedao;
 import com.lateu.projet.lycee.dao.Matieredao;
@@ -27,53 +28,31 @@ import org.springframework.transaction.annotation.Transactional;
  * @author richardlateu
  */
 @Transactional
-public class ServiceNoteImpl  implements ServiceNote{
- private Notedao notedao;
- private Elevedao elevedao;
- private Sequencedao sequencedao;
- private Matieredao matieredao;
- private AnneeScolairedao anneeScolairedao;
- 
- @Override
-      public void create(Notes note, String matricule, String sequence,String matiere,Long annee) throws ServiceException {
-    Matiere mat=new Matiere();
-         Eleve e = new Eleve();
-          AnneeScolaire a=new AnneeScolaire();
-     try {
-         e = elevedao.findElevebyMatricule(matricule);
-     } catch (DataAccessException ex) {
-         Logger.getLogger(ServiceNoteImpl.class.getName()).log(Level.SEVERE, null, ex);
-     }
-         Sequence seq = new Sequence();
-     try {
-         seq = sequencedao.findSequencebyintitule(sequence);
-     } catch (DataAccessException ex) {
-         Logger.getLogger(ServiceNoteImpl.class.getName()).log(Level.SEVERE, null, ex);
-     }
-       //  Matiere mat = new Matiere();
-     try {
-         mat = matieredao.findMatierebyIntitule(matiere);
-     } catch (DataAccessException ex) {
-         Logger.getLogger(ServiceNoteImpl.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     try {
-         a=anneeScolairedao.findById(annee);
-     } catch (DataAccessException ex) {
-         Logger.getLogger(ServiceNoteImpl.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     note.setAnnee(a);
-         note.setMatiere(mat);
-         note.setMatiere(mat);
-         note.setSequence(seq);
-         note.setEleve(e);
-     try {
-         notedao.create(note);
-     } catch (DataAccessException ex) {
-         Logger.getLogger(ServiceNoteImpl.class.getName()).log(Level.SEVERE, null, ex);
-     }
+public class ServiceNoteImpl implements ServiceNote {
+
+    private Notedao notedao;
+    private Elevedao elevedao;
+    private Sequencedao sequencedao;
+    private Matieredao matieredao;
+    private AnneeScolairedao anneeScolairedao;
+
+    @Override
+    public void create(Notes note, String matricule, Long idsequence, Long idmatiere, Long annee) throws ServiceException {
+
+        try {
+          
+            note.setAnnee(anneeScolairedao.findById(annee));
+            note.setMatiere(matieredao.findById(idmatiere));
+            note.setSequence(sequencedao.findById(idsequence));
+            note.setEleve(elevedao.findElevebyMatricule(matricule));
+            note.setAppreciation(Apprecier(note.getNote()));
+            notedao.create(note);
+
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceNoteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    
+
     public Notedao getNotedao() {
         return notedao;
     }
@@ -116,15 +95,36 @@ public class ServiceNoteImpl  implements ServiceNote{
 
     @Override
     public List<Notes> FindAll() throws ServiceException {
-     try {
-         return notedao.findAll();
-     } catch (DataAccessException ex) {
-         Logger.getLogger(ServiceNoteImpl.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     return null;
+        try {
+            return notedao.findAllNotes();
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceNoteImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
-  
+    @Override
+    public Appreciation Apprecier(double note) throws ServiceException {
+        Appreciation ap =Appreciation.MEDIOCRE;
+     if(note<10.0){
+     ap= Appreciation.MEDIOCRE;
+     }else if((note<12.0)&&(note>=10.0)){
+     ap=Appreciation.PASSABLE;
+     
+     }else if((note<14.0)&&(note>=12.0)){
+     ap=Appreciation.ASSEZ_BIEN;
+     
+     }else if((note<16.0)&&(note>=14.0)){
+     ap=Appreciation.BIEN;
+     
+     }else if((note<18.0)&&(note>=16.0)){
+     ap=Appreciation.TRES_BIEN;
+     
+     }else{
+     ap=Appreciation.EXCELLENT;
+     }
     
+     return ap;
     
+    }
 }

@@ -33,7 +33,7 @@ public interface Elevedao extends IDao<Eleve, Long> {
     Classe rechercheMaClasse(String matricule/*,AnneeScolaire annee*/) throws DataAccessException;
 
     List<ReportEntry> maSectionBulletin(String codeClasse, String levelmat) throws DataAccessException;
-    MaClaCoef getLevelMatiere(Long idmat) throws DataAccessException;
+   
 
     List<Notes> findNotebyMatricule(Matiere m, Classe cl) throws DataAccessException;
 

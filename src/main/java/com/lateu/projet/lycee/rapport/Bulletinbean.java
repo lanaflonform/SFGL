@@ -20,6 +20,7 @@ import com.lateu.projet.lycee.service.ServiceClasse;
 import com.lateu.projet.lycee.service.ServiceClasseLevel;
 import com.lateu.projet.lycee.service.ServiceEleve;
 import com.lateu.projet.lycee.service.ServiceException;
+import com.lateu.projet.lycee.service.ServiceMaClaCoef;
 import com.lateu.projet.lycee.service.ServiceMatiere;
 import com.lateu.projet.lycee.service.ServiceSequence;
 import com.lowagie.text.BadElementException;
@@ -31,6 +32,7 @@ import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -70,6 +72,8 @@ public class Bulletinbean implements Serializable {
     private ServiceClasseLevel serviceClasseLevel;
     @ManagedProperty(value = "#{ServiceSequence}")
     private ServiceSequence serviceSequence;
+    @ManagedProperty(value = "#{ServiceMaClaCoef}")
+    private ServiceMaClaCoef serviceMaClaCoef;
     private List<ClasseLevel> classeLevels = new ArrayList<ClasseLevel>();
     private ClasseLevel classeLevelSelect = new ClasseLevel();
     private List<Matiere> matieres = new ArrayList<Matiere>();
@@ -80,9 +84,9 @@ public class Bulletinbean implements Serializable {
     private SelectItem[] listeNivSelect;
     private SelectItem[] listeClasseSelect;
     private SelectItem[] listeSequenceSelect;
-    List<PV> listeLevel1;
-    List<PV> listeLevel2;
-    List<PV> listeLevel3;
+    private List<PV> listeLevel1;
+    private List<PV> listeLevel2;
+    private List<PV> listeLevel3;
     private PV pvIntry = new PV();
     private MaClaCoef mcc = new MaClaCoef();
     private ServletOutputStream output;
@@ -115,84 +119,88 @@ public class Bulletinbean implements Serializable {
         return output;
     }
 
-    private PdfPTable Banniere(String picture, Eleve e) throws ServiceException, ServiceException, ServiceException, DocumentException, BadElementException, MalformedURLException, IOException {
+    private PdfPTable Banniere(String log_lycee, Eleve e) throws ServiceException, ServiceException, ServiceException, DocumentException, BadElementException, MalformedURLException, IOException {
 
-        PdfPTable table = new PdfPTable(4);
+        PdfPTable table = new PdfPTable(3);
         PdfPCell vide = new PdfPCell(new Phrase("", catFont));
-        PdfPCell cell1 = new PdfPCell(new Phrase("republique du cameroun", catFont));
-        PdfPCell cell11 = new PdfPCell(new Phrase("MINSEC", catFont));
-        PdfPCell cell2 = new PdfPCell(new Phrase("delegation des enseignements secondaires du nord", catFont));
-        PdfPCell cell22 = new PdfPCell(new Phrase("lycee de avion me laisse", catFont));
+        PdfPCell cell1 = new PdfPCell(new Phrase("republique du cameroun\n MINSEC\n DRES de l'Extreme-Nord \n DDES du Diamaré\nLycee de avion me laisse ", catFont));
+
         cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell1.setBorder(Rectangle.NO_BORDER);
         table.addCell(cell1);
-        table.addCell(vide);
-        //table.addCell(vide);
-        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell2.setColspan(2);
-        table.addCell(cell2);
-        cell11.setHorizontalAlignment(Element.ALIGN_CENTER);
-        // cell11.setBorderColor(bg);
-        table.addCell(cell11);
-        // table.addCell(vide);
-        table.addCell(vide);
-        cell22.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell22.setColspan(2);
-        table.addCell(cell22);
+
         /**
          * ajout de la photo
          */
-        PdfPCell cell3 = new PdfPCell(new Phrase("PREMIER-TRIMESTRE", new Font(Font.COURIER, 12, Font.BOLD, Color.DARK_GRAY)));
-        String filename = "/home/ing-lateu/NetBeansProjects/SFGL/src/main/webapp/images/" + picture + ".jpg";
-
+        // PdfPCell cell3 = new PdfPCell(new Phrase("PREMIER-TRIMESTRE", new Font(Font.COURIER, 12, Font.BOLD, Color.DARK_GRAY)));
+        String filename = "/home/ing-lateu/NetBeansProjects/SFGL/src/main/webapp/resources/images/" + log_lycee + ".JPG";
         Image image2 = Image.getInstance(filename);
-        image2.scaleAbsolute(50, 50);
-        PdfPCell cell4 = new PdfPCell(image2, false);
+        image2.scaleAbsolute(40, 40);
+        PdfPCell cell2 = new PdfPCell(image2, false);
+        cell2.setPaddingTop(2);
+        cell2.setPaddingLeft(50);
+        cell2.setPaddingRight(50);
+        cell2.setBorder(Rectangle.NO_BORDER);
+        table.addCell(cell2);
 
-        String filename_d = "//home/ing-lateu/NetBeansProjects/SFGL/src/main/webapp/images/d.JPG";
-        Image image_d = Image.getInstance(filename_d);
-        image_d.scaleAbsolute(50, 50);
-        PdfPCell cell5 = new PdfPCell(image_d, false);
-
-        table.addCell(cell4);
+        PdfPCell cell3 = new PdfPCell(new Phrase("republique du cameroun\n MINSEC\n DRES de l'Extreme-Nord \n DDES du Diamaré\nLycee de avion me laisse ", catFont));
         cell3.setColspan(2);
         cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell3.setBorder(Rectangle.NO_BORDER);
         table.addCell(cell3);
-        ////cell2.setBorder(0);
 
-        cell5.setPaddingLeft(50);
-        table.addCell(cell5);
+        return table;
 
+    }
 
+    private PdfPTable IdentificationEleve(Eleve e) throws ServiceException, ServiceException, ServiceException, DocumentException, BadElementException, MalformedURLException, IOException {
 
-        PdfPCell cell61 = new PdfPCell(new Phrase("Nom et Prenom: " + e.getNom() + "-" + e.getPrenom(), catFont));
-        PdfPCell vide2 = new PdfPCell(new Phrase(" ", catFont));
-        vide2.setColspan(2);
-        vide2.setBorder(0);
-        PdfPCell cell62 = new PdfPCell(new Phrase("Né le " + e.getDateNais() + " à " + e.getLieuxNais(), catFont));
-
-        PdfPCell cell63 = new PdfPCell(new Phrase("Redoublant: " + e.getRedoublant()));
-        //table.addCell(vide2);
-        PdfPCell cell64 = new PdfPCell(new Phrase("", catFont));
-        cell64.setHorizontalAlignment(Element.ALIGN_LEFT);
-        // cell64.setBorderColor(bg);
-        cell61.setHorizontalAlignment(Element.ALIGN_LEFT);
-        // cell61.setBorderColor(bg);
-        cell61.setColspan(2);
-        table.addCell(cell61);
-        table.addCell(vide2);
-        cell62.setHorizontalAlignment(Element.ALIGN_LEFT);
-        //cell62.setBorderColor(bg);
-        cell62.setColspan(2);
-        table.addCell(cell62);
-        table.addCell(vide2);
-        cell63.setHorizontalAlignment(Element.ALIGN_LEFT);
-        // cell63.setBorderColor(bg);
-        cell63.setColspan(2);
-        table.addCell(cell63);
-        table.addCell(vide2);
+        PdfPTable table = new PdfPTable(3);
 
 
+        PdfPCell cell10 = new PdfPCell(new Phrase("Nom et Prenom: ", catFont));
+        cell10.setBackgroundColor(Color.LIGHT_GRAY);
+        table.addCell(cell10);
+        PdfPCell cell11 = new PdfPCell(new Phrase("" + e.getNom() + "-" + e.getPrenom(), catFont));
+        PdfPCell vide = new PdfPCell();
+        table.addCell(cell11);
+        //table.addCell(vide);
 
+        String filename_d = "/home/ing-lateu/NetBeansProjects/SFGL/src/main/webapp/resources/images/" + e.getMatricule() + ".jpg";
+        Image image_d = Image.getInstance(filename_d);
+        image_d.scaleAbsolute(60, 60);
+        PdfPCell cell_image = new PdfPCell(image_d, false);
+        cell_image.setPadding(5);
+        cell_image.setRowspan(5);
+        cell_image.setHorizontalAlignment(Rectangle.ALIGN_RIGHT);
+        table.addCell(cell_image);
+
+
+        PdfPCell cell20 = new PdfPCell(new Phrase("Date et Lieu de Naissance ", catFont));
+        cell20.setBackgroundColor(Color.LIGHT_GRAY);
+        table.addCell(cell20);
+        PdfPCell cell21 = new PdfPCell(new Phrase("" + e.getDateNais() + " à " + e.getLieuxNais(), catFont));
+        table.addCell(cell21);
+
+
+        PdfPCell cell30 = new PdfPCell(new Phrase("Classe: ", catFont));
+        cell30.setBackgroundColor(Color.LIGHT_GRAY);
+        table.addCell(cell30);
+        PdfPCell cell31 = new PdfPCell(new Phrase("" + e.getClasse().getLibele()));
+        table.addCell(cell31);
+        
+          PdfPCell cell40 = new PdfPCell(new Phrase("Redoublant: ", catFont));
+        cell40.setBackgroundColor(Color.LIGHT_GRAY);
+        table.addCell(cell40);
+        PdfPCell cell41 = new PdfPCell(new Phrase("" + e.getRedoublant()));
+        table.addCell(cell41);
+        
+          PdfPCell cell50 = new PdfPCell(new Phrase("Année scolaire: ", catFont));
+        cell50.setBackgroundColor(Color.LIGHT_GRAY);
+        table.addCell(cell50);
+        PdfPCell cell51 = new PdfPCell(new Phrase("" + e.getAnnee().getCode()));
+        table.addCell(cell51);
+        
         return table;
 
     }
@@ -256,10 +264,11 @@ public class Bulletinbean implements Serializable {
         document.open();
         int i;
         String level;
-        matieres = serviceMatiere.findMatiereByClasseCode(classecode);
+        matieres = serviceMatiere.findMatiereByClassecode(classecode);
         System.out.println("--------------matiere size" + matieres.size());
         String matricule;
-
+        Classe c = new Classe();
+        c = serviceClasse.findByCode(classecode);
         eleves = serviceClasse.FindByClasse(serviceClasse.findByCode(classecode).getId(), codeAnnee);
 
 
@@ -275,7 +284,7 @@ public class Bulletinbean implements Serializable {
                     System.out.println("++++++++++++++++++++++++++++++++++++++");
                     System.out.println("++++++++++++" + cycleSelected.ordinal() + "++++++++++++");
 
-                    mcc = serviceEleve.getLevelMat(m.getId());
+                    mcc = serviceMaClaCoef.getLevelMat(m.getId(), c.getId());
                     level = mcc.getLevelMatiere();
                     Notes n = new Notes(0.0, Appreciation.MEDIOCRE);
                     pvIntry = new PV(n, m.getIntitule(), mcc, 0.0);
@@ -324,7 +333,22 @@ public class Bulletinbean implements Serializable {
 
             //document.add(EnteteBuletin());
 
-            document.add(Banniere(matricule, eleve));
+            document.add(Banniere("log_lycee", eleve));
+            Paragraph p0 = new Paragraph("\n", catFont);
+            document.add(p0);
+
+            Paragraph p01 = new Paragraph(new Phrase("BULLETIN Sequentiel No..............", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
+            p01.setAlignment(Element.ALIGN_CENTER);
+            document.add(p01);
+
+            Paragraph p02 = new Paragraph("\n", catFont);
+            document.add(p02);
+
+            Paragraph p03 = new Paragraph("IDENTIFICATION DE L'ELEVE\n", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE));
+            p03.setAlignment(Element.ALIGN_CENTER);
+            document.add(p03);
+            document.add(IdentificationEleve(eleve));
+
             Paragraph p = new Paragraph(new Phrase("MATIERE DU PREMIER GROUPE", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
             p.setAlignment(Element.ALIGN_CENTER);
             document.add(p);
@@ -389,9 +413,6 @@ public class Bulletinbean implements Serializable {
 
     public PdfPTable MoyennePartielle(List<PV> l) {
         PdfPTable table = new PdfPTable(8);
-        // table.setWidthPercentage(50);
-        //table.setSpacingBefore(0);
-        //table.setHorizontalAlignment(1);
         table.spacingBefore();
         double totalCoefficier = 0;
         double moy = 0.0;
@@ -567,7 +588,7 @@ public class Bulletinbean implements Serializable {
     public void handleCycleChange() {
         niveauDisplay = false;
         classeLevels = serviceClasseLevel.findbyCycleId(cycleSelected);
-  
+
     }
 
     public void handleNiveauChange() throws ServiceException {
@@ -698,5 +719,37 @@ public class Bulletinbean implements Serializable {
 
     public void setClasseDisplay(boolean classeDisplay) {
         this.classeDisplay = classeDisplay;
+    }
+
+    public List<PV> getListeLevel1() {
+        return listeLevel1;
+    }
+
+    public void setListeLevel1(List<PV> listeLevel1) {
+        this.listeLevel1 = listeLevel1;
+    }
+
+    public List<PV> getListeLevel2() {
+        return listeLevel2;
+    }
+
+    public void setListeLevel2(List<PV> listeLevel2) {
+        this.listeLevel2 = listeLevel2;
+    }
+
+    public List<PV> getListeLevel3() {
+        return listeLevel3;
+    }
+
+    public void setListeLevel3(List<PV> listeLevel3) {
+        this.listeLevel3 = listeLevel3;
+    }
+
+    public ServiceMaClaCoef getServiceMaClaCoef() {
+        return serviceMaClaCoef;
+    }
+
+    public void setServiceMaClaCoef(ServiceMaClaCoef serviceMaClaCoef) {
+        this.serviceMaClaCoef = serviceMaClaCoef;
     }
 }

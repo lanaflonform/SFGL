@@ -4,13 +4,15 @@
  */
 package com.lateu.projet.lycee.dao;
 
+import com.douwe.generic.dao.DataAccessException;
 import com.douwe.generic.dao.IDao;
 import com.lateu.projet.lycee.entities.Notes;
+import java.util.List;
 
 /**
  *
  * @author richardlateu
  */
 public interface Notedao  extends IDao<Notes, Long>{
-    
+     List<Notes> findAllNotes()throws DataAccessException; 
 }

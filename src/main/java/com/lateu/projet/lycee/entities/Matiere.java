@@ -23,7 +23,7 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "findMatierebyIntitule", query = "select p from Matiere p where p.intitule=:intitule"),
-    @NamedQuery(name = "findMatiereByClasseId", query = "select m from Matiere m,MaClaCoef mcc,Classe c where (c.code=:idClasse)AND(mcc.classe.id=c.id)AND(mcc.matiere.id=m.id) ")
+    @NamedQuery(name = "findMatiereByClasseCode", query = "select m from Matiere m,MaClaCoef mcc,Classe c where (c.code=:codeClasse)AND(mcc.classe.id=c.id)AND(mcc.matiere.id=m.id) ")
 })
 public class Matiere implements Serializable {
 

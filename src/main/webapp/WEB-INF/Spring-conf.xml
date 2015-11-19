@@ -76,6 +76,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="classedao" ref="Classedao"/>
         <property name="maClaCoefdao" ref="MaClaCoefdao"/>
         <property name="matieredao" ref="Matieredao"/>
+        <property name="professeurdao" ref="Professeurdao"/>
     </bean>  
           
     <bean id="ServiceInitLycee" class="com.lateu.projet.lycee.service.Impl.ServiceInitLyceeImpl">

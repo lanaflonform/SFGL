@@ -16,6 +16,7 @@ import com.lateu.projet.lycee.entities.Notes;
 import com.lateu.projet.lycee.projection.ReportEntry;
 import com.lateu.projet.lycee.projection.PV;
 import java.util.List;
+import javax.persistence.IdClass;
 
 /**
  *
@@ -82,10 +83,5 @@ public class ElevedaoImpl extends GenericDao<Eleve, Long> implements Elevedao {
                 .getSingleResult();//.setParameter("sequence", sequence)
     }
 
-    @Override
-    public MaClaCoef getLevelMatiere(Long idmat) throws DataAccessException {
-         return (MaClaCoef)getManager().createNamedQuery("getLevelMatiere")
-                .setParameter("idmat",idmat)
-                .getSingleResult();
-    }
+ 
 }

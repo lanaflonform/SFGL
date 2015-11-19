@@ -4,6 +4,7 @@
  */
 package com.lateu.projet.lycee.service;
 
+import com.lateu.projet.lycee.entities.Eleve;
 import com.lateu.projet.lycee.entities.Professeur;
 import com.lateu.projet.lycee.entities.UserRole;
 import java.util.List;
@@ -15,5 +16,5 @@ import java.util.List;
 public interface ServiceProfesseur {
     public void create(Professeur p, UserRole role)throws ServiceException;
       public List<Professeur> findAll()throws ServiceException;
-        public  int LastIndex(List<Professeur> professeurs)throws ServiceException;
+        public String LastIndex(List<Professeur> professeurs) throws ServiceException;
 }

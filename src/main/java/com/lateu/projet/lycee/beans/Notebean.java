@@ -31,7 +31,7 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 //@RequestScoped
 @ViewScoped
-public class Notebean implements Serializable{
+public class Notebean implements Serializable {
 
     @ManagedProperty(value = "#{ServiceNote}")
     private ServiceNote serviceNote;
@@ -54,18 +54,22 @@ public class Notebean implements Serializable{
     private List<AnneeScolaire> anneeScolaires;
     private Long idSecquence;
     private Long idMatiere;
-    private Long idClasse;
+    private String idClasse;
     private String matricule;
-    private Notes noteSelected = new Notes();
-
+    private Notes noteSelected;
+    private boolean matiereDisable = true;
+    private float myNote;
     public Notebean() {
+        noteSelected=new Notes();
     }
 
-    
-    public void saveNote(){
-    
-    
-    };
+    public void saveNote() throws ServiceException {
+        noteSelected.setNote(myNote);
+        serviceNote.create(noteSelected, matricule, idSecquence, idMatiere, 11L);
+       // serviceNote.c
+       // System.out.println("======================================="+noteSelected.getNote());
+    }
+
     public List<Eleve> getEleves() throws ServiceException {
         return eleves = serviceEleve.FindAll();
     }
@@ -162,11 +166,11 @@ public class Notebean implements Serializable{
         this.noteSelected = noteSelected;
     }
 
-    public Long getIdClasse() {
+    public String getIdClasse() {
         return idClasse;
     }
 
-    public void setIdClasse(Long idClasse) {
+    public void setIdClasse(String idClasse) {
         this.idClasse = idClasse;
     }
 
@@ -187,13 +191,10 @@ public class Notebean implements Serializable{
     }
 
     public void filtreMatiere() throws ServiceException {
-      /*  if (idClasse != null) {
-            System.out.println("-------------id est-------"+idClasse);
-            matieres = serviceMatiere.findMatiereByClasseID(idClasse);
-        } else {
-             System.out.println("-------------rien n'est dispo-------");
-            matieres = new ArrayList<Matiere>();
-        }*/
+        matiereDisable = false;
+
+  
+        getMatieres();
     }
 
     public ServiceMatiere getServiceMatiere() {
@@ -204,8 +205,10 @@ public class Notebean implements Serializable{
         this.serviceMatiere = serviceMatiere;
     }
 
-    public List<Matiere> getMatieres() {
-        return matieres;
+    public List<Matiere> getMatieres() throws ServiceException {
+
+        return matieres = serviceMatiere.findMatiereByClassecode(idClasse);
+ 
     }
 
     public void setMatieres(List<Matiere> matieres) {
@@ -213,10 +216,27 @@ public class Notebean implements Serializable{
     }
 
     public List<Notes> getNotes() throws ServiceException {
-        return notes=serviceNote.FindAll();
+        return notes = serviceNote.FindAll();
     }
 
     public void setNotes(List<Notes> notes) {
         this.notes = notes;
     }
+
+    public boolean isMatiereDisable() {
+        return matiereDisable;
+    }
+
+    public void setMatiereDisable(boolean matiereDisable) {
+        this.matiereDisable = matiereDisable;
+    }
+
+    public float getMyNote() {
+        return myNote;
+    }
+
+    public void setMyNote(float myNote) {
+        this.myNote = myNote;
+    }
+  
 }

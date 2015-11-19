@@ -21,27 +21,25 @@
                      
                      <h:outputLabel value="Niveau" for="nv" />
                       <p:selectOneMenu id="nv" value="#{bulletinbean.niveau}"  valueChangeListener="#{bulletinbean.handleNiveauChange()}" disabled="#{bulletinbean.niveauDisplay}">
-                          <f:selectItem itemLabel="Choisir un Niveau" itemValue="" />
                           <f:selectItems value="#{bulletinbean.listeNivSelect}"/> 
                           <p:ajax update="cl"   event="change"/>
                       </p:selectOneMenu> 
                      
                     <h:outputLabel value="Classe" for="cl" />
                     <p:selectOneMenu id="cl" value="#{bulletinbean.classecode}"   disabled="#{bulletinbean.classeDisplay}">
-                        <f:selectItem itemLabel="Choisir une Classe" itemValue="" />
                         <f:selectItems value="#{bulletinbean.listeClasseSelect}" /> 
                     </p:selectOneMenu> 
                     
                        <h:outputLabel value="Sequence" for="s" />
                        <p:selectOneMenu id="s" value="#{bulletinbean.sequencecode}"   >
-                           <f:selectItem itemLabel="Choisir une sequence" itemValue="" />
+                           <f:selectItem itemLabel="Choisir" itemValue="" />
                            <f:selectItems value="#{bulletinbean.listeSequenceSelect}" var="cls" itemValue="#{clas.description}" itemLabel="#{cls.description}"/> 
                     </p:selectOneMenu> 
 
 
                     <h:outputLabel value="Annee" for="an" />
                     <p:selectOneMenu id="an" value="#{bulletinbean.codeAnnee}"   >
-                        <f:selectItem itemLabel="Choisir une Année scolaire" itemValue="" />
+                        <f:selectItem itemLabel="Choisir" itemValue="" />
                         <f:selectItems value="#{bulletinbean.anneeScolaires}" var="a" itemValue="#{a.code}" itemLabel="#{a.code}"/> 
                     </p:selectOneMenu> 
 

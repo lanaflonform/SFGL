@@ -4,6 +4,7 @@
  */
 package com.lateu.projet.lycee.service;
 
+import com.lateu.projet.lycee.Enum.Appreciation;
 import com.lateu.projet.lycee.entities.Notes;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface ServiceNote {
-    public void create(Notes note, String matricule, String sequence,String matiere,Long Annee)throws ServiceException;
+    public void create(Notes note, String matricule, Long idsequence,Long idmatiere,Long Annee)throws ServiceException;
        public  List<Notes> FindAll()throws ServiceException;
+       public Appreciation Apprecier(double note)throws ServiceException;
 }

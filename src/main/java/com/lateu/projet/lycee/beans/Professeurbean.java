@@ -37,21 +37,20 @@ public class Professeurbean {
     public void create() throws ServiceException {
 
         SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-yyyy");
-        int index = serviceProfesseur.LastIndex(professeurs);
-        String s = buildeMatricule(new Date(), "P", +(index + 1));
+        String index = serviceProfesseur.LastIndex(professeurs);
+        String s = buildeMatricule(new Date(), "P"+index);
         professeurselected.setMatricule(s);
         professeurselected.setEtatCompte("1");
         userRole.setProfesseur(professeurselected);
         serviceProfesseur.create(professeurselected, userRole);
-        System.out.println("====" + professeurselected);
     }
 
-    public String buildeMatricule(Date d, String chaine, int chaine1) {
+    public String buildeMatricule(Date d, String chaine) {
         String s;
         SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-yyyy");
         Date dt = new Date();
         s = tmp.format(dt);
-        s = s.substring(8, 10) + chaine + chaine1;
+        s = s.substring(8, 10) + chaine;
         return s;
 
 

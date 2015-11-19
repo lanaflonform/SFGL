@@ -16,7 +16,7 @@
             <table width="0%" align="right" style="height: 20px;"><tr><td>
                         <h:form id="formulaire">
                             <h:panelGrid columns="3" >
-                                <h:outputLabel    value="#{msg.connecte}   "    style="margin-left: 5%;margin-right: 10%;font-weight: bold; color: black"/> 
+                                <h:outputLabel    value="#{msg.connecte} lateu  "    style="margin-left: 0%;margin-right: 20%;font-weight: bold; color: black"/> 
 
                                 <h:commandButton value="#{msg['welcome.langue1']}" image="/resources/images/fr.png" action="#{changeLocale.setFrenchLocale}"/>
                                 <h:commandButton value="#{msg['welcome.langue2']}" image="/resources/images/en.png" action="#{changeLocale.setEnglishLocale}"/>
@@ -39,6 +39,7 @@
                         <p:submenu label="#{msg.eleve}" icon="ui-icon-contact">  
                             <p:menuitem value="new" url="/vues/ServiceEtudes/eleve/indexEleve.xhtml" /> 
                             <p:menuitem value="Observations" url="#" />   
+                            <p:menuitem value="cartes-scolaire" url="#" /> 
                         </p:submenu>  
 
 
@@ -64,7 +65,7 @@
 
 
                     <p:submenu label="Notes">          
-                        <p:menuitem value="Manuelle" url="/vues/ServiceEtudes/notes/index.xhtml"/> 
+                        <p:menuitem value="Manuelle" url="/vues/ServiceEtudes/notes/note.xhtml"/> 
                         <p:menuitem value="Importation" url="/vues/ServiceEtudes/importationEleveListe.xhtml"/> 
                     </p:submenu> 
 

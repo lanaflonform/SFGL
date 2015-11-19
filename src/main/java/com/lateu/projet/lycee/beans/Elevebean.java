@@ -53,7 +53,6 @@ public class Elevebean {
     private Nationalite nationnaliteSelected = new Nationalite();
     public List<Nationalite> nationalites;
     public List<Eleve> eleves;
-    private SelectItem[] listeNationSelect;
     public List<AnneeScolaire> anneeScolaires;
     public List<Classe> classes = new ArrayList<Classe>();
     private Eleve eleveSelected = new Eleve();
@@ -61,33 +60,27 @@ public class Elevebean {
     private String CodeAnnee;
     private String pays;
     private String classe;
-    private SelectItem[] listeAnneeSelect;
-    private SelectItem[] listeClasseSelect;
 
     public Elevebean() {
     }
 
     public void create() throws ServiceException {
         SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-yyyy");
-        Long index = serviceEleve.LastIndex(serviceEleve.FindAll());
-        //String s1=tmp.format(dt);
-        String s = buildeMatricule(new Date(), "L", 1 + (index));
+        String index = serviceEleve.LastIndex(serviceEleve.FindAll());
+        String s = buildeMatricule(new Date(), "L"+index);
         eleveSelected.setMatricule(s);
-        //eleveSelected.setStatut("eleve");
         serviceEleve.create(eleveSelected, CodeAnnee, pays, classe);
 
         //System.out.println("====="+eleveSelected);
     }
 
-    public String buildeMatricule(Date d, String chaine, Long chaine1) {
+    public String buildeMatricule(Date d, String chaine) {
         String s;
         SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-yyyy");
         Date dt = new Date();
         s = tmp.format(dt);
-        s = s.substring(8, 10) + chaine + chaine1;
+        s = s.substring(8, 10) + chaine;
         return s;
-
-
     }
 
     public List<Eleve> getEleves() throws ServiceException {
@@ -178,37 +171,11 @@ public class Elevebean {
         this.classe = classe;
     }
 
-    public SelectItem[] getListeClasseSelect() throws ServiceException {
-        classes = serviceClasse.findAll();
-        listeClasseSelect = new SelectItem[classes.size() + 1];
-        listeClasseSelect[0] = new SelectItem("choisir");
-        for (int i = 1; i < classes.size() + 1; i++) {
-            listeClasseSelect[i] = new SelectItem(classes.get(i - 1).getLibele());
-        }
+  
 
-        return listeClasseSelect;
-    }
 
-    public void setListeClasseSelect(SelectItem[] listeClasseSelect) {
-        this.listeClasseSelect = listeClasseSelect;
-    }
-
-    public SelectItem[] getListeAnneeSelect() throws ServiceException {
-        anneeScolaires = serviceAnneeScolaire.findAll();
-        listeAnneeSelect = new SelectItem[anneeScolaires.size() + 1];
-        listeAnneeSelect[0] = new SelectItem("choisir");
-        for (int i = 1; i < anneeScolaires.size() + 1; i++) {
-            listeAnneeSelect[i] = new SelectItem(anneeScolaires.get(i - 1).getCode());
-        }
-        return listeAnneeSelect;
-    }
-
-    public void setListeAnneeSelect(SelectItem[] listeAnneeSelect) {
-        this.listeAnneeSelect = listeAnneeSelect;
-    }
-
-    public List<AnneeScolaire> getAnneeScolaires() {
-        return anneeScolaires;
+    public List<AnneeScolaire> getAnneeScolaires() throws ServiceException {
+        return anneeScolaires=serviceAnneeScolaire.findAll();
     }
 
     public void setAnneeScolaires(List<AnneeScolaire> anneeScolaires) {
@@ -223,20 +190,7 @@ public class Elevebean {
         this.CodeAnnee = CodeAnnee;
     }
 
-    public SelectItem[] getListeNationSelect() throws ServiceException {
-
-        nationalites = serviceNationalite.FindAll();
-        listeNationSelect = new SelectItem[nationalites.size() + 1];
-        listeNationSelect[0] = new SelectItem("choisir");
-        for (int i = 1; i < nationalites.size() + 1; i++) {
-            listeNationSelect[i] = new SelectItem(nationalites.get(i - 1).getPays());
-        }
-        return listeNationSelect;
-    }
-
-    public void setListeNationSelect(SelectItem[] listeNationSelect) {
-        this.listeNationSelect = listeNationSelect;
-    }
+    
 
     public String getPays() {
         return pays;

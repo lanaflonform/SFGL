@@ -16,9 +16,10 @@
                     <p:panelGrid columns="2" rendered="#{classeLevelBean.classeLevelSelected != null}">
                         <h:outputLabel value="Cycle" for="cy" />
                         <p:selectOneMenu id="cy" value="#{classeLevelBean.cycleSelected}"   >
-                            <f:selectItems value="#{classeLevelBean.cycles}" /> 
+                            <f:selectItem itemLabel="choisir" itemValue="" />
+                            <f:selectItems value="#{classeLevelBean.cycles}"  /> 
                         </p:selectOneMenu> 
-                        
+
                         <p:outputLabel value="niveau" for="niveau" />
                         <p:inputText id="niveau" value="#{classeLevelBean.niveau}"  />
                     </p:panelGrid>

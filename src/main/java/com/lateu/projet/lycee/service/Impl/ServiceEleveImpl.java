@@ -31,66 +31,62 @@ import org.springframework.transaction.annotation.Transactional;
  * @author richardlateu
  */
 @Transactional
-public class ServiceEleveImpl implements ServiceEleve{
-private Elevedao elevedao;
-private Nationalitedao nationalitedao;
-private Notedao notedao;
-private Classedao classedao;
-private FraisDiverdao fraisdao;
-private Observationdao observatiodao;
-private AnneeScolairedao anneeScoaliredao;
+public class ServiceEleveImpl implements ServiceEleve {
 
+    private Elevedao elevedao;
+    private Nationalitedao nationalitedao;
+    private Notedao notedao;
+    private Classedao classedao;
+    private FraisDiverdao fraisdao;
+    private Observationdao observatiodao;
+    private AnneeScolairedao anneeScoaliredao;
 
- 
-@Override
-  public void create(Eleve eleve, String CodeAnnee, String pays, String classe) throws ServiceException {
-         Classe cl = new Classe();
-          AnneeScolaire anneeScolaire = new AnneeScolaire();
-           Nationalite nationalite = new Nationalite();
-    try {
-        anneeScolaire=anneeScoaliredao.findByCode(CodeAnnee);
-    } catch (DataAccessException ex) {
-        Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    try {
-        nationalite=nationalitedao.findNationalitebypays(pays);
-    } catch (DataAccessException ex) {
-        Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    try {
-        cl=classedao.findClassebyCode(classe);
-    } catch (DataAccessException ex) {
-        Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    try {
-        eleve.setAnnee(anneeScolaire);
-        eleve.setNationalite(nationalite);
-        eleve.setClasse(cl);
-        elevedao.create(eleve);
-    } catch (DataAccessException ex) {
-        Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    @Override
+    public void create(Eleve eleve, String CodeAnnee, String pays, String classe) throws ServiceException {
+        Classe cl = new Classe();
+        AnneeScolaire anneeScolaire = new AnneeScolaire();
+        Nationalite nationalite = new Nationalite();
+        try {
+            anneeScolaire = anneeScoaliredao.findByCode(CodeAnnee);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            nationalite = nationalitedao.findNationalitebypays(pays);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            cl = classedao.findClassebyCode(classe);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            eleve.setAnnee(anneeScolaire);
+            eleve.setNationalite(nationalite);
+            eleve.setClasse(cl);
+            elevedao.create(eleve);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-   
-@Override
+    @Override
     public Eleve FindByMatricune(String s, AnneeScolaire annee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-@Override
+    @Override
     public List<Eleve> FindByNationnalite(Nationalite n, AnneeScolaire annee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-
-
-@Override
+    @Override
     public List<Eleve> FindBySexe(String s, AnneeScolaire annee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-@Override
+    @Override
     public int EleveNumber(Classe cl, AnneeScolaire annee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -135,8 +131,6 @@ private AnneeScolairedao anneeScoaliredao;
         this.fraisdao = fraisdao;
     }
 
-   
-
     public AnneeScolairedao getAnneeScoaliredao() {
         return anneeScoaliredao;
     }
@@ -154,60 +148,67 @@ private AnneeScolairedao anneeScoaliredao;
     }
 
     @Override
-    public Long LastIndex(List<Eleve> eleves) throws ServiceException {
-     int i=eleves.size();
-    // eleves.toArray();
-     if(i==0){
-      return 1L;
-     
-     }else{
-     return eleves.get(i-1).getId();
-     }
+    public String LastIndex(List<Eleve> eleves) throws ServiceException {
+        int i = eleves.size();
+        Eleve e = new Eleve();
+        String s = "";
+        String index = "";
+        int n = 0;
+        if (i == 0) {
+            return "0001";
+
+        } else {
+            e = eleves.get(i - 1);
+            s = e.getMatricule();
+            s = s.substring(3, 7);
+            
+            n =Integer.parseInt(s);
+           // System.out.println("===================================================================="+n);
+            n++;
+
+            if (n < 10) {
+                index = "000" + n;
+            } else if ((n < 100) && (n >= 10)) {
+                index = "00" + n;
+            }else if((n>100)&&(n < 1000)){
+            
+             index="0"+n;
+            }else{
+            index=""+n;}
+
+
+            return index;
+        }
     }
 
     @Override
     public List<Eleve> FindAll() throws ServiceException {
-    try {
-        return elevedao.findAll();
-    } catch (DataAccessException ex) {
-        Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return null;
-    }
-
-    @Override
-    public List<ReportEntry> maSectionBulletin(String codeClasse,String level) throws ServiceException {
-    try {
-        return  elevedao.maSectionBulletin(codeClasse,level);
-    } catch (DataAccessException ex) {
-        Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return null;
-    }
-
-    @Override
-    public   List<PV> GeneralPV(String matricule,Long idMatiere) throws ServiceException {
-    try {
-        return elevedao.GeneralPV(matricule,idMatiere);
-    } catch (DataAccessException ex) {
+        try {
+            return elevedao.findAll();
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
-       // Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
-   // return null;
-    }
-    
-  
-    @Override
-    public MaClaCoef getLevelMat(Long idMatiere) throws ServiceException {
-    try {
-        return elevedao.getLevelMatiere(idMatiere);
-    } catch (DataAccessException ex) {
-        Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return null;
-  
-    
     }
 
-   
+    @Override
+    public List<ReportEntry> maSectionBulletin(String codeClasse, String level) throws ServiceException {
+        try {
+            return elevedao.maSectionBulletin(codeClasse, level);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public List<PV> GeneralPV(String matricule, Long idMatiere) throws ServiceException {
+        try {
+            return elevedao.GeneralPV(matricule, idMatiere);
+        } catch (DataAccessException ex) {
+            return null;
+        }
+    }
+
+  
 }

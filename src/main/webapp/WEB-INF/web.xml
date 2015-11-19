@@ -22,12 +22,12 @@
         <param-value>client</param-value>
     </context-param>
   
-   <!-- changer le theme par defaut -->
+   <!-- changer le theme par defaut 
         <context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>glass-x</param-value>
 	</context-param>
-  
+  -->
     <listener>
         <listener-class>
 		org.springframework.web.context.ContextLoaderListener
