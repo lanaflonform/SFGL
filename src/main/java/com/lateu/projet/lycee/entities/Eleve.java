@@ -6,6 +6,7 @@ package com.lateu.projet.lycee.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -107,8 +108,114 @@ public class Eleve extends Personne implements Serializable {
         this.moyenneS6 = moyenneS6;
     }
 
-   
 
+    public static Comparator<Eleve> ComparatorMoyS1 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneS1();
+           double  moy2=e2.getMoyenneS1();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+    
+     public static Comparator<Eleve> ComparatorMoyS2 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneS2();
+           double  moy2=e2.getMoyenneS2();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+      public static Comparator<Eleve> ComparatorMoyS3 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneS3();
+           double  moy2=e2.getMoyenneS3();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+       public static Comparator<Eleve> ComparatorMoyS4 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneS4();
+           double  moy2=e2.getMoyenneS4();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+    
+ public static Comparator<Eleve> ComparatorMoyS5 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneS5();
+           double  moy2=e2.getMoyenneS5();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+ 
+  public static Comparator<Eleve> ComparatorMoyS6 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneS6();
+           double  moy2=e2.getMoyenneS6();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+  
+   public static Comparator<Eleve> ComparatorMoyT1 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneT1();
+           double  moy2=e2.getMoyenneT1();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+  
+  
+  public static Comparator<Eleve> ComparatorMoyT2 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneT2();
+           double  moy2=e2.getMoyenneT2();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+  
+  public static Comparator<Eleve> ComparatorMoyT3 = new Comparator<Eleve>() {
+      
+        @Override
+        public int compare(Eleve e1, Eleve e2) {
+          double  moy1=e1.getMoyenneT3();
+           double  moy2=e2.getMoyenneT3();
+            return moy1 > moy2 ? -1
+                    : moy1 < moy2 ? 1
+                    : 0;
+        }
+    };
+  
     public String getRedoublant() {
         return redoublant;
     }

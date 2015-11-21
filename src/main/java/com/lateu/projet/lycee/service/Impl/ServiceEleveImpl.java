@@ -210,5 +210,14 @@ public class ServiceEleveImpl implements ServiceEleve {
         }
     }
 
+    @Override
+    public void update(Eleve eleve) throws ServiceException {
+        try {
+            elevedao.update(eleve);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(ServiceEleveImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
   
 }

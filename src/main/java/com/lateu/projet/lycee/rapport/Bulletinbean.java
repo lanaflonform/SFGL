@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -188,19 +189,19 @@ public class Bulletinbean implements Serializable {
         table.addCell(cell30);
         PdfPCell cell31 = new PdfPCell(new Phrase("" + e.getClasse().getLibele()));
         table.addCell(cell31);
-        
-          PdfPCell cell40 = new PdfPCell(new Phrase("Redoublant: ", catFont));
+
+        PdfPCell cell40 = new PdfPCell(new Phrase("Redoublant: ", catFont));
         cell40.setBackgroundColor(Color.LIGHT_GRAY);
         table.addCell(cell40);
         PdfPCell cell41 = new PdfPCell(new Phrase("" + e.getRedoublant()));
         table.addCell(cell41);
-        
-          PdfPCell cell50 = new PdfPCell(new Phrase("Année scolaire: ", catFont));
+
+        PdfPCell cell50 = new PdfPCell(new Phrase("Année scolaire: ", catFont));
         cell50.setBackgroundColor(Color.LIGHT_GRAY);
         table.addCell(cell50);
         PdfPCell cell51 = new PdfPCell(new Phrase("" + e.getAnnee().getCode()));
         table.addCell(cell51);
-        
+
         return table;
 
     }
@@ -258,21 +259,112 @@ public class Bulletinbean implements Serializable {
      * @throws ServiceException
      */
     public void createBulletin() throws FileNotFoundException, BadElementException, MalformedURLException, IOException, DocumentException, ServiceException {
-        Document document = new Document(PageSize.A4);
+        //int i;
+        int coef_Cl = 0;
+        double nte_coef = 0;
+        double moyen = 0;
+        String levl;
+        matieres = serviceMatiere.findMatiereByClassecode(classecode);
+        System.out.println("--------------matiere size" + matieres.size());
+        String mat;
+        Classe cc = new Classe();
+        cc = serviceClasse.findByCode(classecode);
+        eleves = serviceClasse.FindByClasse(cc.getId(), codeAnnee);
 
+
+        for (Eleve e : eleves) {
+            listeLevel1 = new ArrayList<PV>();
+            listeLevel2 = new ArrayList<PV>();
+            listeLevel3 = new ArrayList<PV>();
+            mat = e.getMatricule();
+            for (Matiere m : matieres) {
+
+                List< PV> lstepv = serviceEleve.GeneralPV(e.getMatricule(), m.getId());
+                if (lstepv.isEmpty()) {
+                    System.out.println("++++++++++++++++++++++++++++++++++++++");
+                    System.out.println("++++++++++++" + cycleSelected.ordinal() + "++++++++++++");
+
+                    mcc = serviceMaClaCoef.getLevelMat(m.getId(), cc.getId());
+                    levl = mcc.getLevelMatiere();
+                    Notes n = new Notes(0.0, Appreciation.MEDIOCRE);
+                    pvIntry = new PV(n, m.getIntitule(), mcc, 0.0);
+                    if (levl.equals("1")) {
+                        listeLevel1.add(pvIntry);
+                    }
+
+                    if (levl.equals("2")) {
+                        listeLevel2.add(pvIntry);
+                    }
+
+                    if (levl.equals("3")) {
+                        listeLevel3.add(pvIntry);
+                    }
+
+                }
+
+                for (PV pv : lstepv) {
+                    if (pv != null) {
+
+
+                        if (pv.getMaClaCoef().getLevelMatiere().equals("1")) {
+                            listeLevel1.add(pv);
+                        }
+
+
+                        if (pv.getMaClaCoef().getLevelMatiere().equals("2")) {
+                            listeLevel2.add(pv);
+                        }
+
+
+                        if (pv.getMaClaCoef().getLevelMatiere().equals("3")) {
+                            listeLevel3.add(pv);
+                        }
+
+                    } else {
+                    }
+                }
+
+
+
+
+
+
+            }
+
+
+            coef_Cl = CoefByClasse(listeLevel1, listeLevel2, listeLevel3);
+            nte_coef = Total_NoteXCoef(listeLevel1, listeLevel2, listeLevel3);
+            moyen = MoyenneEleve(listeLevel1, listeLevel2, listeLevel3);
+             moyen = ArondirDouble(moyen);
+            updateMoyenne("S1", moyen, e);
+
+
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, getOutput());
         document.open();
-        int i;
+        int i = 0;
+        int coef_Classe = 0;
+        double note_coef = 0;
+        double moyenne = 0;
+        double moyenFirst = 0;
+        double moyenLast = 0;
+        double moyenGen = 0;
         String level;
         matieres = serviceMatiere.findMatiereByClassecode(classecode);
         System.out.println("--------------matiere size" + matieres.size());
         String matricule;
         Classe c = new Classe();
         c = serviceClasse.findByCode(classecode);
-        eleves = serviceClasse.FindByClasse(serviceClasse.findByCode(classecode).getId(), codeAnnee);
-
+        eleves = serviceClasse.FindByClasse(c.getId(), codeAnnee);
+        ClasserByMoyenne(eleves, "S1");
 
         for (Eleve eleve : eleves) {
+            i++;
             listeLevel1 = new ArrayList<PV>();
             listeLevel2 = new ArrayList<PV>();
             listeLevel3 = new ArrayList<PV>();
@@ -359,17 +451,30 @@ public class Bulletinbean implements Serializable {
             Paragraph p1 = new Paragraph(new Phrase("MATIERE DU DEUXIEME GROUPE", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
             p1.setAlignment(Element.ALIGN_CENTER);
             document.add(p1);
-
             document.add(Groupe(listeLevel2));
             document.add(MoyennePartielle(listeLevel2));
 
             Paragraph p3 = new Paragraph(new Phrase("MATIERE DU TROISIEME GROUPE", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
             p3.setAlignment(Element.ALIGN_CENTER);
             document.add(p3);
-
-
             document.add(Groupe(listeLevel3));
             document.add(MoyennePartielle(listeLevel3));
+
+
+
+            Paragraph p4 = new Paragraph(new Phrase("RECAPITITULATIF", new Font(Font.COURIER, 10, Font.BOLD, Color.BLUE)));
+            p4.setAlignment(Element.ALIGN_CENTER);
+            document.add(p4);
+            coef_Classe = CoefByClasse(listeLevel1, listeLevel2, listeLevel3);
+            note_coef = Total_NoteXCoef(listeLevel1, listeLevel2, listeLevel3);
+            moyenne = MoyenneEleve(listeLevel1, listeLevel2, listeLevel3);
+            // ClasserByMoyenne(eleves, "S1");
+            moyenFirst = ArondirDouble(eleves.get(0).getMoyenneS1());
+            moyenLast = ArondirDouble(eleves.get(eleves.size() - 1).getMoyenneS1());
+            moyenGen = ArondirDouble(MoyenneGenerale(eleves, "S1"));
+            document.add(Recapititulatif(coef_Classe, note_coef, moyenne, moyenFirst, moyenLast, moyenGen, i));
+
+
             document.newPage();
 
         }
@@ -387,7 +492,8 @@ public class Bulletinbean implements Serializable {
      */
     public void ajouterLingne(PdfPTable table2, Object p) throws DocumentException {
         PV pv = (PV) p;
-        PdfPCell cell1 = new PdfPCell(new Phrase("lateu-richard ", catFont));
+
+        PdfPCell cell1 = new PdfPCell(new Phrase(pv.getMaClaCoef().getProfesseur().getNom(), catFont));
         //cell1.setBackgroundColor(Color.GRAY);
         table2.addCell(cell1);
 
@@ -461,6 +567,275 @@ public class Bulletinbean implements Serializable {
         table.addCell(vide);
 
         return table;
+    }
+
+    public PdfPTable Recapititulatif(int coef, double note_coef, double moyenne, double moyenFirst, double moyenLast, double moyenGen, int rang) {
+
+        PdfPTable pTable = new PdfPTable(2);
+        PdfPCell vide = new PdfPCell(new Phrase("", catFont));
+
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Total coefficient", catFont));
+        c1.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c1);
+        pTable.addCell(new Phrase("" + coef, catFont));
+
+        PdfPCell c2 = new PdfPCell(new Phrase("Total notes coefficiés", catFont));
+        c2.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c2);
+        pTable.addCell(new Phrase("" + note_coef, catFont));
+
+        PdfPCell c3 = new PdfPCell(new Phrase("Moyenne de l'élève", catFont));
+        c3.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c3);
+        pTable.addCell(new Phrase("" + moyenne, catFont));
+
+
+        PdfPCell c4 = new PdfPCell(new Phrase("Moyenne du premier de la classe", catFont));
+        c4.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c4);
+        pTable.addCell(new Phrase("" + moyenFirst, catFont));
+
+        PdfPCell c5 = new PdfPCell(new Phrase("Moyenne du dernier de la classe", catFont));
+        c5.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c5);
+        pTable.addCell(new Phrase("" + moyenLast, catFont));
+
+        PdfPCell c6 = new PdfPCell(new Phrase("Moyenne générale de la classe", catFont));
+        c6.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c6);
+        pTable.addCell(new Phrase("" + moyenGen, catFont));
+
+        PdfPCell c7 = new PdfPCell(new Phrase("Rang de lélève", catFont));
+        c7.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c7);
+        pTable.addCell(new Phrase("" + rang, catFont));
+
+        PdfPCell c8 = new PdfPCell(new Phrase("Mention", catFont));
+        c8.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c8);
+        pTable.addCell(vide);
+
+        PdfPCell c9 = new PdfPCell(new Phrase("Décision du conseil de classe", catFont));
+        c9.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c9);
+        pTable.addCell(vide);
+
+        PdfPCell c10 = new PdfPCell(new Phrase("Nombre d’heure d’absence", catFont));
+        c10.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c10);
+        pTable.addCell(vide);
+
+        PdfPCell c11 = new PdfPCell(new Phrase("Niveau de l’élève", catFont));
+        c11.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c11);
+        pTable.addCell(vide);
+
+
+        PdfPCell c12 = new PdfPCell(new Phrase("Décision du conseil de classe", catFont));
+        c12.setBackgroundColor(Color.LIGHT_GRAY);
+        pTable.addCell(c12);
+        pTable.addCell(vide);
+
+
+
+        return pTable;
+    }
+
+    public int CoefByClasse(List<PV> l1, List<PV> l2, List<PV> l3) {
+
+        int coef = 0;
+
+        for (PV pv : l1) {
+            coef += pv.getMaClaCoef().getCoeficient();
+        }
+
+        for (PV pv : l2) {
+            coef += pv.getMaClaCoef().getCoeficient();
+        }
+
+        for (PV pv : l3) {
+            coef += pv.getMaClaCoef().getCoeficient();
+        }
+
+
+        return coef;
+
+    }
+
+    public double Total_NoteXCoef(List<PV> l1, List<PV> l2, List<PV> l3) {
+
+        double note_coef = 0;
+
+        for (PV pv : l1) {
+            note_coef += pv.getNote_coef();
+        }
+
+        for (PV pv : l2) {
+            note_coef += pv.getNote_coef();
+        }
+
+        for (PV pv : l3) {
+            note_coef += pv.getNote_coef();
+        }
+
+
+        return note_coef;
+
+    }
+
+    public double MoyenneEleve(List<PV> l1, List<PV> l2, List<PV> l3) {
+
+        double moyenne = 0;
+        double totalCoefficier = 0;
+
+        int coef = 0;
+        for (PV pv : l1) {
+            totalCoefficier = totalCoefficier + pv.getNote_coef();
+            coef = coef + pv.getMaClaCoef().getCoeficient();
+        }
+
+        for (PV pv : l2) {
+            totalCoefficier = totalCoefficier + pv.getNote_coef();
+            coef = coef + pv.getMaClaCoef().getCoeficient();
+        }
+        for (PV pv : l3) {
+            totalCoefficier = totalCoefficier + pv.getNote_coef();
+            coef = coef + pv.getMaClaCoef().getCoeficient();
+        }
+
+        moyenne = totalCoefficier / coef;
+
+
+
+        return moyenne;
+
+    }
+
+    public void updateMoyenne(String token, double moy, Eleve e) throws ServiceException {
+        if (token.equals("S1")) {
+            e.setMoyenneS1(moy);
+            serviceEleve.update(e);
+        } else if (token.equals("S2")) {
+            e.setMoyenneS2(moy);
+            serviceEleve.update(e);
+        } else if (token.equals("S3")) {
+            e.setMoyenneS3(moy);
+            serviceEleve.update(e);
+        } else if (token.equals("S4")) {
+            e.setMoyenneS4(moy);
+            serviceEleve.update(e);
+        } else if (token.equals("S5")) {
+            e.setMoyenneS5(moy);
+            serviceEleve.update(e);
+        } else if (token.equals("S6")) {
+            e.setMoyenneS6(moy);
+            serviceEleve.update(e);
+
+        } else if (token.equals("T1")) {
+            e.setMoyenneT1(moy);
+            serviceEleve.update(e);
+        } else if (token.equals("T2")) {
+            e.setMoyenneT2(moy);
+            serviceEleve.update(e);
+        } else if (token.equals("T3")) {
+            e.setMoyenneT3(moy);
+            serviceEleve.update(e);
+        }
+
+
+
+    }
+
+    public void ClasserByMoyenne(List<Eleve> eleves, String token) {
+        if (token.equals("S1")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyS1);
+        } else if (token.equals("S2")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyS2);
+        } else if (token.equals("S3")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyS3);
+        } else if (token.equals("S4")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyS4);
+        } else if (token.equals("S5")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyS5);
+        } else if (token.equals("S6")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyS6);
+        } else if (token.equals("T1")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyT1);
+        } else if (token.equals("T2")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyT2);
+        } else if (token.equals("T3")) {
+            Collections.sort(eleves, Eleve.ComparatorMoyT3);
+        }
+
+
+
+
+    }
+
+    public double MoyenneGenerale(List<Eleve> eleves, String token) {
+        double mg = 0;
+
+        if (token.equals("S1")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneS1();
+            }
+            mg = mg / eleves.size();
+        } else if (token.equals("S2")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneS2();
+            }
+            mg = mg / eleves.size();
+        } else if (token.equals("S3")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneS3();
+            }
+            mg = mg / eleves.size();
+        } else if (token.equals("S4")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneS4();
+            }
+            mg = mg / eleves.size();
+        } else if (token.equals("S5")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneS5();
+            }
+            mg = mg / eleves.size();
+        } else if (token.equals("S6")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneS6();
+            }
+            mg = mg / eleves.size();
+        } else if (token.equals("T1")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneT1();
+            }
+            mg = mg / eleves.size();
+        } else if (token.equals("T2")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneT2();
+            }
+            mg = mg / eleves.size();
+        } else if (token.equals("T3")) {
+            for (Eleve eleve : eleves) {
+                mg += eleve.getMoyenneT3();
+            }
+            mg = mg / eleves.size();
+        }
+
+
+        return mg;
+
+    }
+
+    public double ArondirDouble(double d) {
+        String s = String.format("%.2f", d);
+        int deb = s.indexOf(",");
+         s = s.substring(0, deb) + "." + s.substring(deb + 1, deb + 3);   
+        return Double.parseDouble(s);
+
+
+
     }
 
     public ServiceEleve getServiceEleve() {

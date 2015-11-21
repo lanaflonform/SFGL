@@ -37,5 +37,7 @@ public interface ServiceEleve {
 
     public List<ReportEntry> maSectionBulletin(String codeClasse, String level) throws ServiceException;
     
+       public void update(Eleve eleve) throws ServiceException;
+    
     
 }
