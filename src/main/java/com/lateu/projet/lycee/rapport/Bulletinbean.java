@@ -334,8 +334,7 @@ public class Bulletinbean implements Serializable {
 
             coef_Cl = CoefByClasse(listeLevel1, listeLevel2, listeLevel3);
             nte_coef = Total_NoteXCoef(listeLevel1, listeLevel2, listeLevel3);
-            moyen = MoyenneEleve(listeLevel1, listeLevel2, listeLevel3);
-             moyen = ArondirDouble(moyen);
+            moyen = ArondirDouble(MoyenneEleve(listeLevel1, listeLevel2, listeLevel3));
             updateMoyenne("S1", moyen, e);
 
 
