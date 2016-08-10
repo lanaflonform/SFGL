@@ -11,9 +11,9 @@ package com.lateu.projet.lycee.Common;
 public class IPartageImpl implements IPartage{
 
     @Override
-    public String secureChaine(String s) {
-      s = s.toLowerCase().trim().replace(" ", "_");
-        return s;
+    public String secureChaine(String ss) {
+      ss = ss.toLowerCase().trim().replace(" ", "_");
+        return ss;
     }
     
 }
