@@ -24,6 +24,7 @@ private Nationalitedao nationalitedao;
     public void create(Nationalite nat)  {
     try {
         nationalitedao.create(nat);
+        nat=new Nationalite();
     } catch (DataAccessException ex) {
         Logger.getLogger(ServiceNationaliteImpl.class.getName()).log(Level.SEVERE, null, ex);
     }

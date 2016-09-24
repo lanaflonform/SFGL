@@ -47,6 +47,7 @@ public class Classebean implements Serializable{
         if(classeLevelSelect!=null){
             classeselected.setClasseLevel(classeLevelSelect);
         serviceClasse.create(classeselected);
+        classeselected = new Classe();
         
     
     }else{

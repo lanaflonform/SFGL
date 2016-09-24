@@ -40,6 +40,7 @@
                             <p:menuitem value="new" url="/vues/ServiceEtudes/eleve/indexEleve.xhtml" /> 
                             <p:menuitem value="Observations" url="#" />   
                             <p:menuitem value="cartes-scolaire" url="#" /> 
+                            <p:menuitem value="Importation"  icon="ui-icon-person" url="#"   />
                         </p:submenu>  
 
 
@@ -55,14 +56,15 @@
                         <p:menuitem value="Niveau" url="/vues/ServiceEtudes/classeLevel/index.xhtml" />  
                     </p:submenu>   
 
+                    <p:submenu   label="matiere" >
 
+                        <p:menuitem value="#{msg.matiere}" url="/vues/ServiceEtudes/matiere/indexMatiere.xhtml" /> 
+                    </p:submenu>
+                    <p:submenu   label="anneescolaire" >
 
-                    <p:menuitem value="#{msg.matiere}" url="/vues/ServiceEtudes/matiere/indexMatiere.xhtml" /> 
+                        <p:menuitem value="#{msg.anneescolaire}" url="/vues/ServiceEtudes/annee/indexAnnee.xhtml" /> 
 
-
-                    <p:menuitem value="#{msg.anneescolaire}" url="/vues/ServiceEtudes/annee/indexAnnee.xhtml" /> 
-
-
+                    </p:submenu>
 
                     <p:submenu label="Notes">          
                         <p:menuitem value="Manuelle" url="/vues/ServiceEtudes/notes/note.xhtml"/> 
@@ -82,23 +84,19 @@
 
                     </p:submenu> 
 
-                    <p:menuitem value="Sequence" url="/vues/ServiceEtudes/sequence/indexSequence.xhtml" /> 
+                    <p:submenu   label="Sequence" >
+                        <p:menuitem value="Sequence" url="/vues/ServiceEtudes/sequence/indexSequence.xhtml" /> 
+                    </p:submenu> 
 
                     <p:submenu   label="Affectation" >  
                         <p:menuitem value="AffecterEn" url="/vues/ServiceEtudes/SaveProfClasse.xhtml" /> 
-
                         <p:menuitem value="AffecterMat" url="/vues/ServiceEtudes/maClaCoef/index.xhtml" /> 
-
-
                     </p:submenu> 
 
 
                     <p:submenu   label="Options" >  
                         <p:menuitem value="deconnecter" url="#" /> 
-
                         <p:menuitem value="Personnaliise" url="#" /> 
-
-
                     </p:submenu> 
 
                 </p:menubar>  

@@ -28,6 +28,7 @@ public class Motifbean {
     
     public void creer() throws ServiceException{
     serviceMotif.create(motifSelected);
+    motifSelected=new Motif();
     }
 
     public ServiceMotif getServiceMotif() {

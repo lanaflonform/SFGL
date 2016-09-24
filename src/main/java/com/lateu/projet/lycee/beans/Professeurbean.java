@@ -43,6 +43,8 @@ public class Professeurbean {
         professeurselected.setEtatCompte("1");
         userRole.setProfesseur(professeurselected);
         serviceProfesseur.create(professeurselected, userRole);
+        professeurselected = new Professeur();
+        userRole = new UserRole();
     }
 
     public String buildeMatricule(Date d, String chaine) {

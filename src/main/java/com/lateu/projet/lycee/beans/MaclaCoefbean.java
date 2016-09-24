@@ -57,6 +57,7 @@ public class MaclaCoefbean {
     
        // System.out.println("================"+codeClasse);
        serviceMaClaCoef.create(maclaCoefselect, nomMatiere, codeClasse,idEnseignant);
+       maclaCoefselect=new MaClaCoef();
     }
 
     public ServiceClasse getServiceClasse() {

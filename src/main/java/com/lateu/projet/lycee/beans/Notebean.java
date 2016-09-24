@@ -66,6 +66,7 @@ public class Notebean implements Serializable {
     public void saveNote() throws ServiceException {
         noteSelected.setNote(myNote);
         serviceNote.create(noteSelected, matricule, idSecquence, idMatiere, 11L);
+        noteSelected=new Notes();
        // serviceNote.c
        // System.out.println("======================================="+noteSelected.getNote());
     }

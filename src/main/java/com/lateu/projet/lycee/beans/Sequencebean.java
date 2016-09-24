@@ -30,9 +30,9 @@ public class Sequencebean {
     private ServiceSequence serviceSequence;
     @ManagedProperty(value = "#{ServiceAnneeScolaire}")
     private ServiceAnneeScolaire serviceAnneeScolaire;
-        @ManagedProperty(value = "#{ServiceClasse}")
+    @ManagedProperty(value = "#{ServiceClasse}")
     private ServiceClasse serviceClasse;
-         private List<Classe> classes;
+    private List<Classe> classes;
     private Sequence sequenceSelected = new Sequence();
     private SelectItem[] listeAnneeSelect;
     public List<AnneeScolaire> anneeScolaires;
@@ -44,6 +44,7 @@ public class Sequencebean {
 
     public void creeSequence() throws ServiceException {
         serviceSequence.create(sequenceSelected, CodeAnnee);
+        sequenceSelected = new Sequence();
 
     }
 
@@ -102,7 +103,7 @@ public class Sequencebean {
     }
 
     public List<Sequence> getSequences() throws ServiceException {
-        return sequences=serviceSequence.findAll();
+        return sequences = serviceSequence.findAll();
     }
 
     public void setSequences(List<Sequence> sequences) {
@@ -110,7 +111,7 @@ public class Sequencebean {
     }
 
     public List<Classe> getClasses() throws ServiceException {
-        return classes=serviceClasse.findAll();
+        return classes = serviceClasse.findAll();
     }
 
     public void setClasses(List<Classe> classes) {
@@ -124,8 +125,4 @@ public class Sequencebean {
     public void setServiceClasse(ServiceClasse serviceClasse) {
         this.serviceClasse = serviceClasse;
     }
-    
-    
-    
-    
 }
