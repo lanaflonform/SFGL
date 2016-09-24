@@ -17,7 +17,6 @@
                         <h:form id="formulaire">
                             <h:panelGrid columns="3" >
                                 <h:outputLabel    value="#{msg.connecte} lateu  "    style="margin-left: 0%;margin-right: 20%;font-weight: bold; color: black"/> 
-
                                 <h:commandButton value="#{msg['welcome.langue1']}" image="/resources/images/fr.png" action="#{changeLocale.setFrenchLocale}"/>
                                 <h:commandButton value="#{msg['welcome.langue2']}" image="/resources/images/en.png" action="#{changeLocale.setEnglishLocale}"/>
                             </h:panelGrid>
@@ -93,6 +92,28 @@
                         <p:menuitem value="AffecterMat" url="/vues/ServiceEtudes/maClaCoef/index.xhtml" /> 
                     </p:submenu> 
 
+                     <p:submenu   label="Statistiques" > 
+                        <p:submenu label="Eleve" icon="ui-icon-contact">  
+                            <p:menuitem value="Par classe" url="#" /> 
+                            
+                            <p:menuitem value="Par pays" url="#" /> 
+                            <p:menuitem value="Par pays" url="#" />  
+                            <p:menuitem value="Reusite" url="#" />
+                            <p:menuitem value="Reusite Par niveau" url="#" />
+                            <p:menuitem value="Reusite Par classe" url="#" />
+                            <p:menuitem value="Reusite Par classe et sexe" url="#" />
+                        </p:submenu>    
+
+                        <p:submenu label="Inscription" icon="ui-icon-contact">  
+                            <p:menuitem value="Reusite Par niveau" url="#" />
+                            <p:menuitem value="Par classe" url="#" /> 
+                        
+                        </p:submenu> 
+
+                    </p:submenu> 
+                    
+                    
+                    
 
                     <p:submenu   label="Options" >  
                         <p:menuitem value="deconnecter" url="#" /> 
