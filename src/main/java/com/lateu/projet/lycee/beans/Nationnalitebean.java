@@ -28,6 +28,7 @@ public class Nationnalitebean {
     }
     public void SaveNationnalite() throws ServiceException{
     serviceNationalite.create(nationnaliteSelected);
+    nationnaliteSelected=new Nationalite();
     
     }
    

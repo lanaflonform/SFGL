@@ -52,6 +52,7 @@ public class Fraisbean {
     
     public void creer() throws ServiceException{
     serviceFraisDivers.creer(fraisDiverselected, codeAnnee, matEleve, nomMotif);
+    fraisDiverselected=new FraisDiver();
     
     }
     

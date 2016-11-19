@@ -31,6 +31,8 @@ private ServiceMatiere serviceMatiere;
     
     public void createMatiere() throws ServiceException{
     serviceMatiere.create(matiereSelected);
+    matiereSelected=new Matiere();
+    
     }
     
     public List<Matiere> getMatieres() throws ServiceException {

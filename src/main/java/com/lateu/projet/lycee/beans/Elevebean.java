@@ -70,6 +70,7 @@ public class Elevebean {
         String s = buildeMatricule(new Date(), "L"+index);
         eleveSelected.setMatricule(s);
         serviceEleve.create(eleveSelected, CodeAnnee, pays, classe);
+        eleveSelected = new Eleve();
 
         //System.out.println("====="+eleveSelected);
     }

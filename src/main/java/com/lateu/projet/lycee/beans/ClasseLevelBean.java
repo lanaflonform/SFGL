@@ -44,6 +44,7 @@ public class ClasseLevelBean {
         
         classeLevelSelected.setNiveau(iPartage.secureChaine(niveau));
         serviceClasseLevel.save(classeLevelSelected);
+        classeLevelSelected=new ClasseLevel();
     }
 
 //    public String secure(String s) {

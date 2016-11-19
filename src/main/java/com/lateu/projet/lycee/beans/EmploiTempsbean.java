@@ -37,8 +37,8 @@ public class EmploiTempsbean {
     private EmploiDeTemps emploiSelected = new EmploiDeTemps();
     private Long idClasse;
     private Long idMatiere;
-   private  Matiere matiereSelect=new Matiere();
-   private Classe classeSelect=new Classe();
+    private Matiere matiereSelect = new Matiere();
+    private Classe classeSelect = new Classe();
     private List<EmploiDeTemps> emplois = new ArrayList<EmploiDeTemps>();
     private List<Matiere> matieres = new ArrayList<Matiere>();
     private List<Classe> classes = new ArrayList<Classe>();
@@ -47,27 +47,26 @@ public class EmploiTempsbean {
     }
 
     public void save() throws ServiceException {
-        emplois =serviceEmploi.Valider(idClasse, idMatiere, emploiSelected.getJour());
-        int nb=emplois.size();
-        if(nb==0){
-        matiereSelect=serviceMatiere.findById(idMatiere);
-        classeSelect=serviceClasse.findById(idClasse);
-        serviceEmploi.SaveEmploi(emploiSelected, classeSelect, matiereSelect);
-          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "succès", ""));
+        emplois = serviceEmploi.Valider(idClasse, idMatiere, emploiSelected.getJour());
+        int nb = emplois.size();
+        if (nb == 0) {
+            matiereSelect = serviceMatiere.findById(idMatiere);
+            classeSelect = serviceClasse.findById(idClasse);
+            serviceEmploi.SaveEmploi(emploiSelected, classeSelect, matiereSelect);
+            emploiSelected = new EmploiDeTemps();
+            matiereSelect = new Matiere();
+            classeSelect = new Classe();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "succès", ""));
 
-       
-    }else{
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matiere deja Programmer pour cette journée", ""));
 
-        
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matiere deja Programmer pour cette journée", ""));
+
+
         }
-    
+
     }
 
-    
-    
-    
-    
     public void opdate() {
     }
 
@@ -75,7 +74,7 @@ public class EmploiTempsbean {
     }
 
     public List<EmploiDeTemps> getEmplois() throws ServiceException {
-        return emplois=serviceEmploi.findAll();
+        return emplois = serviceEmploi.findAll();
     }
 
     public void setEmplois(List<EmploiDeTemps> emplois) {
@@ -98,9 +97,8 @@ public class EmploiTempsbean {
         this.emploiSelected = emploiSelected;
     }
 
-  
     public List<Matiere> getMatieres() throws ServiceException {
-        return matieres=serviceMatiere.findAll();
+        return matieres = serviceMatiere.findAll();
     }
 
     public void setMatieres(List<Matiere> matieres) {
@@ -108,7 +106,7 @@ public class EmploiTempsbean {
     }
 
     public List<Classe> getClasses() throws ServiceException {
-        return classes=serviceClasse.findAll();
+        return classes = serviceClasse.findAll();
     }
 
     public void setClasses(List<Classe> classes) {

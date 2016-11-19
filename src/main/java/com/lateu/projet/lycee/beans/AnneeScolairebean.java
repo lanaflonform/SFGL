@@ -50,6 +50,7 @@ public class AnneeScolairebean {
        // anneeScolaireSelected.setCode("01524");
        
         serviceAnneeScolaire.create(anneeScolaireSelected);
+        anneeScolaireSelected = new AnneeScolaire();
 
       //System.out.println("===="+anneeScolaireSelected);
     }
